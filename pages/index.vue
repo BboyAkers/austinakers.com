@@ -3,17 +3,17 @@
     <div>
       <logo />
       <h1 class="title">
-        austinakersPortfolio
+        Austin Akers
       </h1>
       <h2 class="subtitle">
-        My beautiful Nuxt.js project
+        UI Engineer | Cellist | Dancer | Author
       </h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
+        <a href="/portfolio" class="button--green">
+          View Portfolio
         </a>
         <a
-          href="https://github.com/nuxt/nuxt.js"
+          href="https://github.com/BboyAkers"
           target="_blank"
           class="button--grey"
         >
