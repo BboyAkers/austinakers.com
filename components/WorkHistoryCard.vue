@@ -14,18 +14,18 @@
         </div>
         <p class="text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
         <p class="text-gray-700 text-base">
-          Description of my role
+          {{ description }}
         </p>
       </div>
       <p class="text-gray-800">Tech Used:</p>
       <div class="flex items-center inline-block">
         <div class="text-sm">
-          <span
+          <!-- <span
             v-for="item in techUsed"
             :key="item"
             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
             >{{ item }}</span
-          >
+          > -->
         </div>
       </div>
     </div>
@@ -48,6 +48,10 @@ export default {
       required: true
     },
     dateEnd: {
+      type: String,
+      required: true
+    },
+    description: {
       type: String,
       required: true
     },

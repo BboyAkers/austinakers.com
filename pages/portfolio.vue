@@ -15,6 +15,7 @@
               :jobTitle="work.jobTitle"
               :dateStart="work.dateStart"
               :dateEnd="work.dateEnd"
+              :description="work.description"
               :techUsed="work.techUsed"
             />
           </div>
@@ -24,7 +25,7 @@
       <h2 class="text-3xl mb-1">Projects</h2>
       <div class="flex flex-wrap mb-4">
         <div class="sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/4 h-auto">
-          <!-- <work-history-card work-history-info="workHistoryInfo" /> -->
+          <project-card />
         </div>
       </div>
     </div>
@@ -33,11 +34,13 @@
 <script>
 import Navbar from '~/components/Navbar'
 import WorkHistoryCard from '~/components/WorkHistoryCard'
+import ProjectCard from '~/components/ProjectCard'
 import workHistoryData from '~/data/workHistory.json'
 export default {
   components: {
     Navbar,
-    WorkHistoryCard
+    WorkHistoryCard,
+    ProjectCard
   },
   data() {
     return {
