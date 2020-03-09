@@ -1,0 +1,116 @@
+[
+    {
+        "id": 1,
+        "companyName": "Allstate Insurance",
+        "companyLogo": "image",
+        "altImageText": "Image of Allstate Logo",
+        "jobTitle": "Sr. UI Engineer",
+        "dateStart": "May 2018",
+        "dateEnd": "Present",
+        "description": "",
+        "techUsed": ["HTML5", "CSS3","JavaScript","React.js","Angular", "NgRX", "Amazon Lex"],
+        "detailedDescription": [
+            "Currently Building out an end to end modular chatbot application with my lead developer using Amazon Lex, Live Person, and our own Natural Language Processor (NLP)",
+            "Lead the Angular Product Release 2.0 Redesign for Most Valuable Possessions",
+            "Built a React.js drag and drop interface for the Integrated Voice Recognition Team to improve the efficiency of building voice prototypes",
+            "Increased the performance and load-time by 70% Improving and optimizing the architecture of the MileWise web-app",
+            "Anonymously nominated to receive the department wide “Be The Leader Award” both March 2019 and April 2019",
+            "Worked closely with designers to develop clean and concise user experiences and interfaces"
+        ]
+    },
+    {
+        "id": 2,
+        "companyName": "Intellicentrics",
+        "companyLogo": "image",
+        "altImageText": "Image of Intellicentrics logo",
+        "jobTitle": "Software Developer",
+        "dateStart": "Jan. 2018",
+        "dateEnd": "May 2018",
+        "description": "",
+        "techUsed": ["HTML5", "CSS3","JavaScript","Polymer.js","React.js","Vue.js","Angular","Tesseract.js"],
+        "detailedDescription": [
+            "Expanded on the current Sec3ure Healthcare platform in Polymer.js",
+            "Independently re-wrote 40% of their application in the first 2 weeks I joined using Vue.js, completed Angular 5, React.js prototypes of the application.",
+            "In spare time built out scripts and small applications to improve the workflow of other people in different departments"
+        ]
+    },
+    {
+        "id": 3,
+        "companyName": "Ambit Energy",
+        "companyLogo": "image",
+        "altImageText": "Image of Ambit Energy logo",
+        "jobTitle": "Contract Software Developer",
+        "dateStart": "May 2017",
+        "dateEnd": "Jan 2018",
+        "description": "",
+        "techUsed": [ "HTML5","CSS3","JavaScript","Vue.js","C#",".NET Core", "NancyFx"],
+        "detailedDescription": [
+            "Co-Wrote entire Consultant Enrollment Platform in two weeks using Vue.js.",
+            "Designed the User Experience and User Interface for both Japanese and Canadian markets",
+            "Co-developed front-end with my senior front-end developer for two major web applications in five months for their Japanese and Canadian markets using Vue.js.",
+            "Independently built the base prototype for the company’s first mobile app."
+        ]
+    },
+    {
+        "id": 7,
+        "companyName": "Speetra",
+        "companyLogo": "desciption3",
+        "altImageText": "Image of Allstate Logo",
+        "jobTitle": "Contract Front-End Developer",
+        "dateStart": "Apr. 2017",
+        "dateEnd": "Aug. 2017",
+        "description": "",
+        "techUsed": ["HTML5","CSS3","JavaScript","Angular.js","React.js"],
+        "detailedDescription": [
+            "Created web applications in JavaScript, Angular and React",
+            "Deployed four live heavy web applications using Angular 1.4, React.js",
+            "Reversed engineered twitter embedded feed for websites and created a personalized one for company contractor reviews"
+        ]
+    },
+    {
+        "id": 4,
+        "companyName": "Cambium Learning Group",
+        "companyLogo": "desciption4",
+        "altImageText": "Image of Cambium Learning Group Logo",
+        "jobTitle": "Contract Software Engeineer",
+        "dateStart": "Jan. 2017",
+        "dateEnd": "Apr. 2017",
+        "description": "",
+        "techUsed": ["HTML5","CSS3","JavaScript","Angular.js"],
+        "detailedDescription": [
+            "Developed interactive learning software for elementary school children using Angular 1.x and jQuery/jQuery UI.",
+            "Developed interactive learning software for K-5 audience in collaboration with the Curriculum team and UX/UI team."
+        ]
+    },
+    {
+        "id": 5,
+        "companyName": "WavCatcher",
+        "companyLogo": "desciption1",
+        "altImageText": "Image of WavCatcher Logo",
+        "jobTitle": "Front-End Developer",
+        "dateStart": "Jan. 2016",
+        "dateEnd": "Jan. 2017",
+        "description": "",
+        "techUsed": ["HTML5","CSS3","JavaScript","PHP","Wordpress"],
+        "detailedDescription": [
+            "Collaborated with small team to maintain and improve company’s e-commerce website.",
+            "Spearheaded “sandboxing” of new e-commerce website and web application, collaborating closely with UX/UI Designer to develop e-commerce experience.",
+            "Boosted website traffic by 60% using SEO efficiently and effectively managing social media accounts."
+        ]
+    },
+    {
+        "id": 6,
+        "companyName": "Pixels and Profit",
+        "companyLogo": "desciption2",
+        "altImageText": "Image of Allstate Logo",
+        "jobTitle": "Contract Developer",
+        "dateStart": "Sept. 2016",
+        "dateEnd": "Jan. 2017",
+        "description": "",
+        "techUsed": ["HTML5","CSS3","JavaScript","PHP","Wordpress","Node.js","InfusionSoft"],
+        "detailedDescription": [
+            "Developed and automated their entire marketing campaigns.",
+            "Created a private platform for real-estate agents to access for help."
+        ]
+    }
+]

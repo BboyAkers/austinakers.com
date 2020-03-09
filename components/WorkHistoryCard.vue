@@ -10,22 +10,51 @@
     >
       <div class="mb-6">
         <div class="text-gray-900 font-bold text-xl mb-2">
-          <h3>Allstate - Sr. UI Engineer</h3>
+          <h3>{{ companyName }} - {{ jobTitle }}</h3>
         </div>
-        <p class="text-gray-600">May 2018 - Present</p>
+        <p class="text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
         <p class="text-gray-700 text-base">
           Description of my role
         </p>
       </div>
       <p class="text-gray-800">Tech Used:</p>
-      <div class="flex items-center">
+      <div class="flex items-center inline-block">
         <div class="text-sm">
           <span
+            v-for="item in techUsed"
+            :key="item"
             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-            >React.js</span
+            >{{ item }}</span
           >
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    companyName: {
+      type: String,
+      required: true
+    },
+    jobTitle: {
+      type: String,
+      required: true
+    },
+    dateStart: {
+      type: String,
+      required: true
+    },
+    dateEnd: {
+      type: String,
+      required: true
+    },
+    techUsed: {
+      type: Array,
+      required: true
+    }
+  }
+}
+</script>
