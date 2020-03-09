@@ -52,6 +52,22 @@
         ]
     },
     {
+        "id": 7,
+        "companyName": "Speetra",
+        "companyLogo": "desciption3",
+        "altImageText": "Image of Allstate Logo",
+        "jobTitle": "Contract Front-End Developer",
+        "dateStart": "Apr. 2017",
+        "dateEnd": "Aug. 2017",
+        "description": "",
+        "techUsed": ["HTML5","CSS3","JavaScript","Angular.js","React.js"],
+        "detailedDescription": [
+            "Created web applications in JavaScript, Angular and React",
+            "Deployed four live heavy web applications using Angular 1.4, React.js",
+            "Reversed engineered twitter embedded feed for websites and created a personalized one for company contractor reviews"
+        ]
+    },
+    {
         "id": 4,
         "companyName": "Cambium Learning Group",
         "companyLogo": "desciption4",
@@ -60,7 +76,7 @@
         "dateStart": "Jan. 2017",
         "dateEnd": "Apr. 2017",
         "description": "",
-        "techUsed": [],
+        "techUsed": ["HTML5","CSS3","JavaScript","Angular.js"],
         "detailedDescription": [
             "Developed interactive learning software for elementary school children using Angular 1.x and jQuery/jQuery UI.",
             "Developed interactive learning software for K-5 audience in collaboration with the Curriculum team and UX/UI team."
@@ -75,7 +91,7 @@
         "dateStart": "Jan. 2016",
         "dateEnd": "Jan. 2017",
         "description": "",
-        "techUsed": [],
+        "techUsed": ["HTML5","CSS3","JavaScript","PHP","Wordpress"],
         "detailedDescription": [
             "Collaborated with small team to maintain and improve company’s e-commerce website.",
             "Spearheaded “sandboxing” of new e-commerce website and web application, collaborating closely with UX/UI Designer to develop e-commerce experience.",
@@ -91,26 +107,10 @@
         "dateStart": "Sept. 2016",
         "dateEnd": "Jan. 2017",
         "description": "",
-        "techUsed": [],
+        "techUsed": ["HTML5","CSS3","JavaScript","PHP","Wordpress","Node.js","InfusionSoft"],
         "detailedDescription": [
             "Developed and automated their entire marketing campaigns.",
             "Created a private platform for real-estate agents to access for help."
-        ]
-    },
-    {
-        "id": 7,
-        "companyName": "Speetra",
-        "companyLogo": "desciption3",
-        "altImageText": "Image of Allstate Logo",
-        "jobTitle": "Contract Front-End Developer",
-        "dateStart": "Apr. 2017",
-        "dateEnd": "Aug. 2017",
-        "description": "",
-        "techUsed": [],
-        "detailedDescription": [
-            "Created web applications in JavaScript, Angular and React",
-            "Deployed four live heavy web applications using Angular 1.4, React.js",
-            "Reversed engineered twitter embedded feed for websites and created a personalized one for company contractor reviews"
         ]
     }
 ]
