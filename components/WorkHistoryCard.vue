@@ -17,6 +17,12 @@
           {{ description }}
         </p>
       </div>
+      <button
+        @click="isOpen = true"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        More Info
+      </button>
       <p class="text-gray-800">Tech Used:</p>
       <div class="flex items-center inline-block">
         <div class="text-sm">
@@ -29,11 +35,29 @@
         </div>
       </div>
     </div>
+    <modal v-if="isOpen" @close="isOpen = false">
+      <div slot="header">
+        <h3>testing header</h3>
+      </div>
+      <div slot="body">
+        testing body
+      </div>
+      <div slot="footer">
+        testing footer
+      </div>
+      <button @click="$emit('close')" class="modal-default-button">
+        OK
+      </button>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from '~/components/Modal'
 export default {
+  components: {
+    Modal
+  },
   props: {
     companyName: {
       type: String,
@@ -58,6 +82,16 @@ export default {
     techUsed: {
       type: Array,
       required: true
+    }
+  },
+  data() {
+    return {
+      isOpen: false
+    }
+  },
+  methods: {
+    showModal() {
+      this.isOpen = true
     }
   }
 }
