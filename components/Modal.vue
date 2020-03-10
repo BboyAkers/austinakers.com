@@ -18,11 +18,11 @@
           <div class="modal-footer">
             <slot name="footer">
               default footer
-              <button @click="$emit('close')" class="modal-default-button">
-                OK
-              </button>
             </slot>
           </div>
+          <button @click="$emit('close')" class="modal-default-button mb-2">
+            OK
+          </button>
         </div>
       </div>
     </div>

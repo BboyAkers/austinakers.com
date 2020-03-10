@@ -21,12 +21,6 @@
           </div>
         </div>
       </div>
-      <button
-        @click="isOpen = true"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Open Modal
-      </button>
 
       <h2 class="text-3xl mb-1">Projects</h2>
       <div class="flex flex-wrap mb-4">
@@ -35,7 +29,6 @@
         </div>
       </div>
     </div>
-    <modal v-if="isOpen" @close="isOpen = false"></modal>
   </div>
 </template>
 <script>
@@ -43,23 +36,16 @@ import Navbar from '~/components/Navbar'
 import WorkHistoryCard from '~/components/WorkHistoryCard'
 import ProjectCard from '~/components/ProjectCard'
 import workHistoryData from '~/data/workHistory.json'
-import Modal from '~/components/Modal'
+
 export default {
   components: {
     Navbar,
     WorkHistoryCard,
-    ProjectCard,
-    Modal
+    ProjectCard
   },
   data() {
     return {
-      workHistory: workHistoryData,
-      isOpen: false
-    }
-  },
-  methods: {
-    showModal() {
-      this.isOpen = true
+      workHistory: workHistoryData
     }
   }
 }
