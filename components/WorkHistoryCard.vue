@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm w-full lg:max-w-full lg:flex">
+  <div class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
     <div
       class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
       style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
@@ -13,9 +13,6 @@
           <h3>{{ companyName }} - {{ jobTitle }}</h3>
         </div>
         <p class="text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
-        <p class="text-gray-700 text-base">
-          {{ description }}
-        </p>
       </div>
       <button
         @click="isOpen = true"
@@ -23,31 +20,34 @@
       >
         More Info
       </button>
-      <p class="text-gray-800">Tech Used:</p>
-      <div class="flex items-center inline-block">
-        <div class="text-sm">
-          <!-- <span
-            v-for="item in techUsed"
-            :key="item"
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-            >{{ item }}</span
-          > -->
-        </div>
-      </div>
     </div>
     <modal v-if="isOpen" @close="isOpen = false">
       <div slot="header">
-        <h3>testing header</h3>
+        <h1 class="text-3xl">{{ companyName }}</h1>
+        <h2 class="text-xl">{{ jobTitle }}</h2>
       </div>
       <div slot="body">
-        testing body
+        <ul class="list-disc">
+          <li
+            v-for="jobDescription in detailedDescription"
+            :key="jobDescription"
+          >
+            <p>{{ jobDescription }}</p>
+          </li>
+        </ul>
+        <p class="text-gray-800">Tech Used:</p>
+        <div class="flex items-center inline-block">
+          <div class="text-sm">
+            <span
+              v-for="item in techUsed"
+              :key="item"
+              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+              >{{ item }}</span
+            >
+          </div>
+        </div>
       </div>
-      <div slot="footer">
-        testing footer
-      </div>
-      <button @click="$emit('close')" class="modal-default-button">
-        OK
-      </button>
+      <!-- <div slot="footer"></div> -->
     </modal>
   </div>
 </template>
@@ -77,6 +77,10 @@ export default {
     },
     description: {
       type: String,
+      required: true
+    },
+    detailedDescription: {
+      type: Array,
       required: true
     },
     techUsed: {
