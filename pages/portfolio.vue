@@ -17,6 +17,7 @@
               :dateEnd="work.dateEnd"
               :description="work.description"
               :techUsed="work.techUsed"
+              :detailedDescription="work.detailedDescription"
             />
           </div>
         </div>

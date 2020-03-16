@@ -5,24 +5,26 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              default header
+              Can't load header please try again.
             </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              default body
+              Can't load body please try again.
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer mb-3 text-right">
             <slot name="footer">
-              default footer
+              <button
+                @click="$emit('close')"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                OK
+              </button>
             </slot>
           </div>
-          <button @click="$emit('close')" class="modal-default-button mb-2">
-            OK
-          </button>
         </div>
       </div>
     </div>
