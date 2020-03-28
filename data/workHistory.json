@@ -2,7 +2,7 @@
     {
         "id": 1,
         "companyName": "Allstate Insurance",
-        "companyLogo": "~/static/allstate-insurance-logo.png",
+        "companyLogo": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Image of Allstate Logo",
         "jobTitle": "Sr. UI Engineer",
         "dateStart": "May 2018",
@@ -22,7 +22,7 @@
     {
         "id": 2,
         "companyName": "Intellicentrics",
-        "companyLogo": "image",
+        "companyLogo": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Image of Intellicentrics logo",
         "jobTitle": "Software Developer",
         "dateStart": "Jan. 2018",
@@ -38,8 +38,8 @@
     {
         "id": 3,
         "companyName": "Ambit Energy",
-        "companyLogo": "image",
-        "altImageText": "Image of Ambit Energy logo",
+        "companyLogo": "https://austinakers.com/assets/images/ambit-energy600x600.png",
+        "altImageText": "Image of Ambit Energy Logo",
         "jobTitle": " Software Developer",
         "dateStart": "May 2017",
         "dateEnd": "Jan. 2018",
@@ -55,7 +55,7 @@
     {
         "id": 4,
         "companyName": "Cambium Learning",
-        "companyLogo": "desciption4",
+        "companyLogo": "https://austinakers.com/assets/images/cambiumLogo600x600.png",
         "altImageText": "Image of Cambium Learning Group Logo",
         "jobTitle": " Software Engineer",
         "dateStart": "Jan. 2017",
@@ -101,8 +101,8 @@
     {
         "id": 7,
         "companyName": "Speetra",
-        "companyLogo": "desciption3",
-        "altImageText": "Image of Allstate Logo",
+        "companyLogo": "https://austinakers.com/assets/images/pulsem-speetra600x600.png",
+        "altImageText": "Image of Speetra Logo",
         "jobTitle": "Contract Front-End Developer",
         "dateStart": "Apr. 2016",
         "dateEnd": "Aug. 2016",

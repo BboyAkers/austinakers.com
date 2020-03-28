@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
     <div
+      :style="{ backgroundImage: `url(${companyLogo})` }"
       class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-      style="background-image: url('https://tailwindcss.com/img/card-left.jpg')"
       title="Woman holding a mug"
     ></div>
     <div
@@ -25,6 +25,7 @@
       <div slot="header">
         <h1 class="text-3xl">{{ companyName }}</h1>
         <h2 class="text-xl">{{ jobTitle }}</h2>
+        <img :src="companyLogo" height="100px" />
       </div>
       <div slot="body">
         <ul class="list-disc">
@@ -60,6 +61,10 @@ export default {
   },
   props: {
     companyName: {
+      type: String,
+      required: true
+    },
+    companyLogo: {
       type: String,
       required: true
     },
