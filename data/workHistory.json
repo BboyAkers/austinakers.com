@@ -22,7 +22,7 @@
     {
         "id": 2,
         "companyName": "Intellicentrics",
-        "companyLogo": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
+        "companyLogo": "https://austinakers.com/assets/images/intellicentricsLogo.jpg",
         "altImageText": "Image of Intellicentrics logo",
         "jobTitle": "Software Developer",
         "dateStart": "Jan. 2018",
@@ -86,7 +86,7 @@
     {
         "id": 6,
         "companyName": "Pixels & Profit",
-        "companyLogo": "desciption2",
+        "companyLogo": "https://austinakers.com/assets/images/pixelsAndProfitCapture.jpg",
         "altImageText": "Image of Allstate Logo",
         "jobTitle": "Contract Developer",
         "dateStart": "Sept. 2016",

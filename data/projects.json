@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "projectName": "Cryptoplex Mangement(Private Repo)",
+        "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
+        "altImageText": "Image of the Cryptoplex Management landing page",
+        "description": "Used the Quasar framework built on top of vue.js to build out a frontend that automates the financial tracking of your ethereum wallet.",
+        "githubLink": "https://github.com/BboyAkers"
+    },
+    {
+        "id": 1,
+        "projectName": "Solar System",
+        "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
+        "altImageText": "Small version of the solar system",
+        "description": "Built a Solar Sytem using Babylon.js for fun!",
+        "githubLink": "https://github.com/BboyAkers/Solar-System"
+    },
+    {
+        "id": 1,
+        "projectName": "MetaMask Docs",
+        "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
+        "altImageText": "Image of the MeataMask Fox Logo",
+        "description": "Contributed heavily to the re-design and development of the new metamask documentation.",
+        "githubLink": "https://github.com/MetaMask/metamask-docs"
+    },
+    {
+        "id": 2,
+        "projectName": "Metamask Test Dapp",
+        "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
+        "altImageText": "Image of the MeataMask Fox Logo",
+        "description": "Contributed re-design of the MetaMask Test Dapp.",
+        "githubLink": "https://github.com/MetaMask/test-dapp"
+    }
+
+]

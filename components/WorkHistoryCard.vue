@@ -25,7 +25,7 @@
       <div slot="header">
         <h1 class="text-3xl">{{ companyName }}</h1>
         <h2 class="text-xl">{{ jobTitle }}</h2>
-        <img :src="companyLogo" height="100px" />
+        <img :src="companyLogo" style="height: 300px" />
       </div>
       <div slot="body">
         <ul class="list-disc">
