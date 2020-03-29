@@ -1,33 +1,62 @@
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
     <img
       class="w-full"
-      src="https://tailwindcss.com/img/card-top.jpg"
+      :src="projectScreenshot"
       alt="Sunset in the mountains"
     />
     <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+      <div class="font-bold text-xl mb-2">{{ projectName }}</div>
       <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-        quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-        nihil.
+        {{ projectDescription }}
       </p>
     </div>
     <div class="px-6 py-4">
-      <button
+      <a
+        :href="demoLink"
+        target="_blank"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Demo
-      </button>
-      <button
+      </a>
+      <a
+        :href="githubLink"
+        target="_blank"
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Visit Github
-      </button>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    projectName: {
+      type: String,
+      required: true
+    },
+    projectScreenshot: {
+      type: String,
+      required: true
+    },
+    altImageText: {
+      type: String,
+      required: true
+    },
+    projectDescription: {
+      type: String,
+      required: true
+    },
+    githubLink: {
+      type: String,
+      required: true
+    },
+    demoLink: {
+      type: String,
+      required: true
+    }
+  }
+}
 </script>
