@@ -31,7 +31,14 @@
           :key="project.id"
           class="sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/4 h-auto mt-4"
         >
-          <project-card />
+          <project-card
+            :projectName="project.projectName"
+            :projectScreenshot="project.projectScreenshot"
+            :altImageText="project.altImageText"
+            :projectDescription="project.description"
+            :githubLink="project.githubLink"
+            :demoLink="project.demoLink"
+          />
         </div>
       </div>
     </div>

@@ -9,13 +9,13 @@
         UI Engineer | Cellist | Dancer | Author
       </h2>
       <div class="links">
-        <a href="/portfolio" class="button--green">
+        <a href="/portfolio" class="button--green m-1">
           View Portfolio
         </a>
         <a
           href="https://github.com/BboyAkers"
           target="_blank"
-          class="button--grey"
+          class="button--grey m-1"
         >
           GitHub
         </a>

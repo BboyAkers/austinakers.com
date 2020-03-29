@@ -1,35 +1,39 @@
 [
     {
         "id": 1,
-        "projectName": "Cryptoplex Mangement(Private Repo)",
+        "projectName": "Cryptoplex Mangement (Private Repo)",
         "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Image of the Cryptoplex Management landing page",
         "description": "Used the Quasar framework built on top of vue.js to build out a frontend that automates the financial tracking of your ethereum wallet.",
-        "githubLink": "https://github.com/BboyAkers"
+        "githubLink": "https://github.com/BboyAkers",
+        "demoLink": ""
     },
     {
-        "id": 1,
+        "id": 2,
         "projectName": "Solar System",
         "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Small version of the solar system",
         "description": "Built a Solar Sytem using Babylon.js for fun!",
-        "githubLink": "https://github.com/BboyAkers/Solar-System"
+        "githubLink": "https://github.com/BboyAkers/Solar-System",
+        "demoLink": ""
     },
     {
-        "id": 1,
+        "id": 3,
         "projectName": "MetaMask Docs",
         "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Image of the MeataMask Fox Logo",
         "description": "Contributed heavily to the re-design and development of the new metamask documentation.",
-        "githubLink": "https://github.com/MetaMask/metamask-docs"
+        "githubLink": "https://github.com/MetaMask/metamask-docs",
+        "demoLink": ""
     },
     {
-        "id": 2,
+        "id": 4,
         "projectName": "Metamask Test Dapp",
         "projectScreenshot": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
         "altImageText": "Image of the MeataMask Fox Logo",
         "description": "Contributed re-design of the MetaMask Test Dapp.",
-        "githubLink": "https://github.com/MetaMask/test-dapp"
+        "githubLink": "https://github.com/MetaMask/test-dapp",
+        "demoLink": ""
     }
 
 ]
