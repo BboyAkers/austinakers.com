@@ -12,7 +12,12 @@
       </p>
     </div>
     <div class="px-6 py-4">
-      <a :href="demoLink" target="_blank" class="button--green">
+      <a
+        :href="demoLink"
+        target="_blank"
+        v-show="demoLink.length > 0"
+        class="button--green"
+      >
         Demo
       </a>
       <a :href="githubLink" target="_blank" class="button--grey">
