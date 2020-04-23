@@ -14,8 +14,8 @@
     <div class="px-6 py-4">
       <a
         :href="demoLink"
-        target="_blank"
         v-show="demoLink.length > 0"
+        target="_blank"
         class="button--green"
       >
         Demo
