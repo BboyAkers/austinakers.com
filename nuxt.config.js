@@ -9,8 +9,8 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        hid: 'description',
-        name: 'description',
+        hid: 'Austin Akers',
+        name: 'Austin Akers Portfolio',
         content: process.env.npm_package_description || ''
       }
     ],
@@ -59,6 +59,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 }

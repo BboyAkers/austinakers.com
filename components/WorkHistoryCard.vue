@@ -1,25 +1,29 @@
 <template>
-  <div class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
-    <div
-      :style="{ backgroundImage: `url(${companyLogo})` }"
-      class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-      title="Woman holding a mug"
-    ></div>
-    <div
-      class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
-    >
-      <div class="mb-6">
-        <div class="text-gray-900 font-bold text-xl mb-2">
-          <h3>{{ companyName }} - {{ jobTitle }}</h3>
-        </div>
-        <p class="text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
+  <div class="rounded overflow-hidden shadow-lg">
+    <div class="md:flex">
+      <div class="md:flex-shrink-0">
+        <img
+          :src="companyLogo"
+          class="rounded-lg md:w-56"
+          alt="Woman paying for a purchase"
+        />
       </div>
-      <button
-        @click="isOpen = true"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        More Info
-      </button>
+      <div class="mt-4 md:mt-0 md:ml-6 p-4">
+        <div class="uppercase tracking-wide text-sm text-indigo-600 font-bold">
+          {{ companyName }}
+        </div>
+        <p
+          href="#"
+          class="block mt-1 text-lg leading-tight font-semibold text-gray-900"
+        >
+          {{ jobTitle }}
+        </p>
+        <p class="mt-2 text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
+        <p class="mb-6">{{ detailedDescription[0] }}</p>
+        <button @click="isOpen = true" class="button--green">
+          More Info
+        </button>
+      </div>
     </div>
     <modal v-if="isOpen" @close="isOpen = false">
       <div slot="header">

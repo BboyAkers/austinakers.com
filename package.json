@@ -1,7 +1,7 @@
 {
-  "name": "austinakers",
+  "name": "austin-akers-portfolio",
   "version": "1.0.0",
-  "description": "My beautiful Nuxt.js project",
+  "description": "Personal Web Development Portfolio",
   "author": "Austin Akers",
   "private": true,
   "scripts": {
