@@ -9,9 +9,9 @@
         UI Engineer | Cellist | Dancer | Author
       </h2>
       <div class="links">
-        <a href="/portfolio" class="button--green m-1">
+        <nuxt-link to="/portfolio" class="button--green m-1">
           View Portfolio
-        </a>
+        </nuxt-link>
         <a
           href="https://github.com/BboyAkers"
           target="_blank"
