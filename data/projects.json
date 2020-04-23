@@ -10,11 +10,11 @@
   },
   {
     "id": 2,
-    "projectName": "Vuetify",
+    "projectName": "Vuetify Docs & CLI",
     "projectScreenshot": "https://austinakers.com/assets/images/vuetifyLogo400x400.jpg",
     "altImageText": "Image of the Open Source Project Vuetify Logo",
     "description": "Contributing to building out the Beginners Guide. Currently working on the 'What is a CLI' part of the guide. Working on the CLI plugin tooling.",
-    "githubLink": "https://github.com/BboyAkers/Solar-System",
+    "githubLink": "https://github.com/vuetifyjs/vuetify",
     "demoLink": "https://vuetifyjs.com/en/"
   },
   {
