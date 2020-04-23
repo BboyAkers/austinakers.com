@@ -1,7 +1,7 @@
 {
   "name": "austin-akers-portfolio",
   "version": "1.0.0",
-  "description": "Personal Web Development Portfolio",
+  "description": "Web Development Portfolio",
   "author": "Austin Akers",
   "private": true,
   "scripts": {
