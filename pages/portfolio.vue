@@ -8,7 +8,7 @@
           <div
             v-for="work in workHistory"
             :key="work.id"
-            class="sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3 h-auto p-1"
+            class="sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/3 h-auto p-1 inline-flex"
           >
             <work-history-card
               :companyName="work.companyName"
@@ -30,7 +30,7 @@
         <div
           v-for="project in projects"
           :key="project.id"
-          class="sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/4 h-auto mt-4"
+          class="sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/4 h-auto mt-4 inline-flex p-1"
         >
           <project-card
             :projectName="project.projectName"
