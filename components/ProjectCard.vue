@@ -1,10 +1,6 @@
 <template>
   <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
-    <img
-      :src="projectScreenshot"
-      class="w-full"
-      alt="Sunset in the mountains"
-    />
+    <img :src="projectScreenshot" class="w-full" :alt="altImageText" />
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ projectName }}</div>
       <p class="text-gray-700 text-base">
@@ -20,7 +16,12 @@
       >
         Demo
       </a>
-      <a :href="githubLink" target="_blank" class="button--grey">
+      <a
+        :href="githubLink"
+        v-show="githubLink.length > 0"
+        target="_blank"
+        class="button--grey"
+      >
         Visit Github
       </a>
     </div>

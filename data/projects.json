@@ -3,16 +3,16 @@
     "id": 1,
     "projectName": "Cryptoplex Mangement (Private Repo)",
     "projectScreenshot": "https://austinakers.com/assets/images/cryptoplex-logo400x400.jpg",
-    "altImageText": "Image of the Cryptoplex Management landing page",
+    "altImageText": "Image of the Cryptoplex Management logo",
     "description": "Used the Quasar framework built on top of vue.js to build out a frontend that automates the financial tracking of your ethereum wallet.",
-    "githubLink": "https://github.com/BboyAkers",
-    "demoLink": ""
+    "githubLink": "",
+    "demoLink": "https://cryptoplexmanagement.com/"
   },
   {
     "id": 2,
     "projectName": "Vuetify Docs & CLI",
     "projectScreenshot": "https://austinakers.com/assets/images/vuetifyLogo400x400.jpg",
-    "altImageText": "Image of the Open Source Project Vuetify Logo",
+    "altImageText": "Image of the Open Source Project Vuetify logo",
     "description": "Contributing to building out the Beginners Guide. Currently working on the 'What is a CLI' part of the guide. Working on the CLI plugin tooling.",
     "githubLink": "https://github.com/vuetifyjs/vuetify",
     "demoLink": "https://vuetifyjs.com/en/"
@@ -21,7 +21,7 @@
     "id": 3,
     "projectName": "MetaMask Docs",
     "projectScreenshot": "https://austinakers.com/assets/images/MetaMaskDocs400x400.jpg",
-    "altImageText": "Image of the MeataMask Fox Logo",
+    "altImageText": "Image of the MeataMask Docs landing page",
     "description": "Contributed heavily to the re-design and development of the new metamask documentation.",
     "githubLink": "https://github.com/MetaMask/metamask-docs",
     "demoLink": "https://docs.metamask.io/"
@@ -30,7 +30,7 @@
     "id": 4,
     "projectName": "Metamask Test Dapp",
     "projectScreenshot": "https://austinakers.com/assets/images/MetaMaskTestDapp400x400.jpg",
-    "altImageText": "Image of the MeataMask Fox Logo",
+    "altImageText": "Image of the MeataMask Test Dapp page",
     "description": "Contributed re-design of the MetaMask Test Dapp. Currently working on rewriting the contract code.",
     "githubLink": "https://github.com/MetaMask/test-dapp",
     "demoLink": "https://metamask.github.io/test-dapp/"
@@ -39,8 +39,8 @@
     "id": 5,
     "projectName": "Solar System",
     "projectScreenshot": "https://austinakers.com/assets/images/SolarSystem400x400.jpg",
-    "altImageText": "Small version of the solar system",
-    "description": "Built a Solar Sytem using Babylon.js! The best part about programming is the ability to create and build whatever you want.",
+    "altImageText": "Image version of the solar system project",
+    "description": "Built a Solar System using Babylon.js! The best part about programming is the ability to create and build whatever you want.",
     "githubLink": "https://github.com/BboyAkers/Solar-System",
     "demoLink": "https://austinakers.com/SolarSystem/"
   }
