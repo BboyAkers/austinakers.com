@@ -5,7 +5,7 @@
         <img
           :src="companyLogo"
           class="rounded-lg md:w-56"
-          alt="Woman paying for a purchase"
+          :alt="altImageText"
         />
       </div>
       <div class="mt-4 md:mt-0 md:ml-6 p-4">
@@ -69,6 +69,10 @@ export default {
       required: true
     },
     companyLogo: {
+      type: String,
+      required: true
+    },
+    altImageText: {
       type: String,
       required: true
     },
