@@ -12,10 +12,7 @@
         <div class="uppercase tracking-wide text-sm text-indigo-600 font-bold">
           {{ companyName }}
         </div>
-        <p
-          href="#"
-          class="block mt-1 text-lg leading-tight font-semibold text-gray-900"
-        >
+        <p class="block mt-1 text-lg leading-tight font-semibold text-gray-900">
           {{ jobTitle }}
         </p>
         <p class="mt-2 text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
@@ -29,7 +26,7 @@
       <div slot="header">
         <h1 class="text-3xl">{{ companyName }}</h1>
         <h2 class="text-xl">{{ jobTitle }}</h2>
-        <img :src="companyLogo" style="height: 300px" />
+        <img :src="companyLogo" style="height: 300px;" />
       </div>
       <div slot="body">
         <ul class="list-disc">
