@@ -1,5 +1,9 @@
 export default {
   mode: 'universal',
+  router: {
+    linkActiveClass: 'text-white'
+    // linkExactActiveClass: 'your-custom-exact-active-link',
+  },
   /*
    ** Headers of the page
    */

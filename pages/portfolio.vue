@@ -16,6 +16,7 @@
               <work-history-card
                 :companyName="work.companyName"
                 :companyLogo="work.companyLogo"
+                :altImageText="work.altImageText"
                 :jobTitle="work.jobTitle"
                 :dateStart="work.dateStart"
                 :dateEnd="work.dateEnd"

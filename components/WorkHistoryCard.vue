@@ -5,8 +5,8 @@
         <div class="md:flex-shrink-0">
           <img
             :src="companyLogo"
-            class="rounded-lg md:w-56"
             :alt="altImageText"
+            class="rounded-lg md:w-56"
           />
         </div>
         <div class="mt-4 md:mt-0 md:ml-6 p-4">
@@ -22,7 +22,7 @@
           </p>
           <p class="mt-2 text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
           <p class="mb-6">{{ detailedDescription[0] }}</p>
-          <button type="button" @click="isOpen = true" class="button--green">
+          <button @click="isOpen = true" type="button" class="button--green">
             More Info
           </button>
         </div>

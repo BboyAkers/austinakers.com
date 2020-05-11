@@ -1,7 +1,7 @@
 <template>
   <article>
     <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
-      <img :src="projectScreenshot" class="w-full" :alt="altImageText" />
+      <img :src="projectScreenshot" :alt="altImageText" class="w-full" />
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ projectName }}</div>
         <p class="text-gray-700 text-base">
