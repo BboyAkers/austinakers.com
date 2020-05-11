@@ -1,31 +1,33 @@
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
-    <img :src="projectScreenshot" class="w-full" :alt="altImageText" />
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">{{ projectName }}</div>
-      <p class="text-gray-700 text-base">
-        {{ projectDescription }}
-      </p>
+  <article>
+    <div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
+      <img :src="projectScreenshot" :alt="altImageText" class="w-full" />
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">{{ projectName }}</div>
+        <p class="text-gray-700 text-base">
+          {{ projectDescription }}
+        </p>
+      </div>
+      <div class="px-6 py-4">
+        <a
+          :href="demoLink"
+          v-show="demoLink.length > 0"
+          target="_blank"
+          class="button--green"
+        >
+          Demo
+        </a>
+        <a
+          :href="githubLink"
+          v-show="githubLink.length > 0"
+          target="_blank"
+          class="button--grey"
+        >
+          Visit Github
+        </a>
+      </div>
     </div>
-    <div class="px-6 py-4">
-      <a
-        :href="demoLink"
-        v-show="demoLink.length > 0"
-        target="_blank"
-        class="button--green"
-      >
-        Demo
-      </a>
-      <a
-        :href="githubLink"
-        v-show="githubLink.length > 0"
-        target="_blank"
-        class="button--grey"
-      >
-        Visit Github
-      </a>
-    </div>
-  </div>
+  </article>
 </template>
 
 <script>

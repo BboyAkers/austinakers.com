@@ -1,6 +1,6 @@
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
+    <div class="flex items-center flex-shrink-0 mr-6">
       <nuxt-link to="/" class="font-semibold text-xl tracking-tight">
         Austin Akers
       </nuxt-link>
@@ -24,16 +24,18 @@
       :class="isOpen ? 'block' : 'hidden'"
       class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
     >
-      <div class="text-sm lg:flex-grow">
+      <div class="text-sm lg:flex-grow text-teal-200">
         <nuxt-link
           to="/portfolio"
-          class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+          active-class="text-white"
+          class="block mt-4 lg:inline-block lg:mt-0 mr-4"
         >
           Portfolio
         </nuxt-link>
         <nuxt-link
           to="/contact"
-          class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+          active-class="text-white"
+          class="block mt-4 lg:inline-block lg:mt-0 "
         >
           Contact Me
         </nuxt-link>
