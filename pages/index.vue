@@ -2,10 +2,10 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
+      <h1 class="title title-homepage">
         Austin Akers
       </h1>
-      <h2 class="subtitle">
+      <h2 class="subtitle subtitle-homepage">
         UI Engineer | Cellist | Dancer | Author
       </h2>
       <div class="links">
@@ -69,5 +69,17 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    padding: 20px;
+  }
+  .title-homepage {
+    font-size: 3.25em;
+  }
+  .subtitle-homepage {
+    font-size: 2em;
+  }
 }
 </style>
