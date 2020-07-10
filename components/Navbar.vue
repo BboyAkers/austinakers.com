@@ -1,14 +1,14 @@
 <template>
-  <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+  <nav class="flex items-center justify-between flex-wrap bg-blue-lighter p-6">
     <div class="flex items-center flex-shrink-0 mr-6">
-      <nuxt-link to="/" class="font-semibold text-xl tracking-tight">
+      <nuxt-link to="/" class="font-semibold text-xl  tracking-tight">
         Austin Akers
       </nuxt-link>
     </div>
     <div class="block lg:hidden">
       <button
         @click="isOpen = !isOpen"
-        class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+        class="flex items-center px-3 py-2 border rounded text-white-lighter border-teal-400 hover:text-white-lighter hover:border-white-lighter"
       >
         <svg
           class="fill-current h-3 w-3"
@@ -24,17 +24,17 @@
       :class="isOpen ? 'block' : 'hidden'"
       class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
     >
-      <div class="text-sm lg:flex-grow text-teal-200">
+      <div class="text-sm lg:flex-grow text-white-dark">
         <nuxt-link
           to="/portfolio"
-          active-class="text-white"
+          active-class="text-white-lighter"
           class="block mt-4 lg:inline-block lg:mt-0 mr-4"
         >
           Portfolio
         </nuxt-link>
         <nuxt-link
           to="/contact"
-          active-class="text-white"
+          active-class="text-white-lighter"
           class="block mt-4 lg:inline-block lg:mt-0 "
         >
           Contact Me

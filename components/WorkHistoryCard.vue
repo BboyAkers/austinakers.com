@@ -1,6 +1,6 @@
 <template>
   <article>
-    <div class="rounded overflow-hidden shadow-lg">
+    <div class="rounded overflow-hidden shadow-lg bg-white">
       <div class="md:flex">
         <div class="md:flex-shrink-0">
           <img
