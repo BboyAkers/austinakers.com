@@ -23,7 +23,6 @@
                 :description="work.description"
                 :techUsed="work.techUsed"
                 :detailedDescription="work.detailedDescription"
-                class="bg-white"
               />
             </div>
           </div>
@@ -43,7 +42,6 @@
               :projectDescription="project.description"
               :githubLink="project.githubLink"
               :demoLink="project.demoLink"
-              class="bg-white"
             />
           </div>
         </div>
