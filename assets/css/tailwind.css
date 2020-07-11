@@ -2,10 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* https://coolors.co/50514f-f25f5c-ffe066-247ba0-70c1b3 */
-/* https://coolors.co/403f4c-e84855-f9dc5c-3185fc-efbcd5 */
-/* https://coolors.co/ff595e-ffca3a-8ac926-1982c4-6a4c93 */
-
 .modal-mask {
   position: fixed;
   z-index: 9998;

@@ -1,7 +1,7 @@
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-blue-lighter p-6">
     <div class="flex items-center flex-shrink-0 mr-6">
-      <nuxt-link to="/" class="font-semibold text-xl  tracking-tight">
+      <nuxt-link to="/" class="font-semibold text-xl tracking-tight">
         Austin Akers
       </nuxt-link>
     </div>
