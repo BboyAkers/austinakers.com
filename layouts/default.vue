@@ -24,6 +24,20 @@ html {
   margin: 0;
 }
 
+.btn--green {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #70c1b3;
+  color: #70c1b3;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+
+.btn--green:hover {
+  color: #fff;
+  background-color: #70c1b3;
+}
+
 .button--green {
   display: inline-block;
   border-radius: 4px;
@@ -41,8 +55,8 @@ html {
 .button--grey {
   display: inline-block;
   border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
+  border: 1px solid #50514f;
+  color: #50514f;
   text-decoration: none;
   padding: 10px 30px;
   margin-left: 15px;
@@ -50,6 +64,6 @@ html {
 
 .button--grey:hover {
   color: #fff;
-  background-color: #35495e;
+  background-color: #50514f;
 }
 </style>

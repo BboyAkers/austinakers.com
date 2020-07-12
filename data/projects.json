@@ -13,7 +13,7 @@
     "projectName": "Vuetify Docs & CLI",
     "projectScreenshot": "https://austinakers.com/assets/images/vuetifyLogo400x400.jpg",
     "altImageText": "Image of the Open Source Project Vuetify logo",
-    "description": "Contributing to building out the Beginners Guide. Currently working on the 'What is a CLI' part of the guide. Working on the CLI plugin tooling.",
+    "description": "Contributing writing articles for the 'Beginners Guide' and contributing to the new markdown based documentation.",
     "githubLink": "https://github.com/vuetifyjs/vuetify",
     "demoLink": "https://vuetifyjs.com/en/"
   },

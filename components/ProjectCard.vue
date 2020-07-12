@@ -13,7 +13,7 @@
           :href="demoLink"
           v-show="demoLink.length > 0"
           target="_blank"
-          class="button--green"
+          class="btn--green"
         >
           Demo
         </a>

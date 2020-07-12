@@ -32,7 +32,7 @@ module.exports = {
         default: '#FFE066',
         dark: '#FFE066'
       },
-      lightBlue: {
+      green: {
         lighter: '#70C1B3',
         default: '#70C1B3',
         dark: '#70C1B3'
