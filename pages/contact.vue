@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar />
-    <div class="bg-gray-200 flex justify-center h-screen">
+    <div class="bg-white-dark flex justify-center h-screen">
       <div
         class="bg-white rounded-lg p-6 sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/4 card-height mt-4 shadow-lg"
       >

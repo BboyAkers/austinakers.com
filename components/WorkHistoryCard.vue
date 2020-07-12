@@ -22,7 +22,7 @@
           </p>
           <p class="mt-2 text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
           <p class="mb-6">{{ detailedDescription[0] }}</p>
-          <button @click="isOpen = true" type="button" class="button--green">
+          <button @click="isOpen = true" type="button" class="btn--green">
             More Info
           </button>
         </div>
@@ -48,7 +48,7 @@
               <span
                 v-for="item in techUsed"
                 :key="item"
-                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+                class="inline-block bg-white-dark rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                 >{{ item }}</span
               >
             </div>

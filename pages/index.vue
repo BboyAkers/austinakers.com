@@ -1,24 +1,26 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title title-homepage">
-        Austin Akers
-      </h1>
-      <h2 class="subtitle subtitle-homepage">
-        UI Engineer | Cellist | Dancer | Author
-      </h2>
-      <div class="links">
-        <nuxt-link to="/portfolio" class="button--green m-1">
-          View Portfolio
-        </nuxt-link>
-        <a
-          href="https://github.com/BboyAkers"
-          target="_blank"
-          class="button--grey m-1"
-        >
-          GitHub
-        </a>
+  <div class="bg-gradient-cover">
+    <div class="container">
+      <div>
+        <logo />
+        <h1 class="title title-homepage">
+          Austin Akers
+        </h1>
+        <h2 class="subtitle subtitle-homepage text-grey-light">
+          UI Engineer | Cellist | Dancer | Author
+        </h2>
+        <div class="links">
+          <nuxt-link to="/portfolio" class="btn--green m-1">
+            View Portfolio
+          </nuxt-link>
+          <a
+            href="https://github.com/BboyAkers"
+            target="_blank"
+            class="button--grey m-1"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +51,14 @@ export default {
   text-align: center;
 }
 
+.bg-gradient-cover {
+  background: linear-gradient(#247ba0);
+  background-size: cover;
+  background-position: top;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+}
+
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -62,7 +72,7 @@ export default {
 .subtitle {
   font-weight: 300;
   font-size: 42px;
-  color: #526488;
+  color: #35495e;
   word-spacing: 5px;
   padding-bottom: 15px;
 }
