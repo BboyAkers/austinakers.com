@@ -2,7 +2,7 @@
   <div class="bg-gradient-cover">
     <div class="container">
       <div>
-        <logo />
+        <logo class="logoList" />
         <h1 class="title title-homepage">
           Austin Akers
         </h1>
@@ -65,16 +65,27 @@ export default {
   display: block;
   font-weight: 300;
   font-size: 100px;
-  color: #35495e;
+  color: #ffffff;
   letter-spacing: 1px;
+
+  animation-name: moveInRight;
+  animation-duration: 1s;
+}
+
+.logoList {
+  animation-name: moveInTop;
+  animation-duration: 1s;
 }
 
 .subtitle {
   font-weight: 300;
   font-size: 42px;
-  color: #35495e;
+  color: #ffffff;
   word-spacing: 5px;
   padding-bottom: 15px;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
 }
 
 .links {
@@ -90,6 +101,42 @@ export default {
   }
   .subtitle-homepage {
     font-size: 2em;
+  }
+}
+
+@keyframes moveInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>
