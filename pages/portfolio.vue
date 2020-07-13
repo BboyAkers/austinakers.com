@@ -5,7 +5,7 @@
     </section>
     <div class="p-6 bg-gray-200">
       <section>
-        <h2 class="text-3xl mb-1">Work History</h2>
+        <h2 class="text-3xl mb-1 text-grey">Work History</h2>
         <div>
           <div class="flex flex-wrap mb-4">
             <div
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <h2 class="text-3xl mb-1">Projects</h2>
+        <h2 class="text-3xl mb-1 text-grey">Projects</h2>
         <div class="flex flex-wrap mb-4">
           <div
             v-for="project in projects"
