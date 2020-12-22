@@ -1,12 +1,33 @@
 [
   {
     "id": 1,
+    "companyName": "Microsoft",
+    "companyLogo": "https://austinakers.com/assets/images/microsoft-logo.jpg",
+    "altImageText": "Image of Microsoft Logo",
+    "jobTitle": "Software Engineer II",
+    "dateStart": "Aug 2020",
+    "dateEnd": "Present",
+    "description": "",
+    "techUsed": [
+      "Node.js",
+      "Fastify",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "React.js"
+    ],
+    "detailedDescription": [
+      "Currently working on the rendering engine layer for docs.microsoft.com"
+    ]
+  },
+  {
+    "id": 2,
     "companyName": "Allstate Insurance",
     "companyLogo": "https://austinakers.com/assets/images/allstate-insurance-logo.png",
     "altImageText": "Image of Allstate Logo",
     "jobTitle": "Sr. UI Engineer",
     "dateStart": "May 2018",
-    "dateEnd": "Present",
+    "dateEnd": "Aug 2020",
     "description": "",
     "techUsed": [
       "HTML5",
@@ -18,10 +39,10 @@
       "Amazon Lex"
     ],
     "detailedDescription": [
-      "Currently working on our internal Angular Pattern Library and Documentation.",
+      "Worked on our internal Angular Pattern Library and Documentation.",
       "Worked on our internal React Pattern Library and Documentation.",
       "Built out an end to end modular chatbot application with my lead developer using Amazon Lex, Live Person, and our own Natural Language Processor (NLP).",
-      "Lead the Angular Product Release 2.0 Redesign for Most Valuable Possessions.",
+      "Took ownership and worked on Angular Product Release 2.0 Redesign for Most Valuable Possessions.",
       "Built a React.js drag and drop interface for the Integrated Voice Recognition Team to improve the efficiency of building voice prototypes.",
       "Increased the performance and load-time by 70% Improving and optimizing the architecture of the MileWise web-app.",
       "Anonymously nominated to receive the department wide “Be The Leader Award” both March 2019 and April 2019.",
@@ -29,7 +50,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 3,
     "companyName": "Intellicentrics",
     "companyLogo": "https://austinakers.com/assets/images/intellicentricsLogo400x400.jpg",
     "altImageText": "Image of Intellicentrics logo",
@@ -54,7 +75,7 @@
     ]
   },
   {
-    "id": 3,
+    "id": 4,
     "companyName": "Ambit Energy",
     "companyLogo": "https://austinakers.com/assets/images/ambit-energy600x600.png",
     "altImageText": "Image of Ambit Energy Logo",
@@ -79,7 +100,7 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "companyName": "Cambium Learning",
     "companyLogo": "https://austinakers.com/assets/images/cambiumLogo600x600.png",
     "altImageText": "Image of Cambium Learning Group Logo",
@@ -94,7 +115,7 @@
     ]
   },
   {
-    "id": 5,
+    "id": 6,
     "companyName": "WavCatcher",
     "companyLogo": "https://austinakers.com/assets/images/wavCatcher400x400.jpg",
     "altImageText": "Image of WavCatcher Logo",
@@ -110,7 +131,7 @@
     ]
   },
   {
-    "id": 6,
+    "id": 7,
     "companyName": "Pixels & Profit",
     "companyLogo": "https://austinakers.com/assets/images/pixelsAndProfitLogo400x400jpg.jpg",
     "altImageText": "Image of Allstate Logo",
@@ -133,7 +154,7 @@
     ]
   },
   {
-    "id": 7,
+    "id": 8,
     "companyName": "Speetra",
     "companyLogo": "https://austinakers.com/assets/images/pulsem-speetra600x600.png",
     "altImageText": "Image of Speetra Logo",
