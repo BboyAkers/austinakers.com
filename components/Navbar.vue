@@ -35,7 +35,7 @@
         <nuxt-link
           to="/contact"
           active-class="text-white-lighter"
-          class="block mt-4 lg:inline-block lg:mt-0 "
+          class="block mt-4 lg:inline-block lg:mt-0"
         >
           Contact Me
         </nuxt-link>

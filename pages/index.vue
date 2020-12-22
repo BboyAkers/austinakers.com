@@ -3,9 +3,7 @@
     <div class="container">
       <div>
         <logo class="logoList" />
-        <h1 class="title title-homepage">
-          Austin Akers
-        </h1>
+        <h1 class="title title-homepage">Austin Akers</h1>
         <h2 class="subtitle subtitle-homepage text-grey-light">
           UI Engineer | Cellist | Dancer | Author
         </h2>
