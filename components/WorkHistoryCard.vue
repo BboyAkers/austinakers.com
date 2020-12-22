@@ -1,6 +1,6 @@
 <template>
   <article>
-    <div class="rounded overflow-hidden shadow-lg bg-white">
+    <div class="rounded overflow-hidden shadow-lg bg-white card-max-width">
       <div class="md:flex">
         <div class="md:flex-shrink-0">
           <img
@@ -116,3 +116,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card-max-width {
+  max-width: 800px;
+}
+</style>

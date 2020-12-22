@@ -4,69 +4,29 @@
       <navbar />
     </section>
     <div class="p-6 bg-gray-200">
-      <!-- <section>
-        <h2 class="text-3xl mb-1 text-grey">Work History</h2>
-        <div>
-          <div class="flex flex-wrap mb-4">
-            <div
-              v-for="work in workHistory"
-              :key="work.id"
-              class="sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/3 h-auto p-1 inline-flex"
-            >
-              <work-history-card
-                :company-name="work.companyName"
-                :company-logo="work.companyLogo"
-                :alt-image-text="work.altImageText"
-                :job-title="work.jobTitle"
-                :date-start="work.dateStart"
-                :date-end="work.dateEnd"
-                :description="work.description"
-                :tech-used="work.techUsed"
-                :detailed-description="work.detailedDescription"
-              />
-            </div>
-          </div>
-        </div>
-
-        <h2 class="text-3xl mb-1 text-grey">Projects</h2>
-        <div class="flex flex-wrap mb-4">
-          <div
-            v-for="project in projects"
-            :key="project.id"
-            class="sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/4 h-auto mt-4 inline-flex p-1"
-          >
-            <project-card
-              :project-name="project.projectName"
-              :project-screenshot="project.projectScreenshot"
-              :alt-image-text="project.altImageText"
-              :project-description="project.description"
-              :github-link="project.githubLink"
-              :demo-link="project.demoLink"
-            />
-          </div>
-        </div>
-      </section> -->
       <section>
         <h2 class="text-3xl mb-1 text-grey">Work History</h2>
-        <div>
-          <!-- <div class="grid grid-cols-1 lg:grid-cols-4">
-            <div class="col-span-2">Takes two columns</div>
-            <div>One of three columns</div>
-            <div>One of three columns</div>
-          </div> -->
-          <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
-            <div v-for="work in workHistory" :key="work.id">
-              <work-history-card
-                :company-name="work.companyName"
-                :company-logo="work.companyLogo"
-                :alt-image-text="work.altImageText"
-                :job-title="work.jobTitle"
-                :date-start="work.dateStart"
-                :date-end="work.dateEnd"
-                :description="work.description"
-                :tech-used="work.techUsed"
-                :detailed-description="work.detailedDescription"
-              />
+        <div class="grid grid-cols-6">
+          <div class="col-span-1"></div>
+          <div class="col-span-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                v-for="work in workHistory"
+                :key="work.id"
+                class="col-span-2"
+              >
+                <work-history-card
+                  :company-name="work.companyName"
+                  :company-logo="work.companyLogo"
+                  :alt-image-text="work.altImageText"
+                  :job-title="work.jobTitle"
+                  :date-start="work.dateStart"
+                  :date-end="work.dateEnd"
+                  :description="work.description"
+                  :tech-used="work.techUsed"
+                  :detailed-description="work.detailedDescription"
+                />
+              </div>
             </div>
           </div>
         </div>

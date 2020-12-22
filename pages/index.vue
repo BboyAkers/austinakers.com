@@ -50,7 +50,7 @@ export default {
 }
 
 .bg-gradient-cover {
-  background: linear-gradient(#247ba0);
+  background: linear-gradient(#247ba0, #247ba0);
   background-size: cover;
   background-position: top;
   position: relative;
