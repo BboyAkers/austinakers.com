@@ -9,13 +9,16 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.4",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.3.3",
-    "nuxt": "^2.14.12"
+    "nuxt": "^2.14.12",
+    "snyk": "^1.437.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
@@ -27,5 +30,6 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.3.0",
     "prettier": "^2.2.1"
-  }
+  },
+  "snyk": true
 }
