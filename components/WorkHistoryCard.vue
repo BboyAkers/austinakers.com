@@ -22,7 +22,7 @@
           </p>
           <p class="mt-2 text-gray-600">{{ dateStart }} - {{ dateEnd }}</p>
           <p class="mb-6">{{ detailedDescription[0] }}</p>
-          <button @click="isOpen = true" type="button" class="btn--green">
+          <button type="button" class="btn--green" @click="isOpen = true">
             More Info
           </button>
         </div>
@@ -31,7 +31,7 @@
         <div slot="header">
           <h1 class="text-3xl">{{ companyName }}</h1>
           <h2 class="text-xl">{{ jobTitle }}</h2>
-          <img :src="companyLogo" style="height: 300px;" />
+          <img :src="companyLogo" style="height: 300px" />
         </div>
         <div slot="body">
           <ul class="list-disc">

@@ -28,7 +28,7 @@
     <!-- /HTML5 Logo -->
 
     <!-- CSS Logo -->
-    <div class="w-1/6 ">
+    <div class="w-1/6">
       <svg viewBox="0 0 128 128">
         <title>An SVG of the CSS3 Logo</title>
         <path

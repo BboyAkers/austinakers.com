@@ -10,16 +10,16 @@
       </div>
       <div class="px-6 py-4">
         <a
-          :href="demoLink"
           v-show="demoLink.length > 0"
+          :href="demoLink"
           target="_blank"
           class="btn--green"
         >
           Demo
         </a>
         <a
-          :href="githubLink"
           v-show="githubLink.length > 0"
+          :href="githubLink"
           target="_blank"
           class="button--grey"
         >
