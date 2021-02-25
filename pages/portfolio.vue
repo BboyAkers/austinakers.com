@@ -6,10 +6,11 @@
     <div class="p-6 bg-gray-200">
       <section>
         <h2 class="text-3xl mb-1 text-grey">Work History</h2>
+
         <div class="grid grid-cols-6">
           <div class="col-span-1"></div>
           <div class="col-span-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-6 gap-4">
               <div
                 v-for="work in workHistory"
                 :key="work.id"
