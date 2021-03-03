@@ -7,8 +7,8 @@
     </div>
     <div class="block lg:hidden">
       <button
-        @click="isOpen = !isOpen"
         class="flex items-center px-3 py-2 border rounded text-white-lighter border-teal-400 hover:text-white-lighter hover:border-white-lighter"
+        @click="isOpen = !isOpen"
       >
         <svg
           class="fill-current h-3 w-3"

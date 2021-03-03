@@ -10,9 +10,9 @@
           <div class="flex flex-col md:grid mx-auto p-2 text-blue-50">
             <!-- right -->
             <div
-              class="flex md:contents"
               v-for="work in workHistory"
               :key="work.id"
+              class="flex md:contents"
             >
               <div class="col-start-5 col-end-6 mr-10 md:mx-auto relative">
                 <div
@@ -28,18 +28,31 @@
                 ></div> -->
               </div>
               <div
-                class="bg-white col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md"
+                class="bg-white col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md max-w-screen-md"
               >
-                <h3 class="font-semibold text-lg mb-1">
-                  {{ work.companyName }}
-                </h3>
-                <p>
-                  <small>{{ work.dateStart }} - {{ work.dateEnd }}</small>
-                </p>
-                <p class="leading-tight text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Vitae, facilis.
-                </p>
+                <div>
+                  <!-- Pull image left -->
+                  <img
+                    :src="work.companyLogo"
+                    :alt="work.altImageText"
+                    width="150px"
+                  />
+                </div>
+
+                <!-- Pull text right -->
+                <div>
+                  <h3 class="font-semibold text-lg mb-1">
+                    {{ work.companyName }}
+                  </h3>
+                  <p>
+                    <small>{{ work.dateStart }} - {{ work.dateEnd }}</small>
+                  </p>
+                  <p class="leading-tight text-justify">
+                    {{ work.detailedDescription[0] }}
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Vitae, facilis.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
