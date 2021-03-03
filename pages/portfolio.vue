@@ -6,6 +6,44 @@
     <div class="p-6 bg-gray-200">
       <section>
         <h2 class="text-3xl mb-1 text-grey">Work History</h2>
+        <div class="mb-5">
+          <div class="flex flex-col md:grid mx-auto p-2 text-blue-50">
+            <!-- right -->
+            <div
+              class="flex md:contents"
+              v-for="work in workHistory"
+              :key="work.id"
+            >
+              <div class="col-start-5 col-end-6 mr-10 md:mx-auto relative">
+                <div
+                  class="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-blue-lighter shadow"
+                ></div>
+                <div class="h-full w-6 flex items-center justify-center">
+                  <div
+                    class="h-full w-1 bg-blue-lighter pointer-events-none"
+                  ></div>
+                </div>
+                <!-- <div
+                  class="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-blue-lighter shadow"
+                ></div> -->
+              </div>
+              <div
+                class="bg-white col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md"
+              >
+                <h3 class="font-semibold text-lg mb-1">
+                  {{ work.companyName }}
+                </h3>
+                <p>
+                  <small>{{ work.dateStart }} - {{ work.dateEnd }}</small>
+                </p>
+                <p class="leading-tight text-justify">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Vitae, facilis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="grid grid-cols-6">
           <div class="col-span-1"></div>

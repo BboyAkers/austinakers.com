@@ -1,5 +1,4 @@
 export default {
-  mode: 'universal',
   router: {
     linkActiveClass: 'text-white'
     // linkExactActiveClass: 'your-custom-exact-active-link',
@@ -63,7 +62,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend (config, ctx) { }
   },
   generate: {
     routes: ['/contact', '/portfolio']
