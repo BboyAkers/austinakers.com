@@ -1,23 +1,94 @@
 <template>
-  <div class="bg-gradient-cover">
-    <div class="container">
-      <div>
-        <logo class="logoList" />
-        <h1 class="title title-homepage">Austin Akers</h1>
-        <h2 class="subtitle subtitle-homepage text-grey-light">
-          UI Engineer | Cellist | Dancer | Author
-        </h2>
-        <div class="links">
-          <nuxt-link to="/portfolio" class="btn--green m-1">
-            View Portfolio
-          </nuxt-link>
-          <a
-            href="https://github.com/BboyAkers"
-            target="_blank"
-            class="button--grey m-1"
-          >
-            GitHub
-          </a>
+  <div>
+    <div class="bg-gradient-cover">
+      <div class="hero-container">
+        <div>
+          <logo class="logoList" />
+          <h1 class="hero-title title-homepage">Austin Akers</h1>
+          <h2 class="subtitle subtitle-homepage text-grey-light">
+            UI Engineer | Cellist | Dancer | Author
+          </h2>
+          <div class="links">
+            <a
+              href="https://www.linkedin.com/in/austin-akers-b1966765/"
+              target="_blank"
+              class="btn--green m-1"
+            >
+              Linkedin
+            </a>
+
+            <a
+              href="https://github.com/BboyAkers"
+              target="_blank"
+              class="button--grey m-1"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://dev.to/bboyakers"
+              target="_blank"
+              class="button--grey m-1"
+            >
+              Dev.to
+            </a>
+            <a
+              href="https://twitter.com/tweetmonster999"
+              target="_blank"
+              class="button--grey m-1"
+            >
+              Twitter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mx-auto">
+      <h2 class="card-title">About Me</h2>
+      <div class="row">
+        <div
+          class="
+            grid
+            sm:grid-cols-1
+            md:grid-cols-3
+            lg:grid-cols-4
+            mx:auto
+            gap-4
+          "
+        >
+          <div v-for="work in workHistory" :key="work.id">
+            <career-card
+              :company-name="work.companyName"
+              :company-logo="work.companyLogo"
+              :alt-image-text="work.altImageText"
+              :job-title="work.jobTitle"
+              :date-start="work.dateStart"
+              :date-end="work.dateEnd"
+              :description="work.description"
+              :tech-used="work.techUsed"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">Skills</h2>
+              <p class="card-text">
+                I have a strong background in front-end development and design.
+                I have worked with HTML, CSS, and JavaScript. I have worked with
+                Vue.js, Vuex, Vue Router, and Vuex-router. I have worked with
+                Node.js, Express, and MongoDB. I have worked with Git, GitHub,
+                and Heroku. I have worked with Adobe Photoshop and Illustrator.
+                I have worked with Adobe XD and Figma. I have worked with Adobe
+                After Effects and Premiere Pro. I have worked with Adobe
+                Audition and After Effects. I have worked with Adobe Premiere
+                and Audition. I have worked with Adobe After Effects and
+                Audition. I have worked with Adobe After Effects and Audition. I
+                have worked with Adobe After Effects and Audition. I have worked
+                with Adobe After Effects and Audition. I have worked with Adobe
+                After Effects and Audition.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -26,11 +97,19 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import CareerCard from '~/components/CareerCard.vue'
+import workHistoryData from '~/data/workHistory.json'
 
 export default {
   components: {
-    Logo
-  }
+    Logo,
+    CareerCard,
+  },
+  data() {
+    return {
+      workHistory: workHistoryData,
+    }
+  },
 }
 </script>
 
@@ -40,7 +119,7 @@ export default {
   @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
+.hero-container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -57,7 +136,7 @@ export default {
   clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
 }
 
-.title {
+.hero-title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
@@ -91,7 +170,7 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
-  .container {
+  .hero-container {
     padding: 20px;
   }
   .title-homepage {

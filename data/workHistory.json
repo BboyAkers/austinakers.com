@@ -17,7 +17,9 @@
       "React.js"
     ],
     "detailedDescription": [
-      "Currently working on the rendering engine layer for docs.microsoft.com"
+      "With the support of several co-workers, I eagerly took part in our Fastify version upgrade 2.15.x to 3.x.x and the refactoring effort for our new docs.microsoft.com rendering service.",
+      "Migrated our frontend for docs.microsoft.com analytics/telemetry library from a soon to be deprecated library to the 1DS Web Analytics library. Refactored it to be more modular and allowed for easier analytics library switching and for running multiple libraries in parallel.",
+      "Collaborated with designers and worked on parts of our new docs.microsoft.com profile redesign."
     ]
   },
   {
@@ -54,7 +56,7 @@
     "companyName": "Intellicentrics",
     "companyLogo": "https://austinakers.com/assets/images/intellicentricsLogo400x400.jpg",
     "altImageText": "Image of Intellicentrics logo",
-    "jobTitle": "Software Developer",
+    "jobTitle": "Software Developer III",
     "dateStart": "Jan. 2018",
     "dateEnd": "May 2018",
     "description": "",
