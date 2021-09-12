@@ -15,7 +15,7 @@
   >
     <img class="w-full" :src="companyLogo" :alt="altImageText" />
     <div class="text-center relative py-6">
-      <h1
+      <h2
         class="
           mb-1
           text-2xl
@@ -26,7 +26,7 @@
         "
       >
         {{ companyName }}
-      </h1>
+      </h2>
       <span class="text-lg text-gray-700 hover:text-gray-900">
         {{ jobTitle }}
       </span>
