@@ -14,6 +14,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.12.17",
     "@nuxtjs/axios": "^5.12.4",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.3.3",

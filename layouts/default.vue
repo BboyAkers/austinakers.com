@@ -24,46 +24,44 @@ html {
   margin: 0;
 }
 
-.btn--green {
+.btn {
+  font-weight: 500;
   display: inline-block;
   border-radius: 4px;
-  border: 1px solid #70c1b3;
-  color: #70c1b3;
   text-decoration: none;
   padding: 10px 30px;
-}
-
-.btn--green:hover {
-  color: #fff;
-  background-color: #70c1b3;
 }
 
 .button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+  color: #fff;
+  background-color: #54b4a4;
+  border: 1px solid #54b4a4;
 }
 
 .button--green:hover {
   color: #fff;
-  background-color: #3b8070;
+  background-color: #4ca193;
+  border: 1px solid #4ca193;
 }
 
 .button--grey {
-  display: inline-block;
-  border-radius: 4px;
+  color: #fff;
+  background-color: #50514f;
   border: 1px solid #50514f;
-  color: #50514f;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
 }
 
 .button--grey:hover {
   color: #fff;
-  background-color: #50514f;
+  background-color: #393a38;
+}
+.button--blue {
+  color: #fff;
+  background-color: #0274b3;
+  border: 1px solid #0274b3;
+}
+
+.button--blue:hover {
+  color: #fff;
+  background-color: #00679e;
 }
 </style>
