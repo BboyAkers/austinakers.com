@@ -1,23 +1,36 @@
 <template>
-  <div class="bg-gradient-cover">
-    <div class="container">
-      <div>
-        <logo class="logoList" />
-        <h1 class="title title-homepage">Austin Akers</h1>
-        <h2 class="subtitle subtitle-homepage text-grey-light">
-          UI Engineer | Cellist | Dancer | Author
-        </h2>
-        <div class="links">
-          <nuxt-link to="/portfolio" class="btn--green m-1">
-            View Portfolio
-          </nuxt-link>
-          <a
-            href="https://github.com/BboyAkers"
-            target="_blank"
-            class="button--grey m-1"
-          >
-            GitHub
-          </a>
+  <div>
+    <div class="bg-gradient-cover">
+      <div class="container">
+        <div>
+          <logo class="logoList" />
+          <h1 class="title title-homepage">Austin Akers</h1>
+          <h2 class="subtitle subtitle-homepage text-grey-light">
+            UI Engineer | Cellist | Dancer | Author
+          </h2>
+          <div class="links">
+            <a
+              href="https://www.linkedin.com/in/austin-akers-b1966765/"
+              target="_blank"
+              class="btn button--blue m-1"
+            >
+              View LinkedIn
+            </a>
+            <a
+              href="https://github.com/BboyAkers"
+              target="_blank"
+              class="btn button--grey m-1"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://timeline.austinakers.com/"
+              target="_blank"
+              class="btn button--green m-1"
+            >
+              View Timeline
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -50,7 +63,7 @@ export default {
 }
 
 .bg-gradient-cover {
-  background: linear-gradient(#247ba0, #247ba0);
+  background: linear-gradient(#388cfa, #388cfa);
   background-size: cover;
   background-position: top;
   position: relative;
