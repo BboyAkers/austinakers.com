@@ -1,14 +1,21 @@
+<script setup lang="ts">
+useHead({
+  title: 'Austin Akers',
+  meta: [
+    { name: 'Frontend Engineer, Cellist, Muay Thai Fighter, and Author.'}
+  ],
+})
+</script>
 <template>
-  <div>
-    <div class="bg-gradient-cover">
-      <div class="container">
+  <div class="bg-gradient-cover">
+      <div class="main-page-container">
         <div>
-          <logo class="logoList" />
+          <Logo class="logoList" />
           <h1 class="title title-homepage">Austin Akers</h1>
           <h2 class="subtitle subtitle-homepage text-grey-light">
             UI Engineer | Cellist | Dancer | Author
           </h2>
-          <div class="links">
+          <div class="website-links">
             <a
               href="https://www.linkedin.com/in/austin-akers-b1966765/"
               target="_blank"
@@ -34,26 +41,63 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
 
-export default {
-  components: {
-    Logo
-  }
+<style scoped>
+html {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
-</script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
 }
-*/
-.container {
+.btn {
+  font-weight: 500;
+  display: inline-block;
+  border-radius: 4px;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+.button--green {
+  color: #fff;
+  background-color: #54b4a4;
+  border: 1px solid #54b4a4;
+}
+.button--green:hover {
+  color: #fff;
+  background-color: #4ca193;
+  border: 1px solid #4ca193;
+}
+.button--grey {
+  color: #fff;
+  background-color: #50514f;
+  border: 1px solid #50514f;
+}
+.button--grey:hover {
+  color: #fff;
+  background-color: #393a38;
+}
+.button--blue {
+  color: #fff;
+  background-color: #0274b3;
+  border: 1px solid #0274b3;
+}
+.button--blue:hover {
+  color: #fff;
+  background-color: #00679e;
+}
+.main-page-container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -61,7 +105,6 @@ export default {
   align-items: center;
   text-align: center;
 }
-
 .bg-gradient-cover {
   background: linear-gradient(#388cfa, #388cfa);
   background-size: cover;
@@ -69,7 +112,6 @@ export default {
   position: relative;
   clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
 }
-
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -78,34 +120,28 @@ export default {
   font-size: 100px;
   color: #ffffff;
   letter-spacing: 1px;
-
   animation-name: moveInRight;
   animation-duration: 1s;
 }
-
 .logoList {
   animation-name: moveInTop;
   animation-duration: 1s;
 }
-
 .subtitle {
   font-weight: 300;
   font-size: 42px;
   color: #ffffff;
   word-spacing: 5px;
   padding-bottom: 15px;
-
   animation-name: moveInLeft;
   animation-duration: 1s;
 }
-
-.links {
+.website {
   padding-top: 15px;
 }
-
 @media only screen and (max-width: 800px) {
-  .container {
-    padding: 20px;
+  .main-page-container {
+    @apply p-5;
   }
   .title-homepage {
     font-size: 3.25em;
@@ -114,37 +150,31 @@ export default {
     font-size: 2em;
   }
 }
-
 @keyframes moveInTop {
   0% {
     opacity: 0;
     transform: translateY(-100px);
   }
-
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 @keyframes moveInRight {
   0% {
     opacity: 0;
     transform: translateX(-100px);
   }
-
   100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
-
 @keyframes moveInLeft {
   0% {
     opacity: 0;
     transform: translateX(100px);
   }
-
   100% {
     opacity: 1;
     transform: translateX(0);
