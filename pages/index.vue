@@ -7,6 +7,7 @@ useHead({
 })
 </script>
 <template>
+  <main>
   <div class="bg-gradient-cover">
       <div class="main-page-container">
         <div>
@@ -15,25 +16,25 @@ useHead({
           <h2 class="subtitle subtitle-homepage text-grey-light">
             UI Engineer | Cellist | Dancer | Author
           </h2>
-          <div class="website-links">
+          <div>
             <a
               href="https://www.linkedin.com/in/austin-akers-b1966765/"
               target="_blank"
-              class="btn button--blue m-1"
+              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
             >
               View LinkedIn
             </a>
             <a
               href="https://github.com/BboyAkers"
               target="_blank"
-              class="btn button--grey m-1"
+              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
             >
               GitHub
             </a>
             <a
               href="https://timeline.austinakers.com/"
               target="_blank"
-              class="btn button--green m-1"
+              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
             >
               View Timeline
             </a>
@@ -41,6 +42,10 @@ useHead({
         </div>
       </div>
     </div>
+    <section>
+      <BlogPostList />
+    </section>
+    </main>
 </template>
 
 
@@ -60,9 +65,8 @@ html {
 *:before,
 *:after {
   box-sizing: border-box;
-  margin: 0;
 }
-.btn {
+/* .btn {
   font-weight: 500;
   display: inline-block;
   border-radius: 4px;
@@ -96,7 +100,7 @@ html {
 .button--blue:hover {
   color: #fff;
   background-color: #00679e;
-}
+} */
 .main-page-container {
   margin: 0 auto;
   min-height: 100vh;
