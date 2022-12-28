@@ -20,7 +20,7 @@ useHead({
             <a
               href="https://www.linkedin.com/in/austin-akers-b1966765/"
               target="_blank"
-              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
+              class="px-4 py-3 mx-1 rounded font-medium bg-blue-light text-white"
             >
               View LinkedIn
             </a>
