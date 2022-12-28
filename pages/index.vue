@@ -16,25 +16,25 @@ useHead({
           <h2 class="subtitle subtitle-homepage text-grey-light">
             UI Engineer | Cellist | Dancer | Author
           </h2>
-          <div>
+          <div class="pt-10">
             <a
               href="https://www.linkedin.com/in/austin-akers-b1966765/"
               target="_blank"
-              class="px-4 py-3 mx-1 rounded font-medium bg-blue-light text-white"
+              class="px-8 py-3 mx-1 rounded font-medium bg-blue-light text-white hover:bg-blue-dark inline-block"
             >
               View LinkedIn
             </a>
             <a
               href="https://github.com/BboyAkers"
               target="_blank"
-              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
+              class="px-8 py-3 mx-1 rounded font-medium bg-grey-light text-white hover:bg-grey-dark inline-block"
             >
               GitHub
             </a>
             <a
               href="https://timeline.austinakers.com/"
               target="_blank"
-              class="px-4 py-3 mx-1 rounded font-medium bg-blue-700 text-white"
+              class="px-8 py-3 mx-1 mt-4 md:mt-0 rounded font-medium bg-green-light text-white hover:bg-green-dark inline-block"
             >
               View Timeline
             </a>
@@ -66,41 +66,6 @@ html {
 *:after {
   box-sizing: border-box;
 }
-/* .btn {
-  font-weight: 500;
-  display: inline-block;
-  border-radius: 4px;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-.button--green {
-  color: #fff;
-  background-color: #54b4a4;
-  border: 1px solid #54b4a4;
-}
-.button--green:hover {
-  color: #fff;
-  background-color: #4ca193;
-  border: 1px solid #4ca193;
-}
-.button--grey {
-  color: #fff;
-  background-color: #50514f;
-  border: 1px solid #50514f;
-}
-.button--grey:hover {
-  color: #fff;
-  background-color: #393a38;
-}
-.button--blue {
-  color: #fff;
-  background-color: #0274b3;
-  border: 1px solid #0274b3;
-}
-.button--blue:hover {
-  color: #fff;
-  background-color: #00679e;
-} */
 .main-page-container {
   margin: 0 auto;
   min-height: 100vh;
@@ -140,9 +105,7 @@ html {
   animation-name: moveInLeft;
   animation-duration: 1s;
 }
-.website {
-  padding-top: 15px;
-}
+
 @media only screen and (max-width: 800px) {
   .main-page-container {
     @apply p-5;
