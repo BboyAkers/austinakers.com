@@ -8,15 +8,15 @@ useHead({
 </script>
 <template>
   <main>
-  <div class="bg-gradient-cover">
-      <div class="main-page-container">
+  <div class="relative top bg-cover bg-gradient-cover">
+      <div class="p-5 md:p-0 flex min-h-screen mx-auto justify-center items-center text-center">
         <div>
-          <Logo class="logoList" />
-          <h1 class="title title-homepage">Austin Akers</h1>
-          <h2 class="subtitle subtitle-homepage text-grey-light">
+          <Logo class="logoList-animation" />
+          <h1 class="block pt-4 text-5xl md:text-8xl font-light text-white tracking-wide title-animation">Austin Akers</h1>
+          <h2 class="text-3xl md:text-4xl font-light py-4 text-white [word-spacing:0.25rem] subtitle-animation">
             UI Engineer | Cellist | Dancer | Author
           </h2>
-          <div class="pt-10">
+          <div class="pt-4 md:pt-8">
             <a
               href="https://www.linkedin.com/in/austin-akers-b1966765/"
               target="_blank"
@@ -40,6 +40,7 @@ useHead({
             </a>
           </div>
         </div>
+        <!-- <p class="">Continue Scolling</p> -->
       </div>
     </div>
     <section>
@@ -66,57 +67,26 @@ html {
 *:after {
   box-sizing: border-box;
 }
-.main-page-container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+
 .bg-gradient-cover {
   background: linear-gradient(#388cfa, #388cfa);
-  background-size: cover;
-  background-position: top;
-  position: relative;
   clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
 }
-.title {
+.title-animation {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #ffffff;
-  letter-spacing: 1px;
   animation-name: moveInRight;
   animation-duration: 1s;
 }
-.logoList {
+.logoList-animation {
   animation-name: moveInTop;
   animation-duration: 1s;
 }
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #ffffff;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.subtitle-animation {
   animation-name: moveInLeft;
   animation-duration: 1s;
 }
 
-@media only screen and (max-width: 800px) {
-  .main-page-container {
-    @apply p-5;
-  }
-  .title-homepage {
-    font-size: 3.25em;
-  }
-  .subtitle-homepage {
-    font-size: 2em;
-  }
-}
 @keyframes moveInTop {
   0% {
     opacity: 0;
