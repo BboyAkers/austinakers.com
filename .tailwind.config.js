@@ -17,6 +17,9 @@ export default {
           light: '#54b4a4',
           dark: '#4ca193'
         }
+      },
+      minHeight: {
+        '9/10': '90vh',
       }
     }
   }

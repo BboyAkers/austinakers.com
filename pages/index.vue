@@ -9,7 +9,7 @@ useHead({
 <template>
   <main>
   <div class="relative top bg-cover bg-gradient-cover">
-      <div class="p-5 md:p-0 flex min-h-screen mx-auto justify-center items-center text-center">
+      <div class="p-5 md:p-0 flex min-h-9/10 mx-auto justify-center items-center text-center">
         <div>
           <Logo class="logoList-animation" />
           <h1 class="block pt-4 text-5xl md:text-8xl font-light text-white tracking-wide title-animation">Austin Akers</h1>
@@ -70,7 +70,7 @@ html {
 
 .bg-gradient-cover {
   background: linear-gradient(#388cfa, #388cfa);
-  clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 70vh, 0 100%);
 }
 .title-animation {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
