@@ -1,13 +1,14 @@
 ---
 title: "What is Tree Shaking"
-description: "My very first blog post"
+description: "A brief overview of treeshaking in JavaScript"
 tags: 
  - 'Vue 3'
  - 'Vuetify'
  - 'TypeScript'
+date: 05292020
 ---
 
-# What is Tree Shaking?
+## What is Tree Shaking?
 
 Tree shaking is a term used as a means to eliminate code that isn't in use, or dead-code, as we call it. You can also think of it like choosing 3-4 relevant quotes from a book to write an excellent paper. If you only need 3-4 relevant quotes, why use the entire book?
 
@@ -16,6 +17,7 @@ Whenever a [code bundler](https://dev.to/tanhauhau/what-is-module-bundler-and-ho
 A way for us to help code bundlers with tree shaking, or eliminating **dead code**, in our web development projects is to only import necessary methods and components into our application. We do this by using JavaScript [**destructuring**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) syntax in our `import` statements and properly `export` code as well. In Vuetify, this is done by default when you import and use it throughout your project. 
 
 ---
+
 Let's dive into an example to find out more about tree shaking!
 
 Starting off, in JavaScript we sometimes unintentionally import an entire framework and/or library into our application. Example below:
@@ -38,6 +40,7 @@ import { mapState } from  'vuex'
 In this example we are solely importing the [mapState](https://vuex.vuejs.org/guide/state.html#the-mapstate-helper) helper from the [vuex](https://vuex.vuejs.org/) library, which is used to help manage the data and how it flows for a vue.js application. To many people not comfortable with [es6](https://github.com/lukehoban/es6features) this is a different [syntax](https://developer.mozilla.org/en-US/docs/Glossary/Syntax) from what you usually see starting out. We are using ES6 [object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring) to grab the `mapState` helper from vuex. Instead of importing all of vuex and only using one small part of the library, we use this syntax to grab only what we need from the vuex library. This "take what you only need" mindset helps keep dead code out of your application.
 
 ## Making Your Code Tree Shaking Friendly
+
 BOOM we magically now have a small calculator app. This is what it currently looks like:
 
 **calculator.js**
@@ -67,7 +70,7 @@ export  default  myCalculator;
 **index.js**
 
 ```js
-import  myCalculatorfrom  "./calculator.js";
+import myCalculator from "./calculator.js";
 
 console.log(myCalculator.add(1,  2)); // Expected output: 3
 console.log(myCalculator.subtract(15,  9)); // Expeted output: 6

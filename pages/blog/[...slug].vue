@@ -10,18 +10,42 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 
 <template>
   <main>
-  <div class="relative px-4 sm:px-6 lg:px-8 py-16">
-    <div class="mx-auto max-w-prose text-lg">
-      <h1>
-        <!-- <span class="block text-center text-lg font-semibold text-indigo-600">Introducing</span> -->
-        <span class="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">{{blogPost.title}}</span>
+  <div class="relative px-4 lg:px-8 py-16">
+    <div class="mx-auto max-w-prose text-lg text-center">
+      <NuxtLink to="/"><p class="inline-block text-gray-600"><span>&#8592;</span> Return to Homepage</p></NuxtLink>
+      <h1 class="mt-2 block text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+        {{blogPost.title}}
       </h1>
-      <p class="mt-8 text-xl leading-8 text-gray-500 text-center">{{ blogPost.description }}</p>
+      <p class="mt-4 mb-8 text-xl leading-8 text-gray-500">{{ blogPost.description }}</p>
     </div>
-    <div class="mx-auto max-w-prose text-lg">
+    <div class="mx-auto max-w-prose text-lg content-doc">
       <ContentDoc />
     </div>
-  </div>
-    
+    <div class="text-center text-xl mt-8">
+    <NuxtLink to="/"><p class="inline-block text-gray-600"><span>&#8592;</span> Return to Homepage</p></NuxtLink>
+    </div>
+  </div>                                                                    
   </main>
 </template>
+
+<style>
+.content-doc h2 {
+  @apply text-2xl py-4;
+}
+
+.content-doc pre {
+  @apply overflow-x-scroll p-4 my-6 bg-[#f8f8ff];
+}
+
+.content-doc p {
+  @apply py-1 text-xl;
+}
+
+.content-doc hr {
+  @apply my-3;
+}
+
+.content-doc ul {
+  @apply list-disc pl-6 md:pl-8 text-xl;
+}
+</style>

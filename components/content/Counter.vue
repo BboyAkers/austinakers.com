@@ -27,11 +27,11 @@ const incrementCount = () => {
 .counter .current-count {
   margin-bottom: 10px;
   text-align: center;
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
 }
 
 .counter button {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   padding: 5px;
 }
 </style>
