@@ -5,7 +5,7 @@ tags:
  - 'Vue 3'
  - 'Vuetify'
  - 'TypeScript'
-date: 05292020
+date: 05302022
 ---
 
 ## What is Tree Shaking?
