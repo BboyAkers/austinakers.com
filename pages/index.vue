@@ -40,7 +40,6 @@ useHead({
             </a>
           </div>
         </div>
-        <!-- <p class="">Continue Scolling</p> -->
       </div>
     </div>
     <section>

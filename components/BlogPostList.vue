@@ -6,11 +6,10 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
 </script>
 
 <template>
-  <div>
-    <div v-for="blogPost in blogPostList" :key="blogPost._path">
-      <a :href="blogPost._path"><h1>{{blogPost.title}}</h1></a>
+  <div class="px-10 py-4">
+    <div v-for="blogPost in blogPostList" :key="blogPost._path" class="py-6">
+      <a :href="blogPost._path"><h3 class="text-3xl">{{blogPost.title}}</h3></a>
       <p>{{ blogPost.description }}</p>
-      <p>{{ blogPost.tags }}</p>
     </div>
   </div>
 </template>
