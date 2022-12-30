@@ -16,7 +16,8 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
       <h1 class="mt-2 block text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
         {{blogPost.title}}
       </h1>
-      <p class="mt-4 mb-8 text-xl leading-8 text-gray-500">{{ blogPost.description }}</p>
+      <p class="mt-4 text-xl leading-8 text-gray-500">{{ blogPost.subtitle }}</p>
+      <p class="mb-8 text-xl leading-8 text-gray-500">{{ blogPost.description }}</p>
     </div>
     <div class="mx-auto max-w-prose text-lg content-doc">
       <ContentDoc />
@@ -47,5 +48,13 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 
 .content-doc ul {
   @apply list-disc pl-6 md:pl-8 text-xl;
+}
+
+.content-doc li a {
+  @apply text-blue-600 hover:underline visited:text-purple-600;
+}
+
+.content-doc h1, h2, h3, h4, h5, h6 {
+  @apply hover:underline visited:text-purple-600;
 }
 </style>

@@ -1,5 +1,6 @@
 ---
 title: "What is Tree Shaking"
+subtitle: "Vuetify Beginner's Guide Series:"
 description: "A brief overview of treeshaking in JavaScript"
 tags: 
  - 'Vue 3'
@@ -7,6 +8,8 @@ tags:
  - 'TypeScript'
 date: 05302022
 ---
+
+<a href="https://dev.to/bboyakers/what-is-tree-shaking-1ojb" target="_blank" class="text-blue-600 hover:underline visited:text-purple-600">Dev.to Original Article</a>
 
 ## What is Tree Shaking?
 
