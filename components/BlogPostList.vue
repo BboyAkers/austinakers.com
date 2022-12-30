@@ -1,6 +1,6 @@
 <script setup>
 const { data: blogPostList } = useAsyncData('blogPostList', () => {
-  return queryContent('/blog').sort({ date: -1 }).find()
+  return queryContent('/blog').sort({ date: 1 }).find()
 })
 
 </script>
