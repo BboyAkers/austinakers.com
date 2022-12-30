@@ -3,9 +3,10 @@ title: "What is Tree Shaking"
 subtitle: "Vuetify Beginner's Guide Series:"
 description: "A brief overview of treeshaking in JavaScript"
 tags: 
- - 'Vue 3'
+ - 'Beginners'
  - 'Vuetify'
- - 'TypeScript'
+ - 'Vue'
+ - 'JavaScript'
 date: 05302022
 ---
 
