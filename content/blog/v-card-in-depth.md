@@ -53,8 +53,31 @@ export const VCard = defineComponent({
 
 Jumping to line 92 we are able to see exactly where the VCard componnet is initiating rendering and 103 is where we start builing the components template.
 
+line 92
+```ts
+useRender(() => {
+// more code.....
+})
+```
+
+useRender:
+- Gets the current instance of the Node 
+	- Checks if it's called inside a "setup" function
+	- If it is, it returns the view model
+- It takes the valid view model and renders it as a Virtual DOM Node to be added to the tree. 
+
+line 103
+```ts
+return (
+<Tag>
+// more code...
+</Tag>
+)
+```
+
 <!-- Even the type for VCard is exported for use as well in line 197.
 
 ```ts
 export type VCard = InstanceType<typeof VCard>
 ``` -->
+
