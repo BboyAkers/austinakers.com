@@ -60,20 +60,26 @@ useRender(() => {
 })
 ```
 
-useRender:
+useRender():
 - Gets the current instance of the Node 
 	- Checks if it's called inside a "setup" function
 	- If it is, it returns the view model
-- It takes the valid view model and renders it as a Virtual DOM Node to be added to the tree. 
+- It takes the valid view model and uses 'vue 3' `.render`  function to return the valid vue model as a Virtual DOM tree to be added to our applications VDOM Tree. 
 
 line 103
 ```ts
 return (
-<Tag>
-// more code...
-</Tag>
+// building our component....
 )
 ```
+
+### Parts of the Component.
+
+The component can be broken down into several parts:
+ - Shell: Where we see the `<Tag></Tag>` component encapsulating the innards of V-Card
+ - Layout: The parts of the components that render conditially based upon the variables with the prefix "has" and slots (ex. hasImage, hasText, slots.action, slots.image, ect.)
+ - Props/Options: The attributes/props section is where the default options are declared to interact/modify the V-Card Component. ex.(onClick, title, subtitle, actions, ect.)
+ - Classes: Where the component inherits both V-Card specific CSS classes and globally configured classes. 
 
 <!-- Even the type for VCard is exported for use as well in line 197.
 
