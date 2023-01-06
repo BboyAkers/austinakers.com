@@ -79,7 +79,13 @@ The component can be broken down into several parts:
  - Shell: Where we see the `<Tag></Tag>` component encapsulating the innards of V-Card
  - Layout: The parts of the components that render conditially based upon the variables with the prefix "has" and slots (ex. hasImage, hasText, slots.action, slots.image, ect.)
  - Props/Options: The attributes/props section is where the default options are declared to interact/modify the V-Card Component. ex.(onClick, title, subtitle, actions, ect.)
- - Classes: Where the component inherits both V-Card specific CSS classes and globally configured classes. 
+ - Classes: Where the component inherits both V-Card specific CSS classes and globally configured classes.
+
+ #### Shell
+
+ Inside the return statement on line 104 we see `<Tag>`. What exactly is this "Tag" component? The <Tag> component is essentially an agnostic component that inherits the name of the defined component's name property.
+ (Fact check. Looks likes it's essentially a div by default.)
+
 
 <!-- Even the type for VCard is exported for use as well in line 197.
 
