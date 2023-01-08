@@ -84,7 +84,35 @@ The component can be broken down into several parts:
  #### Shell
 
  Inside the return statement on line 104 we see `<Tag>`. What exactly is this "Tag" component? The <Tag> component is essentially an agnostic component that inherits the name of the defined component's name property.
- (Fact check. Looks likes it's essentially a div by default.)
+ (Fact check. Looks likes it's a div by default.)
+
+o
+### Layout
+
+Inside the shell the layout is defined. There are a multitude of ternary statements determining what to render. An example of this is on line 133:
+
+```ts
+{ hasImage && (
+    <VDefaultsProvider
+      key="image"
+      defaults={{
+        VImg: {
+          cover: true,
+          src: props.image,
+        },
+      }}
+    >
+      <div class="v-card__image">
+        { slots.image?.() ?? <VImg /> }
+      </div>
+    </VDefaultsProvider>
+  ) 
+}
+```
+This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image styling`.
+
+
+
 
 
 <!-- Even the type for VCard is exported for use as well in line 197.
