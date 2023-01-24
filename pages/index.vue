@@ -32,7 +32,7 @@ useHead({
               GitHub
             </a>
             <a
-              href="https://timeline.austinakers.com/"
+              href="https://www.polywork.com/austinakers"
               target="_blank"
               class="px-8 py-3 mx-1 mt-4 md:mt-0 rounded font-medium bg-green-light text-white hover:bg-green-dark inline-block"
             >
