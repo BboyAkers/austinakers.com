@@ -1,7 +1,7 @@
 ---
 title: "What is a CLI"
 subtitle: "Vuetify Beginner's Guide Series:"
-description: "Introdution to a Command Line Interface"
+description: "Introduction to a Command Line Interface"
 tags: 
   - 'Vue3'
   - 'Vuetify'
