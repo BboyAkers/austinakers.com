@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/content'
   ],
+  plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
   content: {
     highlight: {
       theme: 'github-light'
