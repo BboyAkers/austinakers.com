@@ -1,5 +1,5 @@
 ---
-title: "V-Card In Depth"
+title: "[Draft] V-Card In Depth"
 subtitle: "Framework Breakdown:"
 description: "Diving into the innards of Vuetify"
 tags: 
@@ -7,7 +7,7 @@ tags:
  - 'Vuetify'
  - 'Vue'
  - 'JavaScript'
-date: 12302022
+date: 03082023=
 ---
 
 ## Introduction
@@ -28,7 +28,7 @@ Diving into the Vuetify Component Library can be overwhelming. I decided to brea
 Diving into the codebase, I found the V-Card component in: `vuetify>packages>vuetify>src>components>VCard`
 ![Vuetify V-Card Directory Image](https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/66f9c179-62d7-4ab0-c64e-5a46fb0d8500/public)
 
-The first thing I noticed was the `VCard.tsx` file. This is the main file orchestrating the composition and use of other components within the same directory. Inside the VCard.tsx file we see exactly that.
+The first thing I noticed was the `VCard.tsx` file. This is the main file orchestrating the composition and use of other components within the same directory. Inside the `VCard.tsx` file we see the various components being imported and used throughout the file.
 
 ```ts
 // Components
@@ -40,9 +40,17 @@ import { VImg } from '@/components/VImg'
 
 ```
 
-We see the various components imported and used throughout this file to create the V-Card component.
+If we jump to line 50 & 51 we'll see exactly where `VCard` is defined as a component and exported for use.
 
-If we jump to line 35-36 we'll see exactly where VCard is defined as a component and exported for use.
+```ts
+export const VCard = genericComponent<VCardSlots>()({
+  name: 'VCard',
+  // more code....
+})
+```
+
+Why use this instad of the standard [defineComponent](https://vuejs.org/api/general.html#definecomponent) as typically used in Vue applicaitons?
+example below:
 
 ```ts
 export const VCard = defineComponent({
@@ -51,7 +59,10 @@ export const VCard = defineComponent({
 })
 ```
 
-Jumping to line 92 we are able to see exactly where the VCard componnet is initiating rendering and 103 is where we start builing the components template.
+TLDR: `genericComponent` essentially for the use of generic props and slots when defining components.
+[view here](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/util/defineComponent.tsx#L180) for more details.
+
+Jumping to [line 110](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L110) we are able to see exactly where the VCard componnet is initiating rendering and [line 121](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L121) is where we start builing the components template.
 
 line 92
 ```ts
@@ -60,11 +71,11 @@ useRender(() => {
 })
 ```
 
-useRender():
+`useRender` is a custom rendering function that essentially does the following:
 - Gets the current instance of the Node 
 	- Checks if it's called inside a "setup" function
 	- If it is, it returns the view model
-- It takes the valid view model and uses 'vue 3' `.render`  function to return the valid vue model as a Virtual DOM tree to be added to our applications VDOM Tree. 
+- It takes the valid view model and uses 'vue 3' `.render`  function to return the valid vue model as a Virtual DOM tree to be added to our applications VDOM Tree.
 
 line 103
 ```ts
@@ -83,13 +94,11 @@ The component can be broken down into several parts:
 
  #### Shell
 
- Inside the return statement on line 104 we see `<Tag>`. What exactly is this "Tag" component? The <Tag> component is essentially an agnostic component that inherits the name of the defined component's name property.
+ Inside the return statement on [line 122](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L122) we see `<Tag>`. What exactly is this "Tag" component? The <Tag> component is essentially an agnostic component that inherits the name of the defined component's name property.
  (Fact check. Looks likes it's a div by default.)
-
-o
 ### Layout
 
-Inside the shell the layout is defined. There are a multitude of ternary statements determining what to render. An example of this is on line 133:
+Inside the shell the layout is defined. There are a multitude of ternary statements determining what to render. An example of this is on [line 151](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L1513):
 
 ```ts
 { hasImage && (
@@ -109,10 +118,8 @@ Inside the shell the layout is defined. There are a multitude of ternary stateme
   ) 
 }
 ```
-This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image styling`.
 
-
-
+This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image_styling`.
 
 
 <!-- Even the type for VCard is exported for use as well in line 197.
@@ -121,3 +128,4 @@ This statement is determining if there's an image and if there is the `<V-Img />
 export type VCard = InstanceType<typeof VCard>
 ``` -->
 
+to be continued.........
