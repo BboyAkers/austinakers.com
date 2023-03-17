@@ -12,18 +12,38 @@ date: 03082023=
 
 ## Introduction
 
-As someone who loves Vuetify and formally an active contributor. I wanted to dive back in and see all the amazing changes the made in this newest version over the past year. My first thought was to dive into one of my long time favorite and most used component **[V-Card](https://github.com/vuetifyjs/vuetify/blob/next/packages/vuetify/src/components/VCard/VCard.tsx)**.
+As someone who loves Vuetify and formally a contributor. I wanted to dive back in and see all the amazing changes the made in this newest version over the past years. My first thought was to dive into one of my long time favorite and most used component **[V-Card](https://github.com/vuetifyjs/vuetify/blob/next/packages/vuetify/src/components/VCard/VCard.tsx)**.
 
 ## Overview
 
 Diving into the Vuetify Component Library can be overwhelming. I decided to break down the V-Card component into a 4 areas I wanted to explore.
 
-1. How is it created?
-2. How does it get exported for use?
-3. How am I able to use the props/attributes availiable within this component?
+1. How does it get exported for use?
+2. How is the component created?
+3. How am I able to use the props/attributes availiable in this component?
 4. How is it possible to declare this component in 3 different ways?
 
-### How Is It Created?
+
+## How does it get exported for use?
+
+When we install Vuetify into our application we are able to import the V-Card like this:
+```ts
+import { VCard } from 'vueitfy';
+```
+
+A line many of us are familiar with. How does this work and where do all of the exports for other components? The flow of exporting the card component is as follows:
+
+<img src="https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/ae7eebc1-8f0c-4a60-333e-7e90d8555d00/public" />
+
+Once the component is exported to the `index.ts` of the `/components` folder. Vuetify runs a build script (`yarn build`) to package it. This is where the magic happens. The build script uses [rollup](https://rollupjs.org/guide/en/) to bundle the component and other parts of vuetify into a single folder for distribution. This `dist` folder is what we use/refrence when we import Vuetify into our application.
+
+<img src="https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/a10baf86-0213-40a7-41f8-bb6f643b2f00/public" />
+
+(Results of `yarn build`)
+
+This is how Vuetify we go from a component being defined in the Vuetify codebase to being packages and exposed to us for use in our application.
+
+## How Is It Created?
 
 Diving into the codebase, I found the V-Card component in: `vuetify>packages>vuetify>src>components>VCard`
 ![Vuetify V-Card Directory Image](https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/66f9c179-62d7-4ab0-c64e-5a46fb0d8500/public)
@@ -64,7 +84,7 @@ TLDR: `genericComponent` essentially for the use of generic props and slots when
 
 Jumping to [line 110](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L110) we are able to see exactly where the VCard componnet is initiating rendering and [line 121](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L121) is where we start builing the components template.
 
-line 92
+line 110
 ```ts
 useRender(() => {
 // more code.....
@@ -77,14 +97,14 @@ useRender(() => {
 	- If it is, it returns the view model
 - It takes the valid view model and uses 'vue 3' `.render`  function to return the valid vue model as a Virtual DOM tree to be added to our applications VDOM Tree.
 
-line 103
+line 121
 ```ts
 return (
 // building our component....
 )
 ```
 
-### Parts of the Component.
+## Parts of the Component.
 
 The component can be broken down into several parts:
  - Shell: Where we see the `<Tag></Tag>` component encapsulating the innards of V-Card
@@ -119,7 +139,7 @@ Inside the shell the layout is defined. There are a multitude of ternary stateme
 }
 ```
 
-This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image_styling`.
+This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image` styling.
 
 
 <!-- Even the type for VCard is exported for use as well in line 197.
