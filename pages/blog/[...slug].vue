@@ -50,6 +50,10 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
   @apply list-disc pl-6 md:pl-8 text-xl;
 }
 
+.content-doc ol {
+  @apply list-decimal pl-6 md:pl-8 text-xl;
+}
+
 .content-doc li a {
   @apply text-blue-600 hover:underline visited:text-purple-600;
 }
