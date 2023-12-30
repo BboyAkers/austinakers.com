@@ -2,7 +2,7 @@
 useHead({
   title: 'Austin Akers',
   meta: [
-    { name: 'Frontend Engineer, Cellist, Muay Thai Fighter, and Author.'}
+    { name: 'Senior Frontend Engineer, Dancer Cellist, Muay Thai Fighter, and Author.'}
   ],
 })
 </script>
@@ -13,8 +13,8 @@ useHead({
         <div>
           <Logo class="logoList-animation" />
           <h1 class="block pt-4 text-5xl md:text-8xl font-light text-white tracking-wide title-animation">Austin Akers</h1>
-          <h2 class="text-3xl md:text-4xl font-light py-4 text-white [word-spacing:0.25rem] subtitle-animation">
-            UI Engineer | Cellist | Dancer | Author
+          <h2 class="text-3xl md:text-4xl font-light py-4 text-white [word-spacing:0.25rem] subtitle-animation hover:no-underline">
+            Senior Software Engineer | Cellist | Dancer | Author
           </h2>
           <div class="pt-4 md:pt-8">
             <a
