@@ -29,7 +29,7 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
   </main>
 </template>
 
-<style>
+<style scoped>
 .content-doc h2 {
   @apply text-2xl py-4;
 }
