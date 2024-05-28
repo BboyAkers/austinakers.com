@@ -16,6 +16,9 @@ export default {
         green: {
           light: '#54b4a4',
           dark: '#4ca193'
+        },
+        white: {
+          DEFAULT: '#f8f8ff'
         }
       },
       minHeight: {

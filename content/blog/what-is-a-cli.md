@@ -12,6 +12,7 @@ date: 05112020
 <a href="https://dev.to/bboyakers/what-is-a-cli-53a6" target="_blank" class="text-blue-600 hover:underline visited:text-purple-600">Dev.to Original Article</a>
 
 ## What is a CLI?
+
 <img src="https://dev-to-uploads.s3.amazonaws.com/i/rk2z3duexrmf05utoydr.PNG" alt="Image of blank Terminal" width="400px"/>
 A CLI or **Command Line Interface** is an in interface that accepts text input to execute operating system functions. As a software developer we use CLI's all the time. What exactly does a CLI look like? Open your terminal on Mac or command prompt (powershell works too) if you are on Windows. As a developer we use the terminal and/or command prompt to:
 - install packages

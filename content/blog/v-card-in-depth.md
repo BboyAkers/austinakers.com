@@ -1,5 +1,5 @@
 ---
-title: "[Draft] V-Card In Depth"
+title: "V-Card In Depth"
 subtitle: "Framework Breakdown:"
 description: "Diving into the innards of Vuetify"
 tags: 
@@ -27,6 +27,7 @@ Diving into the Vuetify Component Library can be overwhelming. I decided to brea
 ## How does it get exported for use?
 
 When we install Vuetify into our application we are able to import the V-Card like this:
+
 ```ts
 import { VCard } from 'vueitfy';
 ```
@@ -45,7 +46,7 @@ This is how Vuetify we go from a component being defined in the Vuetify codebase
 
 ## How Is It Created?
 
-Diving into the codebase, I found the V-Card component in: `vuetify>packages>vuetify>src>components>VCard`
+Diving into the codebase, I found the V-Card component in: `vuetify>src>components>VCard`
 ![Vuetify V-Card Directory Image](https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/66f9c179-62d7-4ab0-c64e-5a46fb0d8500/public)
 
 The first thing I noticed was the `VCard.tsx` file. This is the main file orchestrating the composition and use of other components within the same directory. Inside the `VCard.tsx` file we see the various components being imported and used throughout the file.
@@ -114,7 +115,7 @@ The component can be broken down into several parts:
 
  #### Shell
 
- Inside the return statement on [line 122](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L122) we see `<Tag>`. What exactly is this "Tag" component? The <Tag> component is essentially an agnostic component that inherits the name of the defined component's name property.
+ Inside the return statement on [line 122](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L122) we see `<Tag>`. What exactly is this "Tag" component? The `<Tag>` component is essentially an agnostic component that inherits the name of the defined component's name property.
  (Fact check. Looks likes it's a div by default.)
 ### Layout
 
@@ -139,7 +140,7 @@ Inside the shell the layout is defined. There are a multitude of ternary stateme
 }
 ```
 
-This statement is determining if there's an image and if there is the `<V-Img />` tag is rendered inside the div with `v-card__image` styling.
+This statement is determining if there's an image if there is we render it! tag is rendered inside the div with `v-card__image` styling.
 
 
 <!-- Even the type for VCard is exported for use as well in line 197.

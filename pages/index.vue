@@ -52,7 +52,7 @@ useHead({
 <style scoped>
 
 .bg-gradient-cover {
-  background: linear-gradient(#388cfa, #388cfa);
+  background: linear-gradient(#004ca3, #004ca3);
   clip-path: polygon(0 0, 100% 0, 100% 70vh, 0 100%);
 }
 .title-animation {
