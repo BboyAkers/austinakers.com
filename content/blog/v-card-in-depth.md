@@ -16,12 +16,11 @@ As someone who loves Vuetify and formally a contributor. I wanted to dive back i
 
 ## Overview
 
-Diving into the Vuetify Component Library can be overwhelming. I decided to break down the V-Card component into a 4 areas I wanted to explore.
+Diving into the Vuetify Component Library can be overwhelming. I decided to break down the V-Card component into a 3 areas I wanted to explore.
 
 1. How does it get exported for use?
 2. How is the component created?
 3. How am I able to use the props/attributes available in this component?
-4. How is it possible to declare this component in 3 different ways?
 
 
 ## How does it get exported for use?
@@ -166,7 +165,6 @@ Next we go inside our base of the `VCard` component which is `<Tag />` and check
 1. `'v-card--flat': props.flat,` - we apply the `'v-card--flat` class to our card component if `props.flat` is `true`
 2. `'v-card--hover': props.hover && !(props.disabled || props.flat),` - we apply the `'v-card--hover'` class to our card component if `props.hover` is true AND we don't have our disabled prop or flat prop true. Since we do have a **flat** prop the `'v-card--hover'` class isn't applied.
 
-With this we went from `<v-card flat />` to checking if that prop exists. If it does exist we want to do a certain thing within our Vuetify component. Very similar to how props are used building out component in vue or any other web component framework.
+With this we went from `<v-card flat />` to checking if that prop exists. If it does exist we want to do a certain thing within our Vuetify component. Very similar to how props are used building out component in vue or any other web component framework. Not too bad right? 🙂
 
-
-to be continued.........
+Overall the `VCard` component along with many others in Vuetify are not as scary to look into once a foothole is found. The general paradigms we see are quite similar to how many people would build vue components. Outside of custom components such as `<Tag />` the pattern that's most prevalent and heavily emphasized in this library emphasis is **composability**. When looking further into the component you'll see many imported composables used to make the `VCard` component what it is.
