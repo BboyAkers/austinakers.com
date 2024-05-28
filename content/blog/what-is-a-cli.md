@@ -7,6 +7,7 @@ tags:
   - 'Vuetify'
   - 'TypeScript'
 date: 05112020
+id: 4
 ---
 
 <a href="https://dev.to/bboyakers/what-is-a-cli-53a6" target="_blank" class="text-blue-600 hover:underline visited:text-purple-600">Dev.to Original Article</a>

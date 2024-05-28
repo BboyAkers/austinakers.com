@@ -7,7 +7,8 @@ tags:
  - 'Vuetify'
  - 'Vue'
  - 'JavaScript'
-date: 03082023=
+date: 03082023
+id: 5
 ---
 
 ## Introduction
