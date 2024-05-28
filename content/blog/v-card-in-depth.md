@@ -167,4 +167,6 @@ Next we go inside our base of the `VCard` component which is `<Tag />` and check
 
 With this we went from `<v-card flat />` to checking if that prop exists. If it does exist we want to do a certain thing within our Vuetify component. Very similar to how props are used building out component in vue or any other web component framework. Not too bad right? 🙂
 
-Overall the `VCard` component along with many others in Vuetify are not as scary to look into once a foothole is found. The general paradigms we see are quite similar to how many people would build vue components. Outside of custom components such as `<Tag />` the pattern that's most prevalent and heavily emphasized in this library emphasis is **composability**. When looking further into the component you'll see many imported composables used to make the `VCard` component what it is. Hopefully this helps and you feel more comfortable diving into the internals of Vuetify! 😃
+Overall the `VCard` component along with many others in Vuetify are not as scary to look into once a foothole is found. The general paradigms we see are quite similar to how many people would build vue components. 
+
+Outside of custom components such as `<Tag />` the pattern that's most prevalent and heavily emphasized in this library emphasis is **composability**. When looking further into the component you'll see many imported composables used to make the `VCard` component what it is. Hopefully this helps and you feel more comfortable diving into the internals of Vuetify! 😃
