@@ -1,5 +1,5 @@
 ---
-title: "Build A Web Component From Scratch"
+title: "[Draft] Build A Web Component From Scratch"
 subtitle: "Familiarize yourself with web components"
 description: "Understanding how web components work by example"
 tags: 
