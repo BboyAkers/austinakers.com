@@ -20,7 +20,7 @@ Diving into the Vuetify Component Library can be overwhelming. I decided to brea
 
 1. How does it get exported for use?
 2. How is the component created?
-3. How am I able to use the props/attributes availiable in this component?
+3. How am I able to use the props/attributes available in this component?
 4. How is it possible to declare this component in 3 different ways?
 
 
@@ -117,6 +117,7 @@ The component can be broken down into several parts:
 
  Inside the return statement on [line 122](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L122) we see `<Tag>`. What exactly is this "Tag" component? The `<Tag>` component is essentially an agnostic component that inherits the name of the defined component's name property.
  (Fact check. Looks likes it's a div by default.)
+ 
 ### Layout
 
 Inside the shell the layout is defined. There are a multitude of ternary statements determining what to render. An example of this is on [line 151](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L1513):
@@ -140,13 +141,32 @@ Inside the shell the layout is defined. There are a multitude of ternary stateme
 }
 ```
 
-This statement is determining if there's an image if there is we render it! tag is rendered inside the div with `v-card__image` styling.
+This statement is determining if there's an image if there is we render it! tag is rendered inside the div with `v-card__image` styling. Throughout the rest of the card component we have a very similar pattern for card item, text, actions, ect. This is great because it allows for a clean/modular way to identify and render parts of the component. If we wanted to add our own custom part we'd follow the exact pattern.
 
+## How am I able to use the props & attributes in this component?
 
-<!-- Even the type for VCard is exported for use as well in line 197.
+Using props and attributes in the card component is quite straight forward. Let's look at the **flat** prop. In the `<VCard />` component we use the prop **flat** to remove the card shadow and border.
+Example:
+`<v-card flat />`
 
-```ts
-export type VCard = InstanceType<typeof VCard>
-``` -->
+Inside the `VCard` component we accept a boolean prop called **flat** [line 59](https://github.com/vuetifyjs/vuetify/blob/f00e0017f0779faba82e739178a92078fd986967/packages/vuetify/src/components/VCard/VCard.tsx#L59).
+
+```tsx
+props: {
+    appendAvatar: String,
+    appendIcon: IconValue,
+    disabled: Boolean,
+    flat: Boolean, // here
+    hover: Boolean,
+    image: String,
+    // more code.....
+```
+
+Next we go inside our base of the `VCard` component which is `<Tag />` and check two conditions
+1. `'v-card--flat': props.flat,` - we apply the `'v-card--flat` class to our card component if `props.flat` is `true`
+2. `'v-card--hover': props.hover && !(props.disabled || props.flat),` - we apply the `'v-card--hover'` class to our card component if `props.hover` is true AND we don't have our disabled prop or flat prop true. Since we do have a **flat** prop the `'v-card--hover'` class isn't applied.
+
+With this we went from `<v-card flat />` to checking if that prop exists. If it does exist we want to do a certain thing within our Vuetify component. Very similar to how props are used building out component in vue or any other web component framework.
+
 
 to be continued.........
