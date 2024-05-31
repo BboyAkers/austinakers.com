@@ -8,7 +8,7 @@ useHead({
 </script>
 <template>
   <main>
-  <div class="relative top bg-cover bg-gradient-cover">
+    <div class="relative top bg-cover bg-gradient-cover-left">
       <div class="p-5 md:p-0 flex min-h-9/10 mx-auto justify-center items-center text-center">
         <div>
           <Logo class="logoList-animation" />
@@ -43,17 +43,56 @@ useHead({
       </div>
     </div>
     <section>
+      <h2 class="text-4xl text-white pl-10 underline underline-offset-4">Articles:</h2>
       <BlogPostList />
     </section>
-    </main>
+    <section>
+      <div class="text-white pl-10 py-4">
+        <h2 class="text-4xl text-white underline underline-offset-4 pb-4">Some Fun Stuff:</h2>
+        <ul class="text-xl py-4 [&>li]:pb-2">
+          <li>Evry Health - 
+            <a href="https://evryhealth.com/" target="_blank" class="underline">link</a>
+          </li>
+          <li>MetaMask Documentation (contributor) - 
+            <a href="https://docs.metamask.io/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/MetaMask/metamask-docs" target="_blank" class="underline">code</a>
+          </li>
+          <li>Password Generator - 
+            <a href="https://passwordgenerator.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/password-generator" target="_blank" class="underline">code</a>
+          </li>
+          <li>Card Details - 
+            <a href="https://carddetails.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/credit-card-details-form" target="_blank" class="underline">code</a>
+          </li>
+          <li>Github User Search - 
+            <a href="https://githubsearch.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/GithubUserSearch" target="_blank" class="underline">code</a>
+          </li>
+          <li>Solar System - 
+            <a href="https://solarsystem.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/Solar-System" target="_blank" class="underline">code</a>
+          </li>
+          <li>Sign Up Form - 
+            <a href="https://signupform.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/sign-up-form" target="_blank" class="underline">code</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
 </template>
 
 
 <style scoped>
 
-.bg-gradient-cover {
+.bg-gradient-cover-left {
   background: linear-gradient(#004ca3, #004ca3);
   clip-path: polygon(0 0, 100% 0, 100% 70vh, 0 100%);
+}
+.bg-gradient-cover-right {
+  background: linear-gradient(#004ca3, #004ca3);
+  clip-path: polygon(0 0, 100% 0, 100% 100% , 0 70vh);
 }
 .title-animation {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
