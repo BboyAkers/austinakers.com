@@ -77,6 +77,10 @@ useHead({
             <a href="https://signupform.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
             <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/sign-up-form" target="_blank" class="underline">code</a>
           </li>
+          <li>Skilled E-Learning Landing Page - 
+            <a href="https://skilledpage.austinakers.com/" target="_blank" class="pr-2 underline">link</a> 
+            <a href="https://github.com/BboyAkers/JavaScript_Projects/tree/master/skilled-elearning-landing-page" target="_blank" class="underline">code</a>
+          </li>
         </ul>
       </div>
     </section>
