@@ -1,0 +1,11 @@
+type BlogPost @table @export {
+  id: ID @primaryKey
+  slug: String @indexed
+  title: String
+  date: String
+  category: String
+  tags: [String]
+  readTime: String
+  excerpt: String
+  content: String
+}
