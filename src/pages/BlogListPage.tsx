@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { PostCard } from '../components/PostCard';
 import type { BlogPost } from '../types';
-import { accent } from '../theme';
 
 interface BlogListPageProps {
   posts: BlogPost[];
@@ -11,39 +10,37 @@ export function BlogListPage({ posts }: BlogListPageProps) {
   const categories = ['All', ...Array.from(new Set(posts.map(p => p.category)))];
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filtered = activeCategory === 'All'
-    ? posts
-    : posts.filter(p => p.category === activeCategory);
+  const filtered =
+    activeCategory === 'All' ? posts : posts.filter(p => p.category === activeCategory);
 
   return (
-    <main style={{ paddingTop: 64 }}>
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 32px 48px' }}>
-        <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent, marginBottom: 20 }}>
-          <span style={{ color: '#3f4752' }}>// </span>WRITING
+    <main className="pt-16">
+      <section className="max-w-[1100px] mx-auto px-8 pt-20 pb-12">
+        <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent mb-5">
+          <span className="text-fg-4">// </span>WRITING
         </div>
-        <h1 style={{ fontFamily: "'Ubuntu', sans-serif", fontWeight: 700, fontSize: 52, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.025em', margin: '0 0 16px' }}>
+        <h1 className="font-sans font-bold text-[52px] text-white leading-[1.05] tracking-[-0.025em] m-0 mb-4">
           Everything I've written.
         </h1>
-        <p style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 17, color: '#6b7380', lineHeight: 1.6, margin: 0, maxWidth: 480 }}>
-          JavaScript, the web platform, developer tooling, and occasionally whatever I'm thinking about.
+        <p className="font-sans text-[17px] text-fg-3 leading-[1.6] m-0 max-w-[480px]">
+          JavaScript, the web platform, developer tooling, and occasionally whatever I'm thinking
+          about.
         </p>
       </section>
 
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px 40px' }}>
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      <section className="max-w-[1100px] mx-auto px-8 pb-10">
+        <div className="flex gap-2 flex-wrap">
           {categories.map(cat => {
             const isActive = cat === activeCategory;
             return (
-              <button key={cat} onClick={() => setActiveCategory(cat)} style={{
-                fontFamily: "'Fira Code', monospace", fontSize: 12,
-                color: isActive ? accent : '#6b7380',
-                background: isActive ? 'rgba(45,212,160,0.08)' : 'transparent',
-                border: `1px solid ${isActive ? `${accent}50` : 'rgba(255,255,255,0.08)'}`,
-                borderRadius: 999, padding: '6px 16px',
-                cursor: 'pointer', transition: 'all 120ms',
-              }}
-              onMouseEnter={e => { if (!isActive) { e.currentTarget.style.color = '#a7b0bc'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)'; }}}
-              onMouseLeave={e => { if (!isActive) { e.currentTarget.style.color = '#6b7380'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}}
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`font-mono text-[12px] rounded-full py-[6px] px-4 cursor-pointer transition-all duration-[120ms] ${
+                  isActive
+                    ? 'text-accent bg-accent/[0.08] border border-accent/[0.31]'
+                    : 'text-fg-3 bg-transparent border border-white/[0.08] hover:text-fg-2 hover:border-white/[0.16]'
+                }`}
               >
                 {cat}
               </button>
@@ -52,20 +49,20 @@ export function BlogListPage({ posts }: BlogListPageProps) {
         </div>
       </section>
 
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <section className="max-w-[1100px] mx-auto px-8">
+        <div className="flex flex-col gap-2">
           {filtered.map(post => (
             <PostCard key={post.id} post={post} layout="list" />
           ))}
         </div>
         {filtered.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '80px 0', fontFamily: "'Fira Code', monospace", fontSize: 13, color: '#3f4752' }}>
+          <div className="text-center py-20 font-mono text-[13px] text-fg-4">
             // No posts in this category yet
           </div>
         )}
       </section>
 
-      <div style={{ height: 120 }} />
+      <div className="h-[120px]" />
     </main>
   );
 }

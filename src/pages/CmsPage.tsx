@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { savePost, deletePost } from '../api/blog';
 import type { BlogPost } from '../types';
-import { accent } from '../theme';
 
 interface PostForm {
   id: string;
@@ -37,28 +36,11 @@ const EMPTY_FORM: PostForm = {
   content: '',
 };
 
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: "'Fira Code', monospace",
-  fontSize: 11,
-  color: '#6b7380',
-  marginBottom: 6,
-  letterSpacing: '0.04em',
-};
+const labelCls =
+  'block font-mono text-[11px] text-fg-3 mb-[6px] tracking-[0.04em]';
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: '#0d1117',
-  border: '1px solid rgba(255,255,255,0.09)',
-  borderRadius: 6,
-  color: '#e6edf3',
-  fontFamily: "'Ubuntu', sans-serif",
-  fontSize: 14,
-  padding: '9px 12px',
-  outline: 'none',
-  boxSizing: 'border-box',
-  transition: 'border-color 150ms',
-};
+const inputCls =
+  'w-full bg-[#0d1117] border border-white/[0.09] rounded-[6px] text-fg-1 font-sans text-sm py-[9px] px-3 outline-none transition-[border-color] duration-150 focus:border-accent';
 
 export function CmsPage({ posts, onRefresh }: CmsPageProps) {
   const [mode, setMode] = useState<Mode>('list');
@@ -93,7 +75,7 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
   };
 
   const handleChange = (key: keyof PostForm, value: string) => {
-    setForm((prev) => {
+    setForm(prev => {
       const next = { ...prev, [key]: value };
       if (key === 'title' && !editingId) next.slug = slugify(value);
       return next;
@@ -108,7 +90,7 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
     try {
       const post: BlogPost = {
         ...form,
-        tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
+        tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
       };
       await savePost(form.id, post);
       onRefresh();
@@ -131,23 +113,21 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
   };
 
   return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 32px 80px' }}>
-      {/* ── Header ── */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 }}>
+    <div className="max-w-[1100px] mx-auto px-8 pt-[100px] pb-20">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-10">
         <div>
           {mode === 'form' ? (
             <button
               onClick={() => setMode('list')}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#a7b0bc', fontFamily: "'Ubuntu', sans-serif", fontSize: 14, padding: 0, display: 'flex', alignItems: 'center', gap: 6 }}
+              className="bg-transparent border-none cursor-pointer text-fg-2 font-sans text-sm p-0 flex items-center gap-[6px]"
             >
               ← posts
             </button>
           ) : (
             <>
-              <h1 style={{ fontFamily: "'Ubuntu', sans-serif", fontWeight: 700, fontSize: 28, color: '#fff', margin: 0 }}>
-                Blog CMS
-              </h1>
-              <p style={{ fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380', margin: '6px 0 0' }}>
+              <h1 className="font-sans font-bold text-[28px] text-white m-0">Blog CMS</h1>
+              <p className="font-mono text-[12px] text-fg-3 mt-[6px] m-0">
                 // {posts.length} post{posts.length !== 1 ? 's' : ''}
               </p>
             </>
@@ -157,22 +137,22 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
         {mode === 'list' ? (
           <button
             onClick={openNew}
-            style={{ background: accent, color: '#07090c', fontFamily: "'Ubuntu', sans-serif", fontWeight: 600, fontSize: 14, border: 'none', borderRadius: 6, padding: '9px 20px', cursor: 'pointer' }}
+            className="bg-accent text-bg-0 font-sans font-semibold text-sm border-none rounded-md py-[9px] px-5 cursor-pointer"
           >
             + New Post
           </button>
         ) : (
-          <div style={{ display: 'flex', gap: 10 }}>
+          <div className="flex gap-[10px]">
             <button
               onClick={() => setMode('list')}
-              style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#a7b0bc', fontFamily: "'Ubuntu', sans-serif", fontSize: 14, padding: '8px 16px', cursor: 'pointer' }}
+              className="bg-transparent border border-white/10 rounded-md text-fg-2 font-sans text-sm py-2 px-4 cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              style={{ background: accent, color: '#07090c', fontFamily: "'Ubuntu', sans-serif", fontWeight: 600, fontSize: 14, border: 'none', borderRadius: 6, padding: '9px 20px', cursor: 'pointer', opacity: saving ? 0.65 : 1 }}
+              className="bg-accent text-bg-0 font-sans font-semibold text-sm border-none rounded-md py-[9px] px-[22px] cursor-pointer disabled:opacity-65"
             >
               {saving ? 'Saving…' : editingId ? 'Save Changes' : 'Create Post'}
             </button>
@@ -180,26 +160,29 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
         )}
       </div>
 
-      {/* ── Error banner ── */}
+      {/* Error banner */}
       {error && (
-        <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 6, padding: '12px 16px', color: '#f87171', fontFamily: "'Ubuntu', sans-serif", fontSize: 14, marginBottom: 28 }}>
+        <div className="bg-red-500/10 border border-red-500/25 rounded-md py-3 px-4 text-red-400 font-sans text-sm mb-7">
           {error}
         </div>
       )}
 
-      {/* ── List ── */}
+      {/* List */}
       {mode === 'list' && (
-        <div style={{ border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, overflow: 'hidden' }}>
+        <div className="border border-white/[0.06] rounded-[10px] overflow-hidden">
           {posts.length === 0 ? (
-            <div style={{ padding: 56, textAlign: 'center', fontFamily: "'Fira Code', monospace", fontSize: 13, color: '#3f4752' }}>
+            <div className="py-14 text-center font-mono text-[13px] text-fg-4">
               // no posts yet — create one above
             </div>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <table className="w-full border-collapse">
               <thead>
-                <tr style={{ background: '#0d1117', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                  {['Title', 'Category', 'Date', 'Read Time', ''].map((h) => (
-                    <th key={h} style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: '#6b7380', fontWeight: 400, padding: '12px 20px', textAlign: 'left', letterSpacing: '0.04em' }}>
+                <tr className="bg-[#0d1117] border-b border-white/[0.06]">
+                  {['Title', 'Category', 'Date', 'Read Time', ''].map(h => (
+                    <th
+                      key={h}
+                      className="font-mono text-[11px] text-fg-3 font-normal py-3 px-5 text-left tracking-[0.04em]"
+                    >
                       {h}
                     </th>
                   ))}
@@ -209,27 +192,27 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
                 {posts.map((post, i) => (
                   <tr
                     key={post.id}
-                    style={{ borderBottom: i < posts.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none', transition: 'background 120ms' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                    className={`transition-[background] duration-[120ms] hover:bg-white/[0.02] ${
+                      i < posts.length - 1 ? 'border-b border-white/[0.04]' : ''
+                    }`}
                   >
-                    <td style={{ padding: '15px 20px', fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: '#e6edf3', fontWeight: 500 }}>
+                    <td className="py-[15px] px-5 font-sans text-sm text-fg-1 font-medium">
                       {post.title}
                     </td>
-                    <td style={{ padding: '15px 20px', fontFamily: "'Fira Code', monospace", fontSize: 12, color: accent }}>
+                    <td className="py-[15px] px-5 font-mono text-[12px] text-accent">
                       {post.category || '—'}
                     </td>
-                    <td style={{ padding: '15px 20px', fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380' }}>
+                    <td className="py-[15px] px-5 font-mono text-[12px] text-fg-3">
                       {post.date || '—'}
                     </td>
-                    <td style={{ padding: '15px 20px', fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380' }}>
+                    <td className="py-[15px] px-5 font-mono text-[12px] text-fg-3">
                       {post.readTime || '—'}
                     </td>
-                    <td style={{ padding: '15px 20px' }}>
-                      <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                    <td className="py-[15px] px-5">
+                      <div className="flex gap-2 justify-end">
                         <button
                           onClick={() => openEdit(post)}
-                          style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 5, color: '#a7b0bc', fontFamily: "'Ubuntu', sans-serif", fontSize: 13, padding: '5px 13px', cursor: 'pointer' }}
+                          className="bg-transparent border border-white/10 rounded-[5px] text-fg-2 font-sans text-[13px] py-[5px] px-[13px] cursor-pointer"
                         >
                           Edit
                         </button>
@@ -238,13 +221,13 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
                           <>
                             <button
                               onClick={() => handleDelete(post.id)}
-                              style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 5, color: '#f87171', fontFamily: "'Ubuntu', sans-serif", fontSize: 13, padding: '5px 13px', cursor: 'pointer' }}
+                              className="bg-red-500/15 border border-red-500/30 rounded-[5px] text-red-400 font-sans text-[13px] py-[5px] px-[13px] cursor-pointer"
                             >
                               Confirm delete
                             </button>
                             <button
                               onClick={() => setDeleteConfirm(null)}
-                              style={{ background: 'none', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 5, color: '#6b7380', fontFamily: "'Ubuntu', sans-serif", fontSize: 13, padding: '5px 13px', cursor: 'pointer' }}
+                              className="bg-transparent border border-white/[0.08] rounded-[5px] text-fg-3 font-sans text-[13px] py-[5px] px-[13px] cursor-pointer"
                             >
                               Cancel
                             </button>
@@ -252,7 +235,7 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
                         ) : (
                           <button
                             onClick={() => setDeleteConfirm(post.id)}
-                            style={{ background: 'none', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 5, color: '#f87171', fontFamily: "'Ubuntu', sans-serif", fontSize: 13, padding: '5px 13px', cursor: 'pointer' }}
+                            className="bg-transparent border border-red-500/20 rounded-[5px] text-red-400 font-sans text-[13px] py-[5px] px-[13px] cursor-pointer"
                           >
                             Delete
                           </button>
@@ -267,92 +250,100 @@ export function CmsPage({ posts, onRefresh }: CmsPageProps) {
         </div>
       )}
 
-      {/* ── Form ── */}
+      {/* Form */}
       {mode === 'form' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-          <div style={{ gridColumn: '1 / -1' }}>
-            <label style={labelStyle}>title</label>
-            <input style={inputStyle} value={form.title} placeholder="Post title"
-              onChange={(e) => handleChange('title', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+        <div className="grid grid-cols-2 gap-5">
+          <div className="col-span-2">
+            <label className={labelCls}>title</label>
+            <input
+              className={inputCls}
+              value={form.title}
+              placeholder="Post title"
+              onChange={e => handleChange('title', e.target.value)}
             />
           </div>
 
           <div>
-            <label style={labelStyle}>slug</label>
-            <input style={inputStyle} value={form.slug} placeholder="post-url-slug"
-              onChange={(e) => handleChange('slug', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+            <label className={labelCls}>slug</label>
+            <input
+              className={inputCls}
+              value={form.slug}
+              placeholder="post-url-slug"
+              onChange={e => handleChange('slug', e.target.value)}
             />
           </div>
 
           <div>
-            <label style={labelStyle}>date</label>
-            <input style={inputStyle} value={form.date} placeholder="Jan 1, 2025"
-              onChange={(e) => handleChange('date', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+            <label className={labelCls}>date</label>
+            <input
+              className={inputCls}
+              value={form.date}
+              placeholder="Jan 1, 2025"
+              onChange={e => handleChange('date', e.target.value)}
             />
           </div>
 
           <div>
-            <label style={labelStyle}>category</label>
-            <input style={inputStyle} value={form.category} placeholder="JavaScript"
-              onChange={(e) => handleChange('category', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+            <label className={labelCls}>category</label>
+            <input
+              className={inputCls}
+              value={form.category}
+              placeholder="JavaScript"
+              onChange={e => handleChange('category', e.target.value)}
             />
           </div>
 
           <div>
-            <label style={labelStyle}>read time</label>
-            <input style={inputStyle} value={form.readTime} placeholder="5 min read"
-              onChange={(e) => handleChange('readTime', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+            <label className={labelCls}>read time</label>
+            <input
+              className={inputCls}
+              value={form.readTime}
+              placeholder="5 min read"
+              onChange={e => handleChange('readTime', e.target.value)}
             />
           </div>
 
-          <div style={{ gridColumn: '1 / -1' }}>
-            <label style={labelStyle}>tags (comma-separated)</label>
-            <input style={inputStyle} value={form.tags} placeholder="React, JavaScript, Harper"
-              onChange={(e) => handleChange('tags', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+          <div className="col-span-2">
+            <label className={labelCls}>tags (comma-separated)</label>
+            <input
+              className={inputCls}
+              value={form.tags}
+              placeholder="React, JavaScript, Harper"
+              onChange={e => handleChange('tags', e.target.value)}
             />
           </div>
 
-          <div style={{ gridColumn: '1 / -1' }}>
-            <label style={labelStyle}>excerpt</label>
-            <textarea style={{ ...inputStyle, resize: 'vertical', minHeight: 80 }}
-              value={form.excerpt} placeholder="Brief description of the post…"
-              onChange={(e) => handleChange('excerpt', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
-            />
-          </div>
-
-          <div style={{ gridColumn: '1 / -1' }}>
-            <label style={labelStyle}>content (markdown)</label>
+          <div className="col-span-2">
+            <label className={labelCls}>excerpt</label>
             <textarea
-              style={{ ...inputStyle, resize: 'vertical', minHeight: 420, fontFamily: "'Fira Code', monospace", fontSize: 13, lineHeight: 1.65 }}
-              value={form.content} placeholder="Write your post in markdown…"
-              onChange={(e) => handleChange('content', e.target.value)}
-              onFocus={(e) => (e.currentTarget.style.borderColor = accent)}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)')}
+              className={`${inputCls} resize-y min-h-[80px]`}
+              value={form.excerpt}
+              placeholder="Brief description of the post…"
+              onChange={e => handleChange('excerpt', e.target.value)}
             />
           </div>
 
-          <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: 10, paddingTop: 8 }}>
-            <button onClick={() => setMode('list')}
-              style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: '#a7b0bc', fontFamily: "'Ubuntu', sans-serif", fontSize: 14, padding: '9px 18px', cursor: 'pointer' }}
+          <div className="col-span-2">
+            <label className={labelCls}>content (markdown)</label>
+            <textarea
+              className={`${inputCls} resize-y min-h-[420px] font-mono text-[13px] leading-[1.65]`}
+              value={form.content}
+              placeholder="Write your post in markdown…"
+              onChange={e => handleChange('content', e.target.value)}
+            />
+          </div>
+
+          <div className="col-span-2 flex justify-end gap-[10px] pt-2">
+            <button
+              onClick={() => setMode('list')}
+              className="bg-transparent border border-white/10 rounded-md text-fg-2 font-sans text-sm py-[9px] px-[18px] cursor-pointer"
             >
               Cancel
             </button>
-            <button onClick={handleSave} disabled={saving}
-              style={{ background: accent, color: '#07090c', fontFamily: "'Ubuntu', sans-serif", fontWeight: 600, fontSize: 14, border: 'none', borderRadius: 6, padding: '9px 22px', cursor: 'pointer', opacity: saving ? 0.65 : 1 }}
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="bg-accent text-bg-0 font-sans font-semibold text-sm border-none rounded-md py-[9px] px-[22px] cursor-pointer disabled:opacity-65"
             >
               {saving ? 'Saving…' : editingId ? 'Save Changes' : 'Create Post'}
             </button>

@@ -33,8 +33,10 @@
 		"vite": "^8.0.0"
 	},
 	"dependencies": {
+		"@tailwindcss/vite": "^4.3.0",
 		"@tanstack/react-router": "^1.170.4",
 		"gray-matter": "^4.0.3",
-		"marked": "^18.0.4"
+		"marked": "^18.0.4",
+		"tailwindcss": "^4.3.0"
 	}
 }

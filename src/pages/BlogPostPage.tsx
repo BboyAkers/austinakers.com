@@ -2,7 +2,6 @@ import { useMemo, useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { marked } from 'marked';
 import type { BlogPost } from '../types';
-import { accent } from '../theme';
 
 const AUTHOR = {
   name: 'Austin Akers',
@@ -28,77 +27,81 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
   const prevPost = posts[idx + 1] ?? null;
   const nextPost = posts[idx - 1] ?? null;
 
-  useEffect(() => { window.scrollTo({ top: 0 }); }, [post.id]);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [post.id]);
 
   const goToPost = (p: BlogPost) =>
     navigate({ to: '/blog/$slug', params: { slug: p.slug } });
 
   return (
-    <main style={{ paddingTop: 64 }}>
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '40px 32px 0' }}>
+    <main className="pt-16">
+      <div className="max-w-[720px] mx-auto px-8 pt-10">
         <button
           onClick={() => navigate({ to: '/blog' })}
-          style={{ fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'inline-flex', alignItems: 'center', gap: 6, transition: 'color 120ms' }}
-          onMouseEnter={e => (e.currentTarget.style.color = accent)}
-          onMouseLeave={e => (e.currentTarget.style.color = '#6b7380')}
+          className="font-mono text-[12px] text-fg-3 bg-transparent border-none cursor-pointer p-0 inline-flex items-center gap-[6px] transition-colors duration-[120ms] hover:text-accent"
         >
           ← Writing
         </button>
       </div>
 
-      <section style={{ maxWidth: 720, margin: '0 auto', padding: '32px 32px 0' }}>
-        <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: accent, marginBottom: 18 }}>
-          <span style={{ color: '#3f4752' }}>// </span>{post.category}
+      <section className="max-w-[720px] mx-auto px-8 pt-8">
+        <div className="font-mono text-[12px] tracking-[0.1em] uppercase text-accent mb-[18px]">
+          <span className="text-fg-4">// </span>{post.category}
         </div>
-        <h1 style={{ fontFamily: "'Ubuntu', sans-serif", fontWeight: 700, fontSize: 'clamp(32px, 5vw, 48px)', color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em', margin: '0 0 20px' }}>
+        <h1 className="font-sans font-bold text-[clamp(32px,5vw,48px)] text-white leading-[1.1] tracking-[-0.02em] m-0 mb-5">
           {post.title}
         </h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380', marginBottom: 40 }}>
+        <div className="flex items-center gap-4 font-mono text-[12px] text-fg-3 mb-10">
           <span>{post.date}</span>
-          <span style={{ color: '#3f4752' }}>·</span>
+          <span className="text-fg-4">·</span>
           <span>{post.readTime}</span>
-          <span style={{ color: '#3f4752' }}>·</span>
-          <div style={{ display: 'flex', gap: 6 }}>
+          <span className="text-fg-4">·</span>
+          <div className="flex gap-[6px]">
             {post.tags.map(tag => (
-              <span key={tag} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 999, padding: '2px 10px', fontSize: 11 }}>
+              <span
+                key={tag}
+                className="bg-white/[0.04] border border-white/[0.06] rounded-full py-[2px] px-[10px] text-[11px]"
+              >
                 {tag}
               </span>
             ))}
           </div>
         </div>
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', marginBottom: 48 }} />
+        <div className="h-px bg-white/[0.06] mb-12" />
       </section>
 
-      <article style={{ maxWidth: 720, margin: '0 auto', padding: '0 32px' }}>
+      <article className="max-w-[720px] mx-auto px-8">
         <div className="md-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </article>
 
       {/* Author bio */}
-      <section style={{ maxWidth: 720, margin: '48px auto 0', padding: '0 32px' }}>
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', marginBottom: 40 }} />
-        <div style={{ background: '#0b0e13', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '24px', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
-          <div style={{
-            width: 48, height: 48, borderRadius: '50%',
-            background: `linear-gradient(135deg, ${accent}40, #6a2bf040)`,
-            border: `1px solid ${accent}30`,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0, fontFamily: "'Ubuntu', sans-serif", fontWeight: 700, fontSize: 18, color: accent,
-          }}>A</div>
+      <section className="max-w-[720px] mx-auto mt-12 px-8">
+        <div className="h-px bg-white/[0.06] mb-10" />
+        <div className="bg-bg-1 border border-white/[0.06] rounded-xl p-6 flex gap-5 items-start">
+          <div className="w-12 h-12 rounded-full bg-[linear-gradient(135deg,#2dd4a040,#6a2bf040)] border border-[#2dd4a030] flex items-center justify-center shrink-0 font-sans font-bold text-[18px] text-accent">
+            A
+          </div>
           <div>
-            <div style={{ fontFamily: "'Ubuntu', sans-serif", fontWeight: 500, fontSize: 15, color: '#fff', marginBottom: 4 }}>{AUTHOR.name}</div>
-            <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: accent, marginBottom: 10, letterSpacing: '0.06em' }}>
+            <div className="font-sans font-medium text-[15px] text-white mb-1">{AUTHOR.name}</div>
+            <div className="font-mono text-[11px] text-accent mb-[10px] tracking-[0.06em]">
               {AUTHOR.role} @ Harper
             </div>
-            <div style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: '#6b7380', lineHeight: 1.55 }}>{AUTHOR.bio}</div>
-            <div style={{ display: 'flex', gap: 16, marginTop: 12 }}>
-              {([['GitHub →', AUTHOR.github], ['Twitter →', AUTHOR.twitter]] as const).map(([label, href]) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                   style={{ fontFamily: "'Fira Code', monospace", fontSize: 12, color: '#6b7380', textDecoration: 'none', transition: 'color 120ms' }}
-                   onMouseEnter={e => (e.currentTarget.style.color = accent)}
-                   onMouseLeave={e => (e.currentTarget.style.color = '#6b7380')}>
-                  {label}
-                </a>
-              ))}
+            <div className="font-sans text-sm text-fg-3 leading-[1.55]">{AUTHOR.bio}</div>
+            <div className="flex gap-4 mt-3">
+              {([['GitHub →', AUTHOR.github], ['Twitter →', AUTHOR.twitter]] as const).map(
+                ([label, href]) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[12px] text-fg-3 no-underline transition-colors duration-[120ms] hover:text-accent"
+                  >
+                    {label}
+                  </a>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -106,36 +109,36 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
 
       {/* Prev/Next */}
       {(prevPost ?? nextPost) && (
-        <section style={{ maxWidth: 720, margin: '48px auto 0', padding: '0 32px' }}>
-          <div style={{ height: 1, background: 'rgba(255,255,255,0.06)', marginBottom: 32 }} />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <section className="max-w-[720px] mx-auto mt-12 px-8">
+          <div className="h-px bg-white/[0.06] mb-8" />
+          <div className="grid grid-cols-2 gap-4">
             {prevPost ? (
               <button
                 onClick={() => goToPost(prevPost)}
-                style={{ background: '#0b0e13', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, padding: '16px 20px', cursor: 'pointer', textAlign: 'left', transition: 'border-color 150ms' }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)')}
+                className="bg-bg-1 border border-white/[0.06] rounded-[10px] py-4 px-5 cursor-pointer text-left transition-[border-color] duration-150 hover:border-white/[0.14]"
               >
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: '#6b7380', marginBottom: 6 }}>← Older</div>
-                <div style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: '#e6ebf1', lineHeight: 1.4 }}>{prevPost.title}</div>
+                <div className="font-mono text-[11px] text-fg-3 mb-[6px]">← Older</div>
+                <div className="font-sans text-sm text-fg-1 leading-[1.4]">{prevPost.title}</div>
               </button>
-            ) : <div />}
+            ) : (
+              <div />
+            )}
             {nextPost ? (
               <button
                 onClick={() => goToPost(nextPost)}
-                style={{ background: '#0b0e13', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, padding: '16px 20px', cursor: 'pointer', textAlign: 'right', transition: 'border-color 150ms' }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)')}
+                className="bg-bg-1 border border-white/[0.06] rounded-[10px] py-4 px-5 cursor-pointer text-right transition-[border-color] duration-150 hover:border-white/[0.14]"
               >
-                <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 11, color: '#6b7380', marginBottom: 6 }}>Newer →</div>
-                <div style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: '#e6ebf1', lineHeight: 1.4 }}>{nextPost.title}</div>
+                <div className="font-mono text-[11px] text-fg-3 mb-[6px]">Newer →</div>
+                <div className="font-sans text-sm text-fg-1 leading-[1.4]">{nextPost.title}</div>
               </button>
-            ) : <div />}
+            ) : (
+              <div />
+            )}
           </div>
         </section>
       )}
 
-      <div style={{ height: 120 }} />
+      <div className="h-[120px]" />
     </main>
   );
 }

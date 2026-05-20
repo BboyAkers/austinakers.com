@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { PostCard } from '../components/PostCard';
 import type { BlogPost } from '../types';
-import { accent } from '../theme';
 
 interface CmsTab {
   label: string;
@@ -102,66 +101,65 @@ function HarperCmsSection() {
   const tab = CMS_TABS[activeTab]!;
 
   return (
-    <section style={{ maxWidth: 1100, margin: '0 auto', padding: '96px 32px 0' }}>
-      <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent, marginBottom: 16 }}>
-        <span style={{ color: '#3f4752' }}>// </span>HOW IT'S BUILT
+    <section className="max-w-[1100px] mx-auto px-8 pt-24">
+      <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent mb-4">
+        <span className="text-fg-4">// </span>HOW IT'S BUILT
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 56, alignItems: 'start' }}>
+      <div className="grid grid-cols-[1fr_1.5fr] gap-14 items-start">
         <div>
-          <h2 style={{ fontFamily: "'Ubuntu', sans-serif", fontWeight: 700, fontSize: 34, color: '#fff', lineHeight: 1.15, letterSpacing: '-0.02em', margin: '0 0 16px' }}>
+          <h2 className="font-sans font-bold text-[34px] text-white leading-[1.15] tracking-[-0.02em] m-0 mb-4">
             Harper as a CMS.
           </h2>
-          <p style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 16, color: '#a7b0bc', lineHeight: 1.65, margin: '0 0 20px' }}>
+          <p className="font-sans text-[16px] text-fg-2 leading-[1.65] m-0 mb-5">
             {tab.desc}
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 24 }}>
+          <div className="flex flex-col gap-[10px] mt-6">
             {['One schema file', 'REST API auto-generated', 'Built-in cache layer', 'Markdown sync on deploy'].map((item, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontFamily: "'Fira Code', monospace", color: accent, fontSize: 12 }}>✓</span>
-                <span style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: '#a7b0bc' }}>{item}</span>
+              <div key={i} className="flex items-center gap-[10px]">
+                <span className="font-mono text-accent text-[12px]">✓</span>
+                <span className="font-sans text-sm text-fg-2">{item}</span>
               </div>
             ))}
           </div>
-          <div style={{ marginTop: 28 }}>
-            <a href="https://docs.harperdb.io" target="_blank" rel="noopener noreferrer"
-               style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 14, color: accent, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <div className="mt-7">
+            <a
+              href="https://docs.harperdb.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-sm text-accent no-underline inline-flex items-center gap-[6px]"
+            >
               Harper Docs
-              <img src="/green-arrow.png" style={{ height: 12 }} alt="" />
+              <img src="/green-arrow.png" className="h-3" alt="" />
             </a>
           </div>
         </div>
 
         <div>
-          <div style={{ display: 'flex', gap: 4, marginBottom: 0 }}>
+          <div className="flex gap-1">
             {CMS_TABS.map((t, i) => (
-              <button key={i} onClick={() => setActiveTab(i)} style={{
-                fontFamily: "'Fira Code', monospace", fontSize: 12,
-                color: i === activeTab ? accent : '#6b7380',
-                background: i === activeTab ? '#0d1117' : 'transparent',
-                border: `1px solid ${i === activeTab ? 'rgba(255,255,255,0.08)' : 'transparent'}`,
-                borderBottom: i === activeTab ? '1px solid #0d1117' : '1px solid transparent',
-                borderRadius: '6px 6px 0 0',
-                padding: '8px 16px',
-                cursor: 'pointer',
-                transition: 'color 120ms',
-                position: 'relative',
-                zIndex: 1,
-                marginBottom: i === activeTab ? -1 : 0,
-              }}>{t.label}</button>
+              <button
+                key={i}
+                onClick={() => setActiveTab(i)}
+                className={`font-mono text-[12px] rounded-t-[6px] px-4 py-2 cursor-pointer transition-colors duration-[120ms] relative ${
+                  i === activeTab
+                    ? 'text-accent bg-[#0d1117] border border-white/[0.08] z-[1] -mb-px'
+                    : 'text-fg-3 bg-transparent border border-transparent'
+                }`}
+                style={i === activeTab ? { borderBottomColor: '#0d1117' } : undefined}
+              >
+                {t.label}
+              </button>
             ))}
           </div>
-          <pre style={{
-            background: '#0d1117',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '0 8px 8px 8px',
-            padding: '24px', margin: 0,
-            fontFamily: "'Fira Code', monospace", fontSize: 13, lineHeight: 1.65,
-            color: '#e6ebf1', overflow: 'auto', minHeight: 280,
-          }}>
-            <code style={{ background: 'none', border: 'none', padding: 0, fontSize: 'inherit', color: 'inherit' }}>
+          <pre className="bg-[#0d1117] border border-white/[0.08] rounded-[0_8px_8px_8px] p-6 m-0 font-mono text-[13px] leading-[1.65] text-fg-1 overflow-auto min-h-[280px]">
+            <code className="bg-transparent border-0 p-0">
               {tab.code.split('\n').map((line, i) => {
                 const isComment = line.trim().startsWith('#') || line.trim().startsWith('//');
-                return <div key={i} style={isComment ? { color: '#6b7380' } : {}}>{line || ' '}</div>;
+                return (
+                  <div key={i} className={isComment ? 'text-fg-3' : ''}>
+                    {line || ' '}
+                  </div>
+                );
               })}
             </code>
           </pre>
@@ -177,62 +175,53 @@ interface HomePageProps {
 
 export function HomePage({ posts }: HomePageProps) {
   const navigate = useNavigate();
-  const recent = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
+  const recent = [...posts]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   return (
-    <main style={{ paddingTop: 64 }}>
+    <main className="pt-16">
       {/* Hero */}
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '120px 32px 80px', position: 'relative' }}>
-        <div style={{
-          position: 'absolute', top: 80, left: -80,
-          width: 500, height: 400,
-          background: `radial-gradient(ellipse at center, ${accent}14 0%, transparent 70%)`,
-          pointerEvents: 'none',
-        }} />
-        <div style={{ position: 'relative' }}>
-          <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent, marginBottom: 28 }}>
-            <span style={{ color: '#3f4752' }}>// </span>SOFTWARE ENGINEER
+      <section className="max-w-[1100px] mx-auto px-8 pt-[120px] pb-[80px] relative">
+        <div className="absolute top-20 -left-20 w-[500px] h-[400px] bg-[radial-gradient(ellipse_at_center,#2dd4a014_0%,transparent_70%)] pointer-events-none" />
+        <div className="relative">
+          <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent mb-7">
+            <span className="text-fg-4">// </span>SOFTWARE ENGINEER
           </div>
-          <h1 style={{
-            fontFamily: "'Ubuntu', sans-serif", fontWeight: 700,
-            fontSize: 'clamp(52px, 7vw, 88px)', lineHeight: 1.0,
-            letterSpacing: '-0.025em', color: '#fff', margin: '0 0 28px',
-          }}>
+          <h1 className="font-sans font-bold text-[clamp(52px,7vw,88px)] leading-none tracking-[-0.025em] text-white m-0 mb-7">
             Austin<br />Akers
           </h1>
-          <p style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 18, lineHeight: 1.65, color: '#a7b0bc', maxWidth: 500, margin: '0 0 36px' }}>
+          <p className="font-sans text-[18px] leading-[1.65] text-fg-2 max-w-[500px] m-0 mb-9">
             Building developer tools at{' '}
-            <a href="https://harper.fast" target="_blank" rel="noopener noreferrer"
-               style={{ color: accent, textDecoration: 'none', borderBottom: `1px solid ${accent}40` }}>
+            <a
+              href="https://harper.fast"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent no-underline border-b border-accent/30"
+            >
               Harper
             </a>
             . Writing about JavaScript, the web platform, and open source.
           </p>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div className="flex gap-3 items-center">
             <button
               onClick={() => navigate({ to: '/blog' })}
-              style={{
-                fontFamily: "'Ubuntu', sans-serif", fontWeight: 500, fontSize: 14,
-                background: accent, color: '#07231c', border: 'none', borderRadius: 8,
-                padding: '12px 22px', cursor: 'pointer',
-                display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'background 120ms',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#5ee7b8')}
-              onMouseLeave={e => (e.currentTarget.style.background = accent)}
+              className="font-sans font-medium text-sm bg-accent text-on-accent border-none rounded-lg py-3 px-[22px] cursor-pointer inline-flex items-center gap-2 transition-[background] duration-[120ms] hover:bg-accent-hover"
             >
               Read Writing
-              <img src="/green-arrow.png" style={{ height: 12, filter: 'invert(1) brightness(0)' }} alt="" />
+              <img
+                src="/green-arrow.png"
+                className="h-3 [filter:invert(1)_brightness(0)]"
+                alt=""
+              />
             </button>
-            <a href="https://github.com/BboyAkers" target="_blank" rel="noopener noreferrer"
-               style={{
-                 fontFamily: "'Ubuntu', sans-serif", fontWeight: 400, fontSize: 14,
-                 color: '#a7b0bc', textDecoration: 'none',
-                 display: 'inline-flex', alignItems: 'center', gap: 8,
-                 padding: '12px 4px', transition: 'color 120ms',
-               }}
-               onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-               onMouseLeave={e => (e.currentTarget.style.color = '#a7b0bc')}>
-              <img src="/github-white.png" style={{ height: 16, opacity: 0.6 }} alt="" />
+            <a
+              href="https://github.com/BboyAkers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans font-normal text-sm text-fg-2 no-underline inline-flex items-center gap-2 py-3 px-1 transition-colors duration-[120ms] hover:text-white"
+            >
+              <img src="/github-white.png" className="h-4 opacity-60" alt="" />
               BboyAkers
             </a>
           </div>
@@ -240,19 +229,19 @@ export function HomePage({ posts }: HomePageProps) {
       </section>
 
       {/* Recent Writing */}
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 32px' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 32 }}>
-          <div style={{ fontFamily: "'Fira Code', monospace", fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent }}>
-            <span style={{ color: '#3f4752' }}>// </span>RECENT WRITING
+      <section className="max-w-[1100px] mx-auto px-8">
+        <div className="flex items-baseline justify-between mb-8">
+          <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent">
+            <span className="text-fg-4">// </span>RECENT WRITING
           </div>
           <button
             onClick={() => navigate({ to: '/blog' })}
-            style={{ fontFamily: "'Ubuntu', sans-serif", fontSize: 13, color: '#6b7380', background: 'none', border: 'none', cursor: 'pointer', padding: 0, transition: 'color 120ms' }}
-            onMouseEnter={e => (e.currentTarget.style.color = accent)}
-            onMouseLeave={e => (e.currentTarget.style.color = '#6b7380')}
-          >All posts →</button>
+            className="font-sans text-[13px] text-fg-3 bg-transparent border-none cursor-pointer p-0 transition-colors duration-[120ms] hover:text-accent"
+          >
+            All posts →
+          </button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+        <div className="grid grid-cols-3 gap-5">
           {recent.map(post => (
             <PostCard key={post.id} post={post} layout="grid" />
           ))}
@@ -260,7 +249,7 @@ export function HomePage({ posts }: HomePageProps) {
       </section>
 
       <HarperCmsSection />
-      <div style={{ height: 120 }} />
+      <div className="h-[120px]" />
     </main>
   );
 }

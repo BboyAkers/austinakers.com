@@ -1,4 +1,4 @@
-/* Harper Design System — Dark-first, developer-native */
+@import "tailwindcss";
 
 @font-face {
   font-family: 'Ubuntu';
@@ -54,64 +54,70 @@
   font-display: swap;
 }
 
-:root {
-  --bg-0: #07090c;
-  --bg-1: #0b0e13;
-  --bg-2: #11161d;
-  --bg-3: #1a2029;
-  --bg-4: #242b35;
-
-  --fg-0: #ffffff;
-  --fg-1: #e6ebf1;
-  --fg-2: #a7b0bc;
-  --fg-3: #6b7380;
-  --fg-4: #3f4752;
-
-  --border-1: rgba(255, 255, 255, 0.06);
-  --border-2: rgba(255, 255, 255, 0.10);
-  --border-3: rgba(255, 255, 255, 0.16);
-
-  --teal-200: #8ff1cd;
-  --teal-300: #5ee7b8;
-  --teal-400: #2dd4a0;
-  --teal-500: #14b88a;
-
-  --magenta-400: #f553c3;
-  --magenta-500: #d936af;
-
-  --purple-500: #6a2bf0;
-
-  --color-primary: var(--teal-400);
-  --color-on-primary: #07231c;
-
+@theme {
   --font-sans: 'Ubuntu', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-bg-0: #07090c;
+  --color-bg-1: #0b0e13;
+  --color-bg-2: #11161d;
+  --color-bg-3: #1a2029;
+  --color-bg-4: #242b35;
+
+  --color-fg-0: #ffffff;
+  --color-fg-1: #e6ebf1;
+  --color-fg-2: #a7b0bc;
+  --color-fg-3: #6b7380;
+  --color-fg-4: #3f4752;
+
+  --color-accent: #2dd4a0;
+  --color-accent-hover: #5ee7b8;
+  --color-accent-dark: #14b88a;
+  --color-on-accent: #07231c;
+
+  --color-magenta-400: #f553c3;
+  --color-purple-500: #6a2bf0;
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: var(--bg-0);
-  color: var(--fg-1);
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #07090c;
+    color: #e6ebf1;
+    font-family: 'Ubuntu', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #14b88a;
+    color: #07231c;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+  }
 }
 
-::selection { background: var(--teal-500); color: #07231c; }
-
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
-
-/* Markdown body */
+/* Markdown rendered content — kept as CSS because it styles dynamic innerHTML */
 .md-content h2 {
-  font-family: var(--font-sans);
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 700;
   font-size: 26px;
   color: #fff;
@@ -119,9 +125,11 @@ html, body {
   letter-spacing: -0.02em;
   margin: 2.2em 0 0.75em;
 }
-.md-content h2:first-child { margin-top: 0; }
+.md-content h2:first-child {
+  margin-top: 0;
+}
 .md-content h3 {
-  font-family: var(--font-sans);
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 500;
   font-size: 20px;
   color: #fff;
@@ -129,35 +137,47 @@ html, body {
   margin: 1.8em 0 0.6em;
 }
 .md-content p {
-  font-family: var(--font-sans);
+  font-family: 'Ubuntu', sans-serif;
   font-size: 17px;
   line-height: 1.72;
   color: #a7b0bc;
   margin: 0 0 1.3em;
 }
-.md-content strong { color: #e6ebf1; font-weight: 500; }
-.md-content em { color: #c4cbd5; }
-.md-content a { color: #2dd4a0; text-decoration: none; border-bottom: 1px solid rgba(45,212,160,0.3); }
-.md-content a:hover { color: #5ee7b8; border-bottom-color: rgba(94,231,184,0.5); }
+.md-content strong {
+  color: #e6ebf1;
+  font-weight: 500;
+}
+.md-content em {
+  color: #c4cbd5;
+}
+.md-content a {
+  color: #2dd4a0;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(45, 212, 160, 0.3);
+}
+.md-content a:hover {
+  color: #5ee7b8;
+  border-bottom-color: rgba(94, 231, 184, 0.5);
+}
 .md-content :not(pre) > code {
-  font-family: var(--font-mono);
+  font-family: 'Fira Code', monospace;
   font-size: 0.875em;
   background: #1a2029;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   padding: 2px 7px;
   color: #5ee7b8;
 }
 .md-content pre {
   background: #0d1117;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 20px 24px;
   overflow-x: auto;
   margin: 1.5em 0 1.8em;
 }
 .md-content pre code {
-  font-family: var(--font-mono);
+  font-family: 'Fira Code', monospace;
   font-size: 13px;
   line-height: 1.65;
   color: #e6ebf1;
@@ -165,21 +185,30 @@ html, body {
   border: none;
   padding: 0;
 }
-.md-content ul, .md-content ol {
-  font-family: var(--font-sans);
+.md-content ul,
+.md-content ol {
+  font-family: 'Ubuntu', sans-serif;
   font-size: 17px;
   line-height: 1.72;
   color: #a7b0bc;
   padding-left: 24px;
   margin: 0 0 1.3em;
 }
-.md-content li { margin-bottom: 6px; }
-.md-content li strong { color: #e6ebf1; }
+.md-content li {
+  margin-bottom: 6px;
+}
+.md-content li strong {
+  color: #e6ebf1;
+}
 .md-content blockquote {
-  border-left: 3px solid rgba(45,212,160,0.35);
+  border-left: 3px solid rgba(45, 212, 160, 0.35);
   margin: 1.5em 0;
   padding: 4px 0 4px 20px;
   font-style: italic;
   color: #a7b0bc;
 }
-.md-content hr { border: 0; border-top: 1px solid rgba(255,255,255,0.06); margin: 2em 0; }
+.md-content hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 2em 0;
+}
