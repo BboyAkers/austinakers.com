@@ -96,26 +96,57 @@ $ harper deploy . \\
   },
 ];
 
-function HarperCmsSection() {
+function SpeakingSection() {
   const [activeTab, setActiveTab] = useState(0);
   const tab = CMS_TABS[activeTab]!;
 
   return (
-    <section className="max-w-[1100px] mx-auto px-8 pt-24">
+    <section className="max-w-275 mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24">
       <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent mb-4">
-        <span className="text-fg-4">// </span>HOW IT'S BUILT
+        <span className="text-fg-4">// </span>Speaking
       </div>
-      <div className="grid grid-cols-[1fr_1.5fr] gap-14 items-start">
+      <div>
         <div>
-          <h2 className="font-sans font-bold text-[34px] text-white leading-[1.15] tracking-[-0.02em] m-0 mb-4">
-            Harper as a CMS.
+          <h2 className="font-sans font-bold text-[28px] sm:text-[34px] text-white leading-[1.15] tracking-[-0.02em] m-0 mb-4">
+            Global:
           </h2>
-          <p className="font-sans text-[16px] text-fg-2 leading-[1.65] m-0 mb-5">
-            {tab.desc}
-          </p>
-          <div className="flex flex-col gap-[10px] mt-6">
+
+          <ul className="mb-4 list-disc list-inside">
+            <li>2025 RenderATL: "Trials and Tribulations of Self-Hosting Next.js" w/ Ethan Arrowood</li>
+            <li>2024 JavaScript Global Summit: "Demystifying the ECMAScript Specification"</li>
+            <li>2024 TypeScript Global Summit: "Contributing to a TypeScript Monorepo Migration"</li>
+            <li>2023 Vue.js Global Summit: "Building a Vuetify Component"</li>
+            <li>2021 Vue.js Global Summit: "What's new in Vuetify 3"</li>
+            <li>2021 OpenJS World by OpenJS Foundation: "Upgrading to Fastify 3"</li>
+            <li>2021 JS World Conference by Frontend Love: "The Cost of Bad Code and Pipelines"</li>
+          </ul>
+          <h2 className="font-sans font-bold text-[28px] sm:text-[34px] text-white leading-[1.15] tracking-[-0.02em] m-0 mb-4">
+            National:
+          </h2>
+
+          <ul className="mb-4 list-disc list-inside">
+            <li>2024-current 3x YearUp: Guest Speaker on Software Development for ~200 students</li>
+            <li>2022 ETHDenver: "5 Lessons Learned Contributing to an Ethereum Open Source Project"</li>
+            <li>2021 Texas Computer Science Teachers Association: Panelist discussing Software Development Trends and Growth</li>
+            <li>2019 BitBlockBoom: "How to Effectively Evaluate Cryptocurrencies"</li>
+          </ul>
+
+          <h2 className="font-sans font-bold text-[28px] sm:text-[34px] text-white leading-[1.15] tracking-[-0.02em] m-0 mb-4">
+            Community Events:
+          </h2>
+
+          <ul className="mb-4 list-disc list-inside">
+            <li>2022-2024 MS Open Source Bootcamp: Speaker and Mentor</li>
+            <li>2017-2024 Dallas Software Developers: Various topics on JavaScript and Front-End Development</li>
+            <li>2021 Women Who Code: Panelist for Front-End Development</li>
+            <li>2018-2020 General Assembly: Invited to speak at various events</li>
+            <li>2016-2020 Coding Dojo: Invited to speak at various events and mentor engineers</li>
+            <li>Many Others!</li>
+          </ul>
+
+          <div className="flex flex-col gap-2.5 mt-6">
             {['One schema file', 'REST API auto-generated', 'Built-in cache layer', 'Markdown sync on deploy'].map((item, i) => (
-              <div key={i} className="flex items-center gap-[10px]">
+              <div key={i} className="flex items-center gap-2.5">
                 <span className="font-mono text-accent text-[12px]">✓</span>
                 <span className="font-sans text-sm text-fg-2">{item}</span>
               </div>
@@ -126,46 +157,21 @@ function HarperCmsSection() {
               href="https://docs.harperdb.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-sm text-accent no-underline inline-flex items-center gap-[6px]"
+              className="font-sans text-sm text-accent no-underline inline-flex items-center gap-1.5"
             >
               Harper Docs
               <img src="/green-arrow.png" className="h-3" alt="" />
             </a>
           </div>
         </div>
-
+        {/* 
         <div>
-          <div className="flex gap-1">
-            {CMS_TABS.map((t, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveTab(i)}
-                className={`font-mono text-[12px] rounded-t-[6px] px-4 py-2 cursor-pointer transition-colors duration-[120ms] relative ${
-                  i === activeTab
-                    ? 'text-accent bg-[#0d1117] border border-white/[0.08] z-[1] -mb-px'
-                    : 'text-fg-3 bg-transparent border border-transparent'
-                }`}
-                style={i === activeTab ? { borderBottomColor: '#0d1117' } : undefined}
-              >
-                {t.label}
-              </button>
-            ))}
+          <div>
+            testing
           </div>
-          <pre className="bg-[#0d1117] border border-white/[0.08] rounded-[0_8px_8px_8px] p-6 m-0 font-mono text-[13px] leading-[1.65] text-fg-1 overflow-auto min-h-[280px]">
-            <code className="bg-transparent border-0 p-0">
-              {tab.code.split('\n').map((line, i) => {
-                const isComment = line.trim().startsWith('#') || line.trim().startsWith('//');
-                return (
-                  <div key={i} className={isComment ? 'text-fg-3' : ''}>
-                    {line || ' '}
-                  </div>
-                );
-              })}
-            </code>
-          </pre>
-        </div>
-      </div>
-    </section>
+        </div> */}
+      </div >
+    </section >
   );
 }
 
@@ -182,16 +188,16 @@ export function HomePage({ posts }: HomePageProps) {
   return (
     <main className="pt-16">
       {/* Hero */}
-      <section className="max-w-[1100px] mx-auto px-8 pt-[120px] pb-[80px] relative">
-        <div className="absolute top-20 -left-20 w-[500px] h-[400px] bg-[radial-gradient(ellipse_at_center,#2dd4a014_0%,transparent_70%)] pointer-events-none" />
+      <section className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-[120px] pb-14 sm:pb-[80px] relative">
+        <div className="absolute top-16 -left-24 sm:top-20 sm:-left-20 w-[360px] sm:w-[500px] h-[280px] sm:h-[400px] bg-[radial-gradient(ellipse_at_center,#2dd4a014_0%,transparent_70%)] pointer-events-none" />
         <div className="relative">
-          <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent mb-7">
+          <div className="font-mono text-[12px] sm:text-[13px] tracking-[0.14em] uppercase text-accent mb-5 sm:mb-7">
             <span className="text-fg-4">// </span>SOFTWARE ENGINEER
           </div>
-          <h1 className="font-sans font-bold text-[clamp(52px,7vw,88px)] leading-none tracking-[-0.025em] text-white m-0 mb-7">
+          <h1 className="font-sans font-bold text-[clamp(42px,15vw,88px)] leading-[0.95] tracking-[-0.025em] text-white m-0 mb-5 sm:mb-7">
             Austin<br />Akers
           </h1>
-          <p className="font-sans text-[18px] leading-[1.65] text-fg-2 max-w-[500px] m-0 mb-9">
+          <p className="font-sans text-[16px] sm:text-[18px] leading-[1.65] text-fg-2 max-w-[500px] m-0 mb-7 sm:mb-9">
             Building developer tools at{' '}
             <a
               href="https://harper.fast"
@@ -203,10 +209,10 @@ export function HomePage({ posts }: HomePageProps) {
             </a>
             . Writing about JavaScript, the web platform, and open source.
           </p>
-          <div className="flex gap-3 items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             <button
               onClick={() => navigate({ to: '/blog' })}
-              className="font-sans font-medium text-sm bg-accent text-on-accent border-none rounded-lg py-3 px-[22px] cursor-pointer inline-flex items-center gap-2 transition-[background] duration-[120ms] hover:bg-accent-hover"
+              className="font-sans font-medium text-sm bg-accent text-on-accent border-none rounded-lg py-3 px-[22px] cursor-pointer inline-flex items-center justify-center gap-2 transition-[background] duration-[120ms] hover:bg-accent-hover"
             >
               Read Writing
               <img
@@ -219,7 +225,7 @@ export function HomePage({ posts }: HomePageProps) {
               href="https://github.com/BboyAkers"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans font-normal text-sm text-fg-2 no-underline inline-flex items-center gap-2 py-3 px-1 transition-colors duration-[120ms] hover:text-white"
+              className="font-sans font-normal text-sm text-fg-2 no-underline inline-flex items-center gap-2 py-2 sm:py-3 px-1 transition-colors duration-[120ms] hover:text-white"
             >
               <img src="/github-white.png" className="h-4 opacity-60" alt="" />
               BboyAkers
@@ -229,8 +235,8 @@ export function HomePage({ posts }: HomePageProps) {
       </section>
 
       {/* Recent Writing */}
-      <section className="max-w-[1100px] mx-auto px-8">
-        <div className="flex items-baseline justify-between mb-8">
+      <section className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-baseline justify-between gap-4 mb-6 sm:mb-8">
           <div className="font-mono text-[13px] tracking-[0.14em] uppercase text-accent">
             <span className="text-fg-4">// </span>RECENT WRITING
           </div>
@@ -241,15 +247,15 @@ export function HomePage({ posts }: HomePageProps) {
             All posts →
           </button>
         </div>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {recent.map(post => (
             <PostCard key={post.id} post={post} layout="grid" />
           ))}
         </div>
       </section>
 
-      <HarperCmsSection />
-      <div className="h-[120px]" />
+      <SpeakingSection />
+      <div className="h-16 sm:h-[120px]" />
     </main>
   );
 }

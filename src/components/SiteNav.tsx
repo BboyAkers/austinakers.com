@@ -16,34 +16,32 @@ export function SiteNav() {
     path === '/' ? pathname === '/' : pathname.startsWith(path);
 
   const linkClass = (path: string) =>
-    `font-sans text-[14px] font-normal cursor-pointer bg-transparent border-0 border-b pb-[2px] no-underline transition-colors duration-[120ms] ${
-      isActive(path)
-        ? 'text-white border-accent'
-        : 'text-fg-2 border-transparent hover:text-white'
+    `font-sans text-[13px] sm:text-[14px] font-normal cursor-pointer bg-transparent border-0 border-b pb-[2px] no-underline transition-colors duration-[120ms] ${isActive(path)
+      ? 'text-white border-accent'
+      : 'text-fg-2 border-transparent hover:text-white'
     }`;
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[100] h-16 flex items-center backdrop-blur-[12px] border-b transition-[background,border-color] duration-200 ${
-        scrolled ? 'bg-bg-0/85 border-white/[0.06]' : 'bg-bg-0/60 border-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-[100] h-16 flex items-center backdrop-blur-[12px] border-b transition-[background,border-color] duration-200 ${scrolled ? 'bg-bg-0/85 border-white/[0.06]' : 'bg-bg-0/60 border-transparent'
+        }`}
     >
-      <div className="max-w-[1100px] mx-auto w-full px-8 flex items-center gap-10">
+      <div className="max-w-[1100px] mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center gap-4 sm:gap-10">
         <button
           onClick={() => navigate({ to: '/' })}
-          className="bg-transparent border-none cursor-pointer flex items-center gap-[10px] p-0"
+          className="bg-transparent border-none cursor-pointer flex items-center gap-[8px] sm:gap-[10px] p-0"
         >
-          <span className="font-sans font-bold text-[16px] text-white tracking-[-0.01em]">
+          <span className="font-sans font-bold text-[15px] sm:text-[16px] text-white tracking-[-0.01em] whitespace-nowrap">
             Austin Akers
           </span>
-          <span className="font-mono text-[11px] text-accent tracking-[0.06em] opacity-85">
+          <span className="hidden sm:inline font-mono text-[11px] text-accent tracking-[0.06em] opacity-85">
             @harper
           </span>
         </button>
 
         <div className="flex-1" />
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-3 sm:gap-8">
           <button className={linkClass('/')} onClick={() => navigate({ to: '/' })}>
             Home
           </button>
@@ -58,7 +56,7 @@ export function SiteNav() {
             href="https://github.com/BboyAkers"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-[6px] no-underline"
+            className="hidden sm:flex items-center gap-[6px] no-underline"
           >
             <img src="/github-green.png" className="h-4 opacity-80" alt="GitHub" />
           </a>

@@ -36,7 +36,7 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
 
   return (
     <main className="pt-16">
-      <div className="max-w-[720px] mx-auto px-8 pt-10">
+      <div className="max-w-180 mx-auto px-8 pt-10">
         <button
           onClick={() => navigate({ to: '/blog' })}
           className="font-mono text-[12px] text-fg-3 bg-transparent border-none cursor-pointer p-0 inline-flex items-center gap-[6px] transition-colors duration-[120ms] hover:text-accent"
@@ -45,8 +45,8 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
         </button>
       </div>
 
-      <section className="max-w-[720px] mx-auto px-8 pt-8">
-        <div className="font-mono text-[12px] tracking-[0.1em] uppercase text-accent mb-[18px]">
+      <section className="max-w-180 mx-auto px-8 pt-8">
+        <div className="font-mono text-[12px] tracking-widest uppercase text-accent mb-4.5">
           <span className="text-fg-4">// </span>{post.category}
         </div>
         <h1 className="font-sans font-bold text-[clamp(32px,5vw,48px)] text-white leading-[1.1] tracking-[-0.02em] m-0 mb-5">
@@ -57,34 +57,34 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
           <span className="text-fg-4">·</span>
           <span>{post.readTime}</span>
           <span className="text-fg-4">·</span>
-          <div className="flex gap-[6px]">
+          <div className="flex gap-1.5">
             {post.tags.map(tag => (
               <span
                 key={tag}
-                className="bg-white/[0.04] border border-white/[0.06] rounded-full py-[2px] px-[10px] text-[11px]"
+                className="bg-white/4 border border-white/6 rounded-full py-0.5 px-2.5 text-[11px]"
               >
                 {tag}
               </span>
             ))}
           </div>
         </div>
-        <div className="h-px bg-white/[0.06] mb-12" />
+        <div className="h-px bg-white/6 mb-12" />
       </section>
 
-      <article className="max-w-[720px] mx-auto px-8">
+      <article className="max-w-180 mx-auto px-8">
         <div className="md-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </article>
 
       {/* Author bio */}
-      <section className="max-w-[720px] mx-auto mt-12 px-8">
-        <div className="h-px bg-white/[0.06] mb-10" />
-        <div className="bg-bg-1 border border-white/[0.06] rounded-xl p-6 flex gap-5 items-start">
+      <section className="max-w-180 mx-auto mt-12 px-8">
+        <div className="h-px bg-white/6 mb-10" />
+        <div className="bg-bg-1 border border-white/6 rounded-xl p-6 flex gap-5 items-start">
           <div className="w-12 h-12 rounded-full bg-[linear-gradient(135deg,#2dd4a040,#6a2bf040)] border border-[#2dd4a030] flex items-center justify-center shrink-0 font-sans font-bold text-[18px] text-accent">
             A
           </div>
           <div>
             <div className="font-sans font-medium text-[15px] text-white mb-1">{AUTHOR.name}</div>
-            <div className="font-mono text-[11px] text-accent mb-[10px] tracking-[0.06em]">
+            <div className="font-mono text-[11px] text-accent mb-2.5 tracking-[0.06em]">
               {AUTHOR.role} @ Harper
             </div>
             <div className="font-sans text-sm text-fg-3 leading-[1.55]">{AUTHOR.bio}</div>
@@ -109,7 +109,7 @@ export function BlogPostPage({ post, posts }: BlogPostPageProps) {
 
       {/* Prev/Next */}
       {(prevPost ?? nextPost) && (
-        <section className="max-w-[720px] mx-auto mt-12 px-8">
+        <section className="max-w-180 mx-auto mt-12 px-8">
           <div className="h-px bg-white/[0.06] mb-8" />
           <div className="grid grid-cols-2 gap-4">
             {prevPost ? (
