@@ -1,18 +1,43 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@nuxt/content": "^2.10.0",
-    "@nuxtjs/tailwindcss": "^6.10.3",
-    "nuxt": "3.9.0"
-  },
-  "dependencies": {
-    "@vercel/analytics": "^0.1.10"
-  }
+	"name": "austinakers-com",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"agent:run": "npx -y @harperfast/agent@latest",
+		"agent:skills:update": "npx -y skills@latest add harperfast/skills --all --yes",
+		"start": "harper run .",
+		"dev": "harper dev .",
+		"lint": "eslint .",
+		"format": "prettier --write .",
+		"test": "node --test test/*.test.js",
+		"test:watch": "node --watch --test test/*.test.js",
+		"build": "vite build",
+		"deploy": "rm -Rf deploy && npm run build && mkdir deploy && mv web deploy/ && cp -R deploy-template/* deploy/ && cp -R schemas resources deploy/ && dotenv -- npm run deploy:component && rm -Rf deploy",
+		"deploy:component": "(cd deploy && harper deploy_component . project=web restart=rolling replicated=true)"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@harperfast/schema-codegen": "^1.0.10",
+		"@harperfast/vite-plugin": "^0.2.1",
+		"@types/node": "^25.9.1",
+		"@types/react": "^19.2.15",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.1",
+		"dotenv-cli": "^11.0.0",
+		"eslint": "^10.0.2",
+		"globals": "^17.4.0",
+		"prettier": "^3.8.1",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"typescript": "^6.0.3",
+		"vite": "^8.0.0"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.0",
+		"@tanstack/react-router": "^1.170.4",
+		"gray-matter": "^4.0.3",
+		"harper": "^5.1.14",
+		"marked": "^18.0.4",
+		"tailwindcss": "^4.3.0"
+	}
 }
