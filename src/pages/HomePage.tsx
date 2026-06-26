@@ -97,8 +97,6 @@ $ harper deploy . \\
 ];
 
 function SpeakingSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const tab = CMS_TABS[activeTab]!;
 
   return (
     <section className="max-w-275 mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24">
@@ -143,33 +141,7 @@ function SpeakingSection() {
             <li>2016-2020 Coding Dojo: Invited to speak at various events and mentor engineers</li>
             <li>Many Others!</li>
           </ul>
-
-          <div className="flex flex-col gap-2.5 mt-6">
-            {['One schema file', 'REST API auto-generated', 'Built-in cache layer', 'Markdown sync on deploy'].map((item, i) => (
-              <div key={i} className="flex items-center gap-2.5">
-                <span className="font-mono text-accent text-[12px]">✓</span>
-                <span className="font-sans text-sm text-fg-2">{item}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-7">
-            <a
-              href="https://docs.harperdb.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-sans text-sm text-accent no-underline inline-flex items-center gap-1.5"
-            >
-              Harper Docs
-              <img src="/green-arrow.png" className="h-3" alt="" />
-            </a>
-          </div>
         </div>
-        {/* 
-        <div>
-          <div>
-            testing
-          </div>
-        </div> */}
       </div >
     </section >
   );
@@ -188,11 +160,11 @@ export function HomePage({ posts }: HomePageProps) {
   return (
     <main className="pt-16">
       {/* Hero */}
-      <section className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-[120px] pb-14 sm:pb-[80px] relative">
-        <div className="absolute top-16 -left-24 sm:top-20 sm:-left-20 w-[360px] sm:w-[500px] h-[280px] sm:h-[400px] bg-[radial-gradient(ellipse_at_center,#2dd4a014_0%,transparent_70%)] pointer-events-none" />
+      <section className="max-w-275 mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-30 pb-14 sm:pb-20 relative">
+        <div className="absolute top-16 -left-24 sm:top-20 sm:-left-20 w-90 sm:w-125 h-70 sm:h-100 bg-[radial-gradient(ellipse_at_center,#2dd4a014_0%,transparent_70%)] pointer-events-none" />
         <div className="relative">
           <div className="font-mono text-[12px] sm:text-[13px] tracking-[0.14em] uppercase text-accent mb-5 sm:mb-7">
-            <span className="text-fg-4">// </span>SOFTWARE ENGINEER
+            <span className="text-fg-4">// </span>SENIOR SOFTWARE ENGINEER & DEVELOPER RELATIONS
           </div>
           <h1 className="font-sans font-bold text-[clamp(42px,15vw,88px)] leading-[0.95] tracking-[-0.025em] text-white m-0 mb-5 sm:mb-7">
             Austin<br />Akers
