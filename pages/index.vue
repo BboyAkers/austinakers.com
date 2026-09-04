@@ -48,7 +48,7 @@ useHead({
     </section>
     <section>
       <div class="text-white pl-10 py-4">
-        <h2 class="text-4xl text-white underline underline-offset-4 pb-4">Some Fun Stuff:</h2>
+        <h2 class="text-4xl text-white underline underline-offset-4 pb-4">Some Stuff I've Built:</h2>
         <ul class="text-xl py-4 [&>li]:pb-2">
           <li>Evry Health - 
             <a href="https://evryhealth.com/" target="_blank" class="underline">link</a>
@@ -83,6 +83,9 @@ useHead({
           </li>
         </ul>
       </div>
+    </section>
+    <section>
+      <BookList />
     </section>
   </main>
 </template>
