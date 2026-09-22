@@ -2,11 +2,12 @@
 title: "Getting Started With The Beacon API"
 subtitle: "Web API Series:"
 description: "A tutorial of the Beacon API for web"
-tags: 
- - 'JavaScript'
- - 'Web API'
- - 'Tutorial'
-date: 06252020
+tags:
+  - 'javascript'
+  - 'web api'
+  - 'tutorial'
+date: "2020-06-25"
+minutes: 7
 id: 2
 ---
 

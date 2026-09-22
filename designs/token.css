@@ -1,0 +1,275 @@
+/**
+ * Design Tokens — Austin Akers Portfolio
+ * Source: Extracted from designs/*.html (portfolio-home, about, work, blog, post)
+ *
+ * Architecture:
+ * - :root: Default Light Mode tokens (Color, Typography, Spacing, Layout, Elevation, Motion)
+ * - [data-theme="dark"]: Explicit Dark Mode theme overrides
+ * - @media (prefers-color-scheme: dark): Automatic OS Dark Mode fallback (when data-theme is not explicitly light)
+ * - Responsive: Fluid clamp scales + mobile overrides (e.g. --gutter at max-width: 640px)
+ */
+
+/* ==========================================================================
+   1. CORE TOKENS & LIGHT THEME (DEFAULT)
+   ========================================================================== */
+:root {
+  color-scheme: light;
+
+  /* ------------------------------------------------------------------------
+     Colors: Palette & Semantic Roles (Light Mode)
+     Color space: OKLCH for uniform perceptual lightness and chroma
+     ------------------------------------------------------------------------ */
+  --bg: oklch(98% 0.004 240);
+  --surface: oklch(100% 0 0);
+  --fg: oklch(20% 0.02 240);
+  --muted: oklch(46% 0.018 240);
+  --muted-editorial: oklch(50% 0.018 240);
+  --border: oklch(90% 0.006 240);
+  --accent: oklch(47% 0.11 170);
+  --on-accent: oklch(100% 0 0);
+
+  /* Translucent & State Color Mixes */
+  --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+  --accent-soft-subtle: color-mix(in oklch, var(--accent) 12%, transparent);
+  --accent-hover: color-mix(in oklch, var(--accent) 86%, black);
+  --accent-pill-text: color-mix(in oklch, var(--accent) 80%, black);
+  --accent-surface-tint: color-mix(in oklch, var(--accent) 26%, var(--surface));
+  --accent-border-mix: color-mix(in oklch, var(--accent) 55%, var(--border));
+  --fg-soft: color-mix(in oklch, var(--fg) 6%, transparent);
+  --danger: oklch(54% 0.17 28);
+
+  /* Surface & Navigation Overlays */
+  --nav-bg: color-mix(in oklch, var(--bg) 88%, transparent);
+  --selection-bg: var(--accent);
+  --selection-fg: var(--on-accent);
+
+  /* ------------------------------------------------------------------------
+     Typography: Font Families
+     ------------------------------------------------------------------------ */
+  --font-display: 'Söhne', 'Avenir Next', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ------------------------------------------------------------------------
+     Typography: Fluid Font Sizes
+     ------------------------------------------------------------------------ */
+  /* H1 Scales */
+  --fs-h1: clamp(40px, 5.4vw, 64px);          /* Standard page title (about, work, blog) */
+  --fs-h1-hero: clamp(44px, 6vw, 76px);        /* Portfolio home hero headline */
+  --fs-h1-article: clamp(34px, 5vw, 56px);     /* Reading / article page title */
+
+  /* H2 Scales */
+  --fs-h2: clamp(28px, 3.6vw, 42px);          /* Standard section heading */
+  --fs-h2-hero: clamp(32px, 4vw, 48px);        /* Prominent hero section heading */
+  --fs-h2-compact: clamp(26px, 3.4vw, 38px);   /* Reading / blog article subsection */
+
+  /* H3 Scales */
+  --fs-h3: 21px;                               /* Standard subsection heading */
+  --fs-h3-hero: 22px;                          /* Large subsection / article subhead */
+  --fs-h3-compact: 20px;                       /* Compact subsection heading */
+
+  /* Lead Paragraph */
+  --fs-lead: 18px;                             /* Standard intro / lead paragraph */
+  --fs-lead-hero: 19px;                        /* Portfolio hero intro text */
+
+  /* Base & Metadata */
+  --fs-body: 16px;                             /* Core body copy */
+  --fs-meta: 13px;                             /* Timestamps, tags, mono labels */
+
+  /* Static Typography Scale */
+  --fs-2xs: 11px;                              /* Badges, micro pills */
+  --fs-xs: 12px;                               /* Eyebrow, mono tags, secondary labels */
+  --fs-sm: 14px;                               /* Nav links, skip links, captions */
+  --fs-base: 15px;                             /* Buttons, compact descriptions */
+  --fs-lg: 18px;                               /* Subheaders, card titles */
+  --fs-xl: 22px;                               /* Section headers */
+
+  /* ------------------------------------------------------------------------
+     Typography: Font Weights
+     ------------------------------------------------------------------------ */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-nav: 550;
+  --fw-semibold: 600;
+  --fw-heading-sm: 650;
+  --fw-bold: 700;
+  --fw-extrabold: 750;
+
+  /* ------------------------------------------------------------------------
+     Typography: Line Heights
+     ------------------------------------------------------------------------ */
+  --lh-tight: 1.04;
+  --lh-h1: 1.05;
+  --lh-h1-article: 1.06;
+  --lh-h2: 1.10;
+  --lh-h2-compact: 1.12;
+  --lh-h3: 1.30;
+  --lh-body: 1.55;
+  --lh-code: 1.60;
+  --lh-relaxed: 1.70;
+
+  /* ------------------------------------------------------------------------
+     Typography: Letter Spacing
+     ------------------------------------------------------------------------ */
+  --tracking-tighter: -0.03em;                 /* H1 titles */
+  --tracking-tight: -0.025em;                  /* H2 headings */
+  --tracking-logo: -0.02em;                    /* Topnav logo */
+  --tracking-h3: -0.01em;                      /* H3 subsection */
+  --tracking-btn: -0.005em;                    /* Button text */
+  --tracking-normal: 0em;
+  --tracking-pill: 0.04em;                     /* Uppercase pills */
+  --tracking-eyebrow: 0.08em;                  /* Monospace eyebrows */
+
+  /* ------------------------------------------------------------------------
+     Spacing: Gap Scale
+     ------------------------------------------------------------------------ */
+  --gap-xs: 8px;
+  --gap-sm: 12px;
+  --gap-md: 20px;
+  --gap-lg: 32px;
+  --gap-xl: 56px;
+  --gap-2xl: 96px;
+
+  /* ------------------------------------------------------------------------
+     Layout & Container
+     ------------------------------------------------------------------------ */
+  --container: 1120px;
+  --gutter: 32px;
+  --prose-max-width: 62ch;
+  --prose-max-width-narrow: 60ch;
+  --reader-max-width: min(680px, calc(100vw - 32px));
+
+  /* Section Padding (Fluid) */
+  --section-py: clamp(44px, 7vw, 88px);
+  --section-py-hero: clamp(48px, 8vw, var(--gap-2xl));
+  --section-py-compact: clamp(32px, 5vw, 64px);
+
+  /* ------------------------------------------------------------------------
+     Border Radius
+     ------------------------------------------------------------------------ */
+  --radius-xs: 6px;                            /* Focus rings, small indicators */
+  --radius-sm: 10px;                           /* Feature marks, skip link, avatar dot */
+  --radius-md: 12px;                           /* Code blocks, dialog panels */
+  --radius: 14px;                              /* Standard buttons, primary cards */
+  --radius-lg: 18px;                           /* Feature cards, large containers */
+  --radius-full: 999px;                        /* Pills, tags, rounded buttons */
+  --radius-bubble: 18px 18px 18px 6px;         /* Chat / buddy dialog bubble */
+  --border-width: 1px;
+
+  /* ------------------------------------------------------------------------
+     Box Shadows & Elevation
+     ------------------------------------------------------------------------ */
+  --shadow-focus: 0 0 0 3px var(--accent-soft);
+  --shadow-focus-lg: 0 0 0 5px var(--accent-soft);
+  --shadow-accent: 0 10px 24px -14px color-mix(in oklch, var(--accent) 70%, transparent);
+  --shadow-card: 0 12px 28px -18px color-mix(in oklch, var(--fg) 30%, transparent);
+  --shadow-elevated: 0 20px 44px -24px color-mix(in oklch, var(--fg) 30%, transparent);
+  --shadow-floating: 0 24px 64px -32px color-mix(in oklch, var(--fg) 28%, transparent);
+  --shadow-solid: 4px 4px 0 var(--fg);         /* Brutalist / retro offset shadow */
+
+  /* ------------------------------------------------------------------------
+     Backdrop Filters & Blur
+     ------------------------------------------------------------------------ */
+  --blur-backdrop: 12px;
+  --backdrop-nav: blur(var(--blur-backdrop));
+
+  /* ------------------------------------------------------------------------
+     Transitions & Motion
+     ------------------------------------------------------------------------ */
+  --duration-fast: 0.05s;
+  --duration-base: 0.15s;
+  --duration-moderate: 0.18s;
+  --duration-slow: 0.60s;
+  --ease-default: ease;
+  --ease-out: ease-out;
+
+  --transition-btn: transform 0.05s ease, background 0.15s ease, border-color 0.15s ease;
+  --transition-interactive: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  --transition-card: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  --transition-fade: opacity 0.6s ease, transform 0.6s ease;
+
+  /* ------------------------------------------------------------------------
+     Z-Index Layers
+     ------------------------------------------------------------------------ */
+  --z-base: 1;
+  --z-nav: 10;
+  --z-modal: 30;
+  --z-skip-link: 50;
+  --z-max: 100;
+
+  /* ------------------------------------------------------------------------
+     Breakpoints (Reference Values)
+     ------------------------------------------------------------------------ */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 760px;
+  --breakpoint-lg: 920px;
+  --breakpoint-xl: 1120px;
+}
+
+/* ==========================================================================
+   2. DARK THEME TOKENS
+   ========================================================================== */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Colors (Dark Mode) */
+  --bg: oklch(22% 0.015 240);
+  --surface: oklch(27% 0.018 240);
+  --fg: oklch(94% 0.008 240);
+  --muted: oklch(72% 0.015 240);
+  --muted-editorial: oklch(72% 0.015 240);
+  --border: oklch(36% 0.02 240);
+  --accent: oklch(72% 0.12 170);
+  --on-accent: oklch(22% 0.02 240);
+
+  /* Translucent & State Color Mixes */
+  --accent-soft: color-mix(in oklch, var(--accent) 18%, transparent);
+  --accent-soft-subtle: color-mix(in oklch, var(--accent) 14%, transparent);
+  --accent-hover: color-mix(in oklch, var(--accent) 86%, white);
+  --accent-pill-text: var(--accent);
+  --fg-soft: color-mix(in oklch, var(--fg) 8%, transparent);
+  --danger: oklch(65% 0.20 28);
+
+  /* Shadows (Dark Mode Adjusted) */
+  --shadow-accent: 0 10px 24px -14px color-mix(in oklch, var(--accent) 45%, transparent);
+  --shadow-card: 0 12px 28px -18px color-mix(in oklch, 0% 0 0 / 40%);
+  --shadow-elevated: 0 20px 44px -24px color-mix(in oklch, 0% 0 0 / 55%);
+  --shadow-floating: 0 24px 64px -32px color-mix(in oklch, 0% 0 0 / 65%);
+}
+
+/* Automatic OS Dark Mode Support (when no explicit theme is set on root) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg: oklch(22% 0.015 240);
+    --surface: oklch(27% 0.018 240);
+    --fg: oklch(94% 0.008 240);
+    --muted: oklch(72% 0.015 240);
+    --muted-editorial: oklch(72% 0.015 240);
+    --border: oklch(36% 0.02 240);
+    --accent: oklch(72% 0.12 170);
+    --on-accent: oklch(22% 0.02 240);
+
+    --accent-soft: color-mix(in oklch, var(--accent) 18%, transparent);
+    --accent-soft-subtle: color-mix(in oklch, var(--accent) 14%, transparent);
+    --accent-hover: color-mix(in oklch, var(--accent) 86%, white);
+    --accent-pill-text: var(--accent);
+    --fg-soft: color-mix(in oklch, var(--fg) 8%, transparent);
+    --danger: oklch(65% 0.20 28);
+
+    --shadow-accent: 0 10px 24px -14px color-mix(in oklch, var(--accent) 45%, transparent);
+    --shadow-card: 0 12px 28px -18px color-mix(in oklch, 0% 0 0 / 40%);
+    --shadow-elevated: 0 20px 44px -24px color-mix(in oklch, 0% 0 0 / 55%);
+    --shadow-floating: 0 24px 64px -32px color-mix(in oklch, 0% 0 0 / 65%);
+  }
+}
+
+/* ==========================================================================
+   3. RESPONSIVE TOKEN OVERRIDES
+   ========================================================================== */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+  }
+}

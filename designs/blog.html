@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog — Austin Akers</title>
+<meta name="description" content="Technical notes on Vue, Nuxt, performance, and accessibility. Filter by tag, read in-page." />
+<style>
+:root{
+  color-scheme: light;
+  --bg: oklch(98% 0.004 240);
+  --surface: oklch(100% 0 0);
+  --fg: oklch(20% 0.02 240);
+  --muted: oklch(46% 0.018 240);
+  --border: oklch(90% 0.006 240);
+  --accent: oklch(47% 0.11 170);
+  --on-accent: oklch(100% 0 0);
+  --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+  --fg-soft: color-mix(in oklch, var(--fg) 6%, transparent);
+  --font-display: 'Söhne', 'Avenir Next', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --fs-h1: clamp(40px, 5.4vw, 64px);
+  --fs-h2: clamp(26px, 3.4vw, 38px);
+  --fs-h3: 20px;
+  --fs-lead: 18px;
+  --fs-body: 16px;
+  --fs-meta: 13px;
+  --gap-md: 20px; --gap-lg: 32px; --gap-xl: 56px;
+  --container: 1120px; --gutter: 32px;
+  --radius: 14px; --radius-lg: 18px;
+}
+[data-theme="dark"]{
+  color-scheme: dark;
+  --bg: oklch(22% 0.015 240);
+  --surface: oklch(27% 0.018 240);
+  --fg: oklch(94% 0.008 240);
+  --muted: oklch(72% 0.015 240);
+  --border: oklch(36% 0.02 240);
+  --accent: oklch(72% 0.12 170);
+  --on-accent: oklch(22% 0.02 240);
+  --accent-soft: color-mix(in oklch, var(--accent) 18%, transparent);
+  --fg-soft: color-mix(in oklch, var(--fg) 8%, transparent);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a{text-underline-offset:3px}::selection{background:var(--accent);color:var(--on-accent)}
+button{font:inherit;cursor:pointer}
+p{text-wrap:pretty} h1,h2,h3{text-wrap:balance}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:clamp(44px,7vw,88px)}
+.section + .section{border-top:1px solid var(--border)}
+.stack{display:flex;flex-direction:column}.stack > * + *{margin-top:var(--gap-md)}
+.row{display:flex;align-items:center;gap:16px}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.h1{font-family:var(--font-display);font-size:var(--fs-h1);line-height:1.05;letter-spacing:-0.03em;margin:0;font-weight:750}
+.h2{font-family:var(--font-display);font-size:var(--fs-h2);line-height:1.12;letter-spacing:-0.025em;margin:0;font-weight:700}
+.lead{font-size:var(--fs-lead);line-height:1.55;color:var(--muted);max-width:62ch;margin:0}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+.meta{font-family:var(--font-mono);font-size:var(--fs-meta);color:var(--muted)}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.topnav{position:sticky;top:0;z-index:10;background:color-mix(in oklch, var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.topnav-inner{display:flex;align-items:center;justify-content:space-between;padding-block:14px;gap:16px}
+.logo{font-family:var(--font-display);font-size:19px;font-weight:750;display:flex;align-items:center;gap:10px}
+.topnav nav{display:flex;gap:28px}
+.topnav nav a{font-size:14px;color:var(--muted);font-weight:550}
+.topnav nav a:hover{color:var(--fg)}
+.topnav nav a[aria-current="page"]{color:var(--fg)}
+@media(max-width:760px){.topnav-inner{flex-wrap:wrap}.topnav nav{display:flex;gap:4px 16px;order:3;width:100%;overflow-x:auto;padding-bottom:2px}.topnav nav a{font-size:13px;white-space:nowrap;padding-block:6px}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--radius);border:1px solid transparent;font-size:15px;font-weight:600;min-height:44px;transition:background .15s,border-color .15s,transform .05s}
+.btn-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn-primary:hover{background:color-mix(in oklch, var(--accent) 86%, black);color:var(--on-accent);border-color:color-mix(in oklch, var(--accent) 86%, black)}.btn-primary:active{transform:translateY(1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn-secondary{background:transparent;color:var(--fg);border-color:var(--border)}
+.btn-secondary:hover{border-color:var(--fg)}
+.btn-ghost{background:transparent;color:var(--fg);border-color:transparent;padding-inline:8px}
+.btn-ghost:hover{background:var(--fg-soft);color:var(--fg)}
+.btn-arrow::after{content:'→'}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--fg);transition:border-color .15s,transform .15s}
+.icon-btn:hover{border-color:var(--fg);background:var(--fg-soft);transform:translateY(-1px)}
+.icon-btn svg{width:19px;height:19px}
+.tag{display:inline-flex;align-items:center;padding:4px 10px;color:var(--muted);border:1px solid var(--border);border-radius:999px;font-size:12px;font-family:var(--font-mono)}
+.pill{display:inline-flex;align-items:center;padding:4px 10px;background:var(--accent-soft);color:color-mix(in oklch, var(--accent) 80%, black);border-radius:999px;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+.bubble{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:18px 18px 18px 6px;padding:10px 14px;font-size:14px;font-weight:600}
+.mii.mini{width:28px;height:28px}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--font-mono);font-size:12px;min-height:44px}
+.filter-btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.filter-btn:hover{border-color:var(--fg);color:var(--fg)}
+.filter-btn[aria-pressed="true"]:hover{color:var(--bg)}
+.log-row{display:grid;grid-template-columns:120px 1fr 100px;gap:24px;padding:22px 0;border-top:1px solid var(--border);align-items:baseline;cursor:pointer;border-left:0;border-right:0;border-bottom:0;background:none;width:100%;text-align:left;color:inherit;font:inherit;appearance:none;-webkit-appearance:none}
+.log-row > span{min-width:0}
+.log-row:hover h3{color:var(--accent)}
+.log-row h3{font-size:19px;margin:0;font-family:var(--font-display)}
+.log-row .pull{text-align:right}
+.log-row[aria-current="true"] h3{color:var(--accent)}
+@media(max-width:640px){.log-row{grid-template-columns:1fr}.log-row .pull{text-align:left}}
+.reader{display:grid;grid-template-columns:1fr 240px;gap:48px;align-items:start}
+@media(max-width:920px){.reader{grid-template-columns:1fr}}
+.toc{position:sticky;top:84px;border:1px solid var(--border);border-radius:var(--radius);padding:20px;background:var(--surface)}
+.toc a{display:block;font-size:14px;color:var(--muted);padding:6px 0}
+.toc a:hover,.toc a.active{color:var(--accent)}
+.article{font-size:17px;line-height:1.7}
+.article h3{font-family:var(--font-display);font-size:22px;margin:32px 0 8px}
+.article p{color:var(--fg);margin:0 0 16px}
+.article p.muted-line{color:var(--muted)}
+.code{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;font-family:var(--font-mono);font-size:13px;line-height:1.6;overflow:auto;margin:0 0 16px}
+.callout{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:16px 18px;background:var(--surface);font-size:15px;color:var(--muted)}
+.search{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;font-size:15px}
+.search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.input{width:240px;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--fg);font:inherit;font-size:15px}
+.reveal{opacity:1}
+html.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+html.js .reveal.in{opacity:1;transform:none}
+.pagefoot{padding-block:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+@media(prefers-reduced-motion:reduce){html.js .reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:640px){:root{--gutter:20px}}.skip{position:absolute;left:-9999px;top:8px;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600}.skip:focus{left:8px}</style>
+<script>(function(){try{var s=null;try{s=localStorage.getItem('aa-theme');}catch(e){}var d=null;try{d=window.matchMedia('(prefers-color-scheme: dark)').matches;}catch(e){}if(s==='dark'||(!s&&d)){document.documentElement.setAttribute('data-theme','dark');}document.documentElement.classList.add('js');}catch(e){}})();</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="topnav" data-od-id="topnav">
+<div class="container topnav-inner">
+<a class="logo" href="portfolio-home.html"><svg class="mii mini" width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="46" r="34" fill="var(--surface)" stroke="var(--fg)" stroke-width="5"/><circle cx="50" cy="46" r="34" fill="color-mix(in oklch, var(--accent) 12%, transparent)"/><ellipse cx="39" cy="44" rx="4.4" ry="6" fill="var(--fg)"/><ellipse cx="61" cy="44" rx="4.4" ry="6" fill="var(--fg)"/><circle cx="40.5" cy="42" r="1.4" fill="var(--surface)"/><circle cx="62.5" cy="42" r="1.4" fill="var(--surface)"/><path d="M40 60 Q50 68 60 60" stroke="var(--fg)" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="55" r="5" fill="var(--accent-soft)"/><circle cx="70" cy="55" r="5" fill="var(--accent-soft)"/><path d="M20 34 Q50 2 80 34 Q76 18 50 12 Q24 18 20 34" fill="var(--fg)"/></svg> austinakers.com</a>
+<nav aria-label="Primary">
+<a href="portfolio-home.html">Home</a><a href="work.html">Work</a><a href="blog.html" aria-current="page">Blog</a><a href="about.html">About</a>
+</nav>
+<div class="row" style="gap:8px">
+<button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg></button>
+<a class="btn btn-primary" href="portfolio-home.html#contact" data-od-id="nav-cta">Follow along</a>
+</div>
+</div>
+</header>
+<main id="content">
+<section class="section" data-od-id="blog-hero">
+<div class="container stack" style="gap:24px">
+<div style="max-width:58ch" class="reveal">
+<p class="eyebrow">Blog · notes for startup engineers</p>
+<h1 class="h1">Short posts, usable patterns.</h1>
+<p class="lead" style="margin-top:16px">One technical note per week — Vue and Nuxt patterns, performance budgets, accessibility fixes. Filter by tag or search, then read right here.</p>
+</div>
+<div class="reveal" style="display:grid;grid-template-columns:1fr 280px;gap:12px;align-items:center">
+<div class="filter-bar" role="group" aria-label="Filter posts by tag">
+<button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+<button class="filter-btn" data-filter="vue" aria-pressed="false">vue</button>
+<button class="filter-btn" data-filter="nuxt" aria-pressed="false">nuxt</button>
+<button class="filter-btn" data-filter="performance" aria-pressed="false">performance</button>
+<button class="filter-btn" data-filter="accessibility" aria-pressed="false">accessibility</button>
+<button class="filter-btn" data-filter="motion" aria-pressed="false">motion</button>
+</div>
+<label class="meta" for="search" style="position:absolute;left:-9999px">Search posts</label>
+<input class="search" id="search" type="search" placeholder="Search posts… (try “dialog”)" />
+</div>
+<p class="meta reveal" id="postCount" role="status">Showing 12 of 12 posts</p>
+</div>
+</section>
+<section class="section" data-od-id="blog-list" style="padding-top:0">
+<div class="container">
+<h2 class="h2" style="font-size:22px;margin:0 0 12px">All posts</h2>
+<div id="postList">
+<button class="log-row reveal" data-tags="vue nuxt performance" data-post="p1" aria-current="true" data-od-id="post-row-islands"><span class="meta num">Sep 02, 2026</span><span><h3>Nuxt 4 islands: what I lazy-load and why</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Server components, hydration boundaries, and the checklist I run before adding JS.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">vue</span><span class="tag">nuxt</span><span class="tag">performance</span></span></span><span class="pull meta num">6 min</span></button>
+<button class="log-row reveal" data-tags="accessibility vue" data-post="p2" aria-current="false" data-od-id="post-row-dialogs"><span class="meta num">Aug 18, 2026</span><span><h3>Focus management in headless dialogs</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Trap, restore, and announce — a small pattern with outsized UX payoff.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">accessibility</span><span class="tag">vue</span></span></span><span class="pull meta num">8 min</span></button>
+<button class="log-row reveal" data-tags="performance motion" data-post="p3" aria-current="false" data-od-id="post-row-budget"><span class="meta num">Aug 04, 2026</span><span><h3>A 20kb animation budget that still feels rich</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">GSAP vs CSS vs useMotion — where each wins and how I stay on transform + opacity.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">performance</span><span class="tag">motion</span></span></span><span class="pull meta num">5 min</span></button>
+<button class="log-row reveal" data-tags="nuxt accessibility" data-post="p4" aria-current="false" data-od-id="post-row-forms"><span class="meta num">Jul 21, 2026</span><span><h3>Forms that forgive: validation without the shame</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Inline errors, honeypots, and Turnstile — spam blocked, humans welcomed.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">nuxt</span><span class="tag">accessibility</span></span></span><span class="pull meta num">7 min</span></button>
+<button class="log-row reveal" data-tags="vue performance" data-post="p5" aria-current="false" data-od-id="post-row-images"><span class="meta num">Jul 07, 2026</span><span><h3>Images: the unsexy performance win</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Sizes, formats, and placeholders — the checklist that cut my LCP in half.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">vue</span><span class="tag">performance</span></span></span><span class="pull meta num">6 min</span></button>
+<button class="log-row reveal" data-tags="nuxt motion" data-post="p6" aria-current="false" data-od-id="post-row-reveals"><span class="meta num">Jun 23, 2026</span><span><h3>Scroll reveals that respect reduced motion</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">One IntersectionObserver, zero layout shift, and a kill-switch that actually works.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">nuxt</span><span class="tag">motion</span></span></span><span class="pull meta num">4 min</span></button>
+<button class="log-row reveal" data-tags="vue accessibility" data-post="p7" aria-current="false" data-od-id="post-row-composables"><span class="meta num">Jun 09, 2026</span><span><h3>Composables I actually reuse: useAsyncState, useFocusTrap, usePrefersReducedMotion</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Three tiny composables that cover loading, dialogs, and motion preference.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">vue</span><span class="tag">accessibility</span></span></span><span class="pull meta num">9 min</span></button>
+<button class="log-row reveal" data-tags="nuxt performance" data-post="p8" aria-current="false" data-od-id="post-row-caching"><span class="meta num">May 26, 2026</span><span><h3>Caching without regret: route rules, SWR, and stale-while-revalidate</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Which pages to prerender, which to cache, and what to never cache at all.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">nuxt</span><span class="tag">performance</span></span></span><span class="pull meta num">7 min</span></button>
+<button class="log-row reveal" data-tags="accessibility motion" data-post="p9" aria-current="false" data-od-id="post-row-typewriter"><span class="meta num">May 12, 2026</span><span><h3>Building an accessible typewriter effect (with an honest fallback)</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">aria-live, reduced-motion kill-switch, and a static headline for everyone else.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">accessibility</span><span class="tag">motion</span></span></span><span class="pull meta num">5 min</span></button>
+<button class="log-row reveal" data-tags="vue nuxt accessibility" data-post="p10" aria-current="false" data-od-id="post-row-keyboard"><span class="meta num">Apr 28, 2026</span><span><h3>Keyboard-first navigation: skip links, roving tabindex, visible focus</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">The five-step audit I run on every nav before calling it done.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">vue</span><span class="tag">nuxt</span><span class="tag">accessibility</span></span></span><span class="pull meta num">8 min</span></button>
+<button class="log-row reveal" data-tags="performance accessibility" data-post="p11" aria-current="false" data-od-id="post-row-fonts"><span class="meta num">Apr 14, 2026</span><span><h3>Font loading without the flash: system stacks, subsetting, font-display</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">Why this site leans on system fonts — and when to pay for a display face.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">performance</span><span class="tag">accessibility</span></span></span><span class="pull meta num">6 min</span></button>
+<button class="log-row reveal" data-tags="vue performance motion" data-post="p12" aria-current="false" data-od-id="post-row-dialogmotion"><span class="meta num">Mar 31, 2026</span><span><h3>Dialog micro-motion: scale, fade, and focus in 180ms</h3><p style="margin:4px 0 0;color:var(--muted);font-size:14px">A spring-free recipe that feels friendly on mobile and desktop.</p><span class="row" style="gap:6px;margin-top:8px"><span class="tag">vue</span><span class="tag">performance</span><span class="tag">motion</span></span></span><span class="pull meta num">5 min</span></button>
+<div id="emptyState" class="card" hidden style="margin-top:16px"><p style="margin:0 0 12px">No posts match these filters. Try a different search or tag.</p><button class="btn btn-secondary" id="clearFilters" type="button">Clear filters</button></div>
+</div>
+</div>
+</section>
+<section class="section" data-od-id="blog-reader">
+<div class="container reader">
+<article class="article reveal" id="articleBody" aria-live="polite"></article>
+<aside class="toc reveal" aria-label="Table of contents">
+<p class="meta" style="margin:0 0 8px">ON THIS PAGE</p>
+<div id="tocLinks"></div>
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+<span class="bubble" style="font-size:13px">Bit's take: ship the checklist first</span>
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+<a class="btn btn-secondary" id="openFull" href="post.html?post=p1" style="min-height:40px;font-size:14px">Open full page →</a>
+<a class="btn btn-secondary" href="#" style="min-height:40px;font-size:14px">Share on X</a>
+<a class="btn btn-ghost btn-arrow" href="portfolio-home.html#contact" style="min-height:40px;font-size:14px">Follow for more</a>
+</div>
+</aside>
+</div>
+</section>
+<section class="section" data-od-id="blog-subscribe" style="text-align:center">
+<div class="container reveal" style="max-width:560px">
+<h2 class="h2">One note a week. No spam.</h2>
+<p class="lead" style="margin:16px auto 24px">Join the list — weekly patterns, honest post-mortems, zero growth-hack nonsense.</p>
+<form id="newsForm" class="row" style="gap:8px;justify-content:center;flex-wrap:wrap" novalidate>
+<label class="meta" for="newsEmail" style="position:absolute;left:-9999px">Email</label>
+<input class="input" id="newsEmail" type="email" placeholder="you@startup.com" required />
+<button class="btn btn-secondary" type="submit">Subscribe</button>
+</form>
+<p class="meta" id="newsMsg" role="status" style="margin-top:8px"></p>
+</div>
+</section>
+</main>
+<footer class="pagefoot" data-od-id="footer"><div class="container row-between" style="flex-wrap:wrap"><span>© Austin Akers · 2026</span><span class="meta">Blog · <a href="portfolio-home.html">home</a> · <a href="work.html">work</a> · <a href="about.html">about</a> · RSS</span></div></footer>
+<script>
+(function(){
+try{document.documentElement.classList.add('js');}catch(e){}
+const root=document.documentElement;
+let saved=null;try{saved=localStorage.getItem('aa-theme');}catch(e){}
+if(saved){try{root.setAttribute('data-theme',saved);}catch(e){}}else{try{if(window.matchMedia('(prefers-color-scheme: dark)').matches)root.setAttribute('data-theme','dark');}catch(e){}}
+let toggle=null;try{toggle=document.getElementById('themeToggle');}catch(e){}
+if(toggle)toggle.addEventListener('click',()=>{const n=root.getAttribute('data-theme')==='dark'?'light':'dark';if(n==='light')root.removeAttribute('data-theme');else root.setAttribute('data-theme','dark');try{localStorage.setItem('aa-theme',n);}catch(e){}});
+try{
+if('IntersectionObserver' in window){
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+}catch(e){try{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}catch(_){}}
+const POSTS={
+p1:{title:'Nuxt 4 islands: what I lazy-load and why',date:'Sep 02, 2026 · 6 min',tags:['vue','nuxt','performance'],body:'<p class="eyebrow">vue · nuxt · performance</p><h2 class="h2">Nuxt 4 islands: what I lazy-load and why</h2><p class="muted-line meta num">Sep 02, 2026 · 6 min read</p><p>Every kilobyte of JavaScript is a tax on your first paint. Nuxt islands let me keep the page static and hydrate only the interactive parts — the command palette, the filters, the bits that earn their weight.</p><h3 id="s-checklist">My lazy-load checklist</h3><p>Before any component gets client JS, it must answer yes to one question: does the user interact with this above the fold? If not, it ships as an island or not at all.</p><div class="code">&lt;template&gt;<br/>&nbsp;&nbsp;&lt;NuxtIsland name="Filters" /&gt;<br/>&nbsp;&nbsp;&lt;ClientOnly&gt;&lt;CmdPalette /&gt;&lt;/ClientOnly&gt;<br/>&lt;/template&gt;</div><h3 id="s-boundaries">Hydration boundaries</h3><p>Wrap interactivity tightly. A search box hydrates; the article around it does not. The result reads instantly and still feels alive where it matters.</p><div class="callout">Rule of thumb: if it does not respond to input, it does not need JavaScript.</div><h3 id="s-measure">Measure, then celebrate</h3><p class="muted-line">Lighthouse before and after, bundle report in the PR, and a one-line note in the changelog. Small wins compound.</p>'},
+p2:{title:'Focus management in headless dialogs',date:'Aug 18, 2026 · 8 min',tags:['accessibility','vue'],body:'<p class="eyebrow">accessibility · vue</p><h2 class="h2">Focus management in headless dialogs</h2><p class="muted-line meta num">Aug 18, 2026 · 8 min read</p><p>A dialog that steals focus and never gives it back is a trust violation. The fix is three steps and fits in one composable.</p><h3 id="s-trap">Trap</h3><p>Keep Tab cycling inside the dialog while it is open. Listen for Tab and wrap from last back to first.</p><div class="code">onKeydown: if (e.key === "Tab") wrapFocus(e);<br/>onKeydown: if (e.key === "Escape") close();</div><h3 id="s-restore">Restore</h3><p>Remember the opener. On close, return focus exactly where the user was — that continuity is the whole ballgame.</p><h3 id="s-announce">Announce</h3><p class="muted-line">Give the dialog a labelled heading and announce it politely. Screen-reader users should know where they landed.</p>'},
+p3:{title:'A 20kb animation budget that still feels rich',date:'Aug 04, 2026 · 5 min',tags:['performance','motion'],body:'<p class="eyebrow">performance · motion</p><h2 class="h2">A 20kb animation budget that still feels rich</h2><p class="muted-line meta num">Aug 04, 2026 · 5 min read</p><p>Rich motion does not require a heavy library. My stack: CSS keyframes first, IntersectionObserver reveals second, GSAP only when timelines get gnarly.</p><h3 id="s-css">CSS does 80%</h3><p>Fades, lifts, and micro-hovers are transform and opacity — compositor-friendly, 60fps, boring in the best way.</p><div class="code">.reveal { opacity: 0; translate: 0 18px; }<br/>.reveal.in { opacity: 1; translate: 0 0; }</div><h3 id="s-gsap">GSAP earns the rest</h3><p>Staggered entrances and scroll-scrubbed sequences. Imported on demand, never in the critical path.</p><h3 id="s-motion">Respect the kill-switch</h3><p class="muted-line">Every animation checks prefers-reduced-motion. Stillness is a feature.</p>'},
+p4:{title:'Forms that forgive: validation without the shame',date:'Jul 21, 2026 · 7 min',tags:['nuxt','accessibility'],body:'<p class="eyebrow">nuxt · accessibility</p><h2 class="h2">Forms that forgive: validation without the shame</h2><p class="muted-line meta num">Jul 21, 2026 · 7 min read</p><p>Error messages should read like help, not accusations. Inline, specific, and next to the field — never a red wall at the top.</p><h3 id="s-inline">Inline and kind</h3><p>"Enter a work email — gmail is fine too" beats "Invalid input" every single time.</p><div class="code">honeypot + turnstile → zero puzzles<br/>aria-describedby → error tied to field<br/>success → "reply within ~24h"</div><h3 id="s-spam">Spam blocked quietly</h3><p class="muted-line">Honeypot catches bots, Turnstile catches the rest, humans never see a puzzle.</p>'},
+p5:{title:'Images: the unsexy performance win',date:'Jul 07, 2026 · 6 min',tags:['vue','performance'],body:'<p class="eyebrow">vue · performance</p><h2 class="h2">Images: the unsexy performance win</h2><p class="muted-line meta num">Jul 07, 2026 · 6 min read</p><p>Images are usually the heaviest thing on the page, which makes them the cheapest win. Right size, modern format, honest placeholder.</p><h3 id="s-sizes">Sizes first</h3><p>Serve the rendered width, not the camera width. A 320px card never needs a 2400px source.</p><div class="code">&lt;img srcset="/api/projects/23061e2f-8e49-401f-bd9f-18f3e68c0c32/raw/s-400.avif?workspaceId=b4mb37kdxura4shtnkax1lhr&workspaceMemberId=jrey7w86rkzd0mnw3xby0d96 400w, /api/projects/23061e2f-8e49-401f-bd9f-18f3e68c0c32/raw/s-800.avif?workspaceId=b4mb37kdxura4shtnkax1lhr&workspaceMemberId=jrey7w86rkzd0mnw3xby0d96 800w"<br/>&nbsp;&nbsp;sizes="(max-width: 640px) 100vw, 560px" /&gt;</div><h3 id="s-format">Format second</h3><p class="muted-line">AVIF where supported, WebP fallback, and a blurred placeholder so layout never jumps.</p>'},
+p6:{title:'Scroll reveals that respect reduced motion',date:'Jun 23, 2026 · 4 min',tags:['nuxt','motion'],body:'<p class="eyebrow">nuxt · motion</p><h2 class="h2">Scroll reveals that respect reduced motion</h2><p class="muted-line meta num">Jun 23, 2026 · 4 min read</p><p>One IntersectionObserver, a threshold of 0.12, and content that is fully visible with JS off or motion reduced. Progressive enhancement, not decoration tax.</p><h3 id="s-observer">One observer</h3><p>Observe every .reveal element, add .in on intersect, unobserve. That is the whole library.</p><div class="code">new IntersectionObserver(es =&gt;<br/>&nbsp;&nbsp;es.forEach(e =&gt; e.isIntersecting &amp;&amp; reveal(e)));</div><h3 id="s-stillness">Stillness counts</h3><p class="muted-line">Under prefers-reduced-motion: no transform, no fade, no delay. Content simply appears.</p>'},
+p7:{title:'Composables I actually reuse',date:'Jun 09, 2026 · 9 min',tags:['vue','accessibility'],body:'<p class="eyebrow">vue · accessibility</p><h2 class="h2">Composables I actually reuse: useAsyncState, useFocusTrap, usePrefersReducedMotion</h2><p class="muted-line meta num">Jun 09, 2026 · 9 min read</p><p>Most composables I write are one-offs. These three survived five projects, so they earned a permanent folder. Each is under 30 lines and solves exactly one problem.</p><h3 id="s-async">useAsyncState: loading without the spaghetti</h3><p>One reactive state object — data, error, pending — instead of three refs drifting out of sync. Every fetch on this site runs through it.</p><div class="code">const { data, error, pending, run } = useAsyncState(fetchPosts);<br/>await run(); // pending → data | error, never both</div><h3 id="s-trap2">useFocusTrap: dialogs that behave</h3><p>Trap Tab inside the dialog, close on Escape, restore focus to the opener on unmount. Pair it with an aria-labelled heading and screen-reader users always know where they landed.</p><div class="callout">Copy-paste rule: if your dialog file does not call useFocusTrap, it is not done.</div><h3 id="s-motion2">usePrefersReducedMotion: the honest kill-switch</h3><p>A single boolean that gates every animation — reveals, typewriter, dialog transitions. Check it first, animate second.</p><div class="code">const reduced = usePrefersReducedMotion();<br/>if (reduced.value) showAll(); else observe();</div><h3 id="s-keep">What did not make the cut</h3><p class="muted-line">useDebounce lives inline where it is used. useLocalStorage is two lines — not worth abstracting. Small is a feature.</p>'},
+p8:{title:'Caching without regret',date:'May 26, 2026 · 7 min',tags:['nuxt','performance'],body:'<p class="eyebrow">nuxt · performance</p><h2 class="h2">Caching without regret: route rules, SWR, and stale-while-revalidate</h2><p class="muted-line meta num">May 26, 2026 · 7 min read</p><p>Caching is easy to add and painful to debug — unless you decide the rules up front. Here is the three-tier setup I use on Nuxt Content sites like this one.</p><h3 id="s-tiers">The three tiers</h3><p>Prerender what never changes (about, evergreen posts). SWR-cache what changes slowly (post lists, tag pages). Never cache what is personal (contact submissions, theme preference).</p><div class="code">export default defineNuxtConfig({<br/>&nbsp;&nbsp;routeRules: {<br/>&nbsp;&nbsp;&nbsp;&nbsp;"/": { prerender: true },<br/>&nbsp;&nbsp;&nbsp;&nbsp;"/blog/**": { swr: 3600 },<br/>&nbsp;&nbsp;&nbsp;&nbsp;"/api/contact": { cache: false }<br/>&nbsp;&nbsp;}<br/>});</div><h3 id="s-swr">Why SWR fits content sites</h3><p>Serve the stale list instantly, revalidate in the background. Readers never stare at a spinner because you published a typo fix.</p><div class="callout">Measure it: log cache HIT/MISS headers for a week before tuning TTLs. Guessing expiry times is how you ship stale pricing pages.</div><h3 id="s-purge">Purge on publish</h3><p class="muted-line">Hook your CMS webhook to a cache purge for changed routes only. Full-site purges are a confession that the rules were wrong.</p>'},
+p9:{title:'Building an accessible typewriter effect',date:'May 12, 2026 · 5 min',tags:['accessibility','motion'],body:'<p class="eyebrow">accessibility · motion</p><h2 class="h2">Building an accessible typewriter effect (with an honest fallback)</h2><p class="muted-line meta num">May 12, 2026 · 5 min read</p><p>The typewriter on this homepage is the most-seen animation on the site — so it has the strictest manners. Static headline for assistive tech, motion only for those who want it.</p><h3 id="s-markup">Markup first, animation second</h3><p>Render the full headline in the DOM. The typing effect only swaps visible text; screen readers get one polite announcement, not 40 character updates.</p><div class="code">&lt;h1&gt;Interfaces that feel &lt;span aria-hidden="true" id="typed"&gt;&lt;/span&gt;&lt;/h1&gt;<br/>&lt;p class="sr-only" aria-live="polite"&gt;Interfaces that feel friendly.&lt;/p&gt;</div><h3 id="s-gates">Two gates before a single keystroke</h3><p>Gate one: prefers-reduced-motion — show the final phrase, no typing. Gate two: only animate when the hero is in view, so background tabs do no work.</p><div class="callout">Rule: decorative typing is aria-hidden. Always. The accessible name never changes mid-animation.</div><h3 id="s-timing">Timing that feels human</h3><p class="muted-line">~55ms per character, 900ms pause on the full phrase, instant delete. Total loop under 8s so it never becomes visual noise.</p>'},
+p10:{title:'Keyboard-first navigation',date:'Apr 28, 2026 · 8 min',tags:['vue','nuxt','accessibility'],body:'<p class="eyebrow">vue · nuxt · accessibility</p><h2 class="h2">Keyboard-first navigation: skip links, roving tabindex, visible focus</h2><p class="muted-line meta num">Apr 28, 2026 · 8 min read</p><p>Every page on this site passes the unplug-the-mouse test. Here is the five-step audit I run on each nav — it takes 15 minutes and catches 90% of keyboard bugs.</p><h3 id="s-skip">1. Skip link that actually works</h3><p>First focusable element on every page jumps to #content. Visible on focus, invisible otherwise. Test it with Tab from a fresh load — not from mid-page.</p><div class="code">&lt;a href="#content" class="skip"&gt;Skip to content&lt;/a&gt;<br/>.skip:not(:focus) { position: absolute; left: -9999px; }</div><h3 id="s-roving">2. Roving tabindex for grouped controls</h3><p>Filter bars and tab lists keep one tab stop; arrow keys move within the group. Six tag filters, one Tab press — that is the goal.</p><h3 id="s-focus">3. Focus you can see from the couch</h3><p>A 3px accent outline with offset on every interactive element. If you have to squint, it fails.</p><div class="code">:focus-visible { outline: 3px solid var(--accent);<br/>&nbsp;&nbsp;outline-offset: 3px; }</div><h3 id="s-trap3">4–5. Trap in dialogs, restore on close</h3><p class="muted-line">Same useFocusTrap from the composables post. Audit step five is pressing Escape — if focus vanishes into the void, the dialog is not shippable.</p>'},
+p11:{title:'Font loading without the flash',date:'Apr 14, 2026 · 6 min',tags:['performance','accessibility'],body:'<p class="eyebrow">performance · accessibility</p><h2 class="h2">Font loading without the flash: system stacks, subsetting, font-display</h2><p class="muted-line meta num">Apr 14, 2026 · 6 min read</p><p>This site ships zero webfont files. The display stack (Söhne → Avenir Next → system) and body stack (SF Pro → system) render instantly, in every language the OS supports. Here is when I would break that rule.</p><h3 id="s-system">Why system-first wins for portfolios</h3><p>No FOUT, no layout shift, no 200kb download before the headline appears. System fonts also respect user settings — larger text, bolder weights, dyslexia-friendly faces all carry through.</p><div class="code">--font-display: "Söhne", "Avenir Next", system-ui, sans-serif;<br/>--font-body: system-ui, -apple-system, "SF Pro Text", sans-serif;</div><h3 id="s-when">When to pay for a display face</h3><p>Brand wordmarks, editorial headlines, or a client design system that mandates it. Then: WOFF2 only, latin subset + full fallback, font-display: swap, and preload exactly one weight.</p><div class="callout">Budget: one display face, two weights max, under 60kb total. Anything more and the typography is costing more than it communicates.</div><h3 id="s-check">The 30-second check</h3><p class="muted-line">Throttle to Fast 3G, hard-reload, watch the headline. If it flashes, swaps, or jumps — fix the stack before adding another face.</p>'},
+p12:{title:'Dialog micro-motion',date:'Mar 31, 2026 · 5 min',tags:['vue','performance','motion'],body:'<p class="eyebrow">vue · performance · motion</p><h2 class="h2">Dialog micro-motion: scale, fade, and focus in 180ms</h2><p class="muted-line meta num">Mar 31, 2026 · 5 min read</p><p>Work-page case studies open in dialogs — so the open animation is the handshake for the whole portfolio. 180ms, transform + opacity only, and focus lands before the animation finishes.</p><h3 id="s-recipe">The recipe</h3><p>Backdrop fades in over 150ms. Panel scales from 0.96 to 1.0 and fades in over 180ms with a slight ease-out. Close reverses at 120ms — exits should always feel faster than entrances.</p><div class="code">.dialog { animation: in 180ms ease-out; }<br/>@keyframes in { from { opacity: 0; scale: .96; } }<br/>@media (prefers-reduced-motion: reduce) { .dialog { animation: none; } }</div><h3 id="s-focus4">Focus beats flourish</h3><p>Move focus into the dialog on open — synchronously, not after the animation. Waiting 180ms to announce context is 180ms of confusion.</p><div class="callout">Mobile rule: bottom-sheet style, full-width, drag-to-dismiss. A centered 400px box on a 360px screen is a bug, not a style.</div><h3 id="s-exit">Exits deserve design too</h3><p class="muted-line">Fade the backdrop first, then the panel. And always restore focus to the card that opened it — the loop must close.</p>'}
+};
+const article=document.getElementById('articleBody');
+const toc=document.getElementById('tocLinks');
+const rows=[...document.querySelectorAll('#postList .log-row')];
+const btns=[...document.querySelectorAll('.filter-btn')];
+const count=document.getElementById('postCount');
+const search=document.getElementById('search');
+let activePost='p1';
+function render(postId){
+  const p=POSTS[postId];if(!p)return;activePost=postId;
+  article.innerHTML=p.body;
+  rows.forEach(r=>r.setAttribute('aria-current',String(r.dataset.post===postId)));
+  try{const of=document.getElementById('openFull');if(of)of.href='post.html?post='+postId;}catch(e){}
+  const heads=[...article.querySelectorAll('h3[id]')];
+  toc.innerHTML=heads.map(h=>'<a href="#'+h.id+'">'+h.textContent+'</a>').join('');
+  toc.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.getAttribute('href').slice(1));if(t){try{const y=t.getBoundingClientRect().top+window.scrollY-84;window.scrollTo({top:y,behavior:'smooth'});}catch(_){t.setAttribute('tabindex','-1');t.focus({preventScroll:false});}};}));
+  try{const u=new url(/api/projects/23061e2f-8e49-401f-bd9f-18f3e68c0c32/raw/location.href?workspaceId=b4mb37kdxura4shtnkax1lhr&workspaceMemberId=jrey7w86rkzd0mnw3xby0d96);u.searchParams.set('post',postId);history.replaceState(null,'',u);}catch(e){}
+}
+rows.forEach(r=>r.addEventListener('click',()=>{try{location.href='post.html?post='+r.dataset.post;}catch(e){render(r.dataset.post);}}));
+rows.forEach(r=>r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();try{location.href='post.html?post='+r.dataset.post;}catch(_){}}}));
+function applyFilter(f,q){
+  const cf=document.getElementById('clearFilters');if(cf)cf.addEventListener('click',()=>{const s=document.getElementById('search');if(s)s.value='';applyFilter('all','');try{history.replaceState(null,location.pathname);}catch(e){}});
+btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter===f)));
+  q=(q||'').toLowerCase();let n=0;
+  rows.forEach(r=>{
+    const okTag=f==='all'||r.dataset.tags.includes(f);
+    const okQ=!q||r.textContent.toLowerCase().includes(q);
+    const show=okTag&&okQ;r.style.display=show?'':'none';if(show)n++;
+  });
+  count.textContent='Showing '+n+' of '+rows.length+' posts';const es=document.getElementById('emptyState');if(es)es.hidden=n!==0;
+  try{const u=new url(/api/projects/23061e2f-8e49-401f-bd9f-18f3e68c0c32/raw/location.href?workspaceId=b4mb37kdxura4shtnkax1lhr&workspaceMemberId=jrey7w86rkzd0mnw3xby0d96);if(f==='all')u.searchParams.delete('tag');else u.searchParams.set('tag',f);history.replaceState(null,'',u);}catch(e){}
+}
+let current='all';
+btns.forEach(b=>b.addEventListener('click',()=>{current=b.dataset.filter;applyFilter(current,search.value);}));
+search.addEventListener('input',()=>applyFilter(current,search.value));
+let initPost=null,initTag=null;
+try{const sp=new URLSearchParams(location.search);initPost=sp.get('post');initTag=sp.get('tag');}catch(e){}
+if(initPost&&POSTS[initPost]){activePost=initPost;}
+if(initTag&&['vue','nuxt','performance','accessibility','motion'].includes(initTag)){current=initTag;}
+render(activePost);applyFilter(current,search.value);
+document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('newsEmail').value;document.getElementById('newsMsg').textContent=/^\S+@\S+\.\S+$/.test(v)?'You are in — confirm via email on deploy.':'Enter a valid email to subscribe.';});
+})();
+</script>
+</body>
+</html>

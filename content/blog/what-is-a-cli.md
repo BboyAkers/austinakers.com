@@ -2,15 +2,16 @@
 title: "What is a CLI"
 subtitle: "Vuetify Beginner's Guide Series:"
 description: "Introduction to a Command Line Interface"
-tags: 
-  - 'Vue3'
-  - 'Vuetify'
-  - 'TypeScript'
-date: 05112020
+tags:
+  - 'vue3'
+  - 'vuetify'
+  - 'typescript'
+date: "2020-05-11"
+minutes: 4
 id: 4
 ---
 
-<a href="https://dev.to/bboyakers/what-is-a-cli-53a6" target="_blank" class="text-blue-600 hover:underline visited:text-purple-600">Dev.to Original Article</a>
+<a href="https://dev.to/bboyakers/what-is-a-cli-53a6" target="_blank">Dev.to Original Article</a>
 
 ## What is a CLI?
 

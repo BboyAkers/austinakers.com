@@ -3,11 +3,12 @@ title: "Let's build a Github Profile Search Web App"
 subtitle: "Web Project Series:"
 description: "A tutorial for using the Github API"
 tags:
- - 'Web Project'
- - 'JavaScript'
- - 'Github API'
- - 'Tutorial'
-date: 07032019
+ - 'web project'
+ - 'javascript'
+ - 'github api'
+ - 'tutorial'
+date: "2019-07-03"
+minutes: 4
 id: 1
 ---
 

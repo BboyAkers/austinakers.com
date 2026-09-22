@@ -1,19 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/content'
+    '@nuxt/ui',
+    '@nuxt/content',
+    '@nuxt/a11y',
+    '@nuxt/image',
   ],
-  css: [
-    '@/assets/main.css'
-  ],
-  plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
-  content: {
-    highlight: {
-      theme: 'github-light'
-    }
-  },
-  tailwindcss: {
-    configPath: '~/.tailwind.config.js'
-  }
+  css: ['~/assets/css/main.css'],
+  devtools: { enabled: true },
+  compatibilityDate: '2024-04-03',
 })
