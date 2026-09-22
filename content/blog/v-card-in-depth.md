@@ -2,12 +2,13 @@
 title: "V-Card In Depth"
 subtitle: "Framework Breakdown:"
 description: "Diving into the innards of Vuetify"
-tags: 
- - 'Beginners'
- - 'Vuetify'
- - 'Vue'
- - 'JavaScript'
-date: 03082023
+tags:
+ - 'beginners'
+ - 'vuetify'
+ - 'vue'
+ - 'javascript'
+date: "2023-03-08"
+minutes: 6
 id: 5
 ---
 

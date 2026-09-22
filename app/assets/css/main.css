@@ -1,0 +1,98 @@
+/**
+ * Theme — Austin Akers Portfolio
+ * Source of truth: designs/token.css (kept as reference; this file maps it to Nuxt UI).
+ *
+ * Mechanism (all sanctioned Nuxt UI / Tailwind v4 theme API):
+ * - @theme fonts -> `font-display` / `font-sans` / `font-mono` utilities
+ * - --ui-* overrides   -> semantic colors consumed by every Nuxt UI component
+ * - --ui-container / --ui-radius -> layout tokens consumed by UContainer and radius scale
+ *
+ * Only non-theme CSS in this file: ::selection, :focus-visible, scroll-behavior.
+ * No component or layout CSS lives here.
+ */
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@source "../../../content/**/*";
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-display: 'Söhne', 'Avenir Next', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+
+:root {
+  --ui-container: 70rem; /* token --container (1120px) */
+  --ui-radius: 0.875rem; /* token --radius (14px) */
+
+  /* token --accent / --danger */
+  --ui-primary: oklch(47% 0.11 170);
+  --ui-error: oklch(54% 0.17 28);
+
+  /* token --bg / --surface */
+  --ui-bg: oklch(98% 0.004 240);
+  --ui-bg-muted: color-mix(in oklch, oklch(20% 0.02 240) 6%, transparent); /* --fg-soft */
+  --ui-bg-elevated: oklch(100% 0 0);
+  --ui-bg-accented: oklch(90% 0.006 240);
+  --ui-bg-inverted: oklch(20% 0.02 240); /* --fg */
+
+  /* token --fg / --muted */
+  --ui-text-highlighted: oklch(20% 0.02 240);
+  --ui-text: oklch(20% 0.02 240);
+  --ui-text-toned: oklch(46% 0.018 240);
+  --ui-text-muted: oklch(46% 0.018 240);
+  --ui-text-dimmed: oklch(46% 0.018 240);
+  --ui-text-inverted: oklch(100% 0 0); /* --on-accent */
+
+  /* token --border */
+  --ui-border: oklch(90% 0.006 240);
+  --ui-border-muted: oklch(90% 0.006 240);
+  --ui-border-accented: oklch(90% 0.006 240);
+  --ui-border-inverted: oklch(20% 0.02 240);
+}
+
+.dark {
+  --ui-primary: oklch(72% 0.12 170);
+  --ui-error: oklch(65% 0.2 28);
+
+  --ui-bg: oklch(22% 0.015 240);
+  --ui-bg-muted: color-mix(in oklch, oklch(94% 0.008 240) 8%, transparent);
+  --ui-bg-elevated: oklch(27% 0.018 240);
+  --ui-bg-accented: oklch(36% 0.02 240);
+  --ui-bg-inverted: oklch(94% 0.008 240);
+
+  --ui-text-highlighted: oklch(94% 0.008 240);
+  --ui-text: oklch(94% 0.008 240);
+  --ui-text-toned: oklch(72% 0.015 240);
+  --ui-text-muted: oklch(72% 0.015 240);
+  --ui-text-dimmed: oklch(72% 0.015 240);
+  --ui-text-inverted: oklch(22% 0.02 240);
+
+  --ui-border: oklch(36% 0.02 240);
+  --ui-border-muted: oklch(36% 0.02 240);
+  --ui-border-accented: oklch(36% 0.02 240);
+  --ui-border-inverted: oklch(94% 0.008 240);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: var(--ui-primary);
+    color: var(--ui-text-inverted);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--ui-primary);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}

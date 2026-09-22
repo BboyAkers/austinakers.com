@@ -1,19 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/content'
+    '@nuxt/ui',
+    '@nuxt/content',
+    '@nuxt/a11y',
+    '@nuxt/image',
   ],
-  css: [
-    '@/assets/main.css'
-  ],
-  plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
-  content: {
-    highlight: {
-      theme: 'github-light'
-    }
+  css: ['~/assets/css/main.css'],
+  routeRules: {
+    '/': { prerender: true },
+    '/blog': { prerender: true },
+    '/blog/**': { prerender: true },
+    '/work': { prerender: true },
   },
-  tailwindcss: {
-    configPath: '~/.tailwind.config.js'
-  }
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+    },
+  },
+  devtools: { enabled: true },
+  compatibilityDate: '2024-04-03',
 })
