@@ -155,7 +155,7 @@ useHead({
     </template>
 
     <template #description>
-      I'm an husband, father, and engineer. I enjoy contributing to open source, uplifting others, playing cello, and breakdancing.
+      I'm a husband, father, and engineer. I enjoy contributing to open source, uplifting others, playing cello, and breakdancing.
     </template>
 
     <template #links>
