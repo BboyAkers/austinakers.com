@@ -5,6 +5,15 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/a11y',
   ],
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          langs: ['js', 'jsx', 'json', 'ts', 'tsx', 'vue', 'css', 'html', 'bash', 'md', 'mdc', 'yaml', 'javascript', 'typescript', 'sh', 'shell', 'markdown', 'yml', 'diff']
+        }
+      }
+    }
+  },
   ui: {
     // No webfonts: all stacks are system (ui-monospace/SF/Menlo).
     // Saves ~135KB of woff2 + 51 @font-face blocks vs @nuxt/fonts defaults.
