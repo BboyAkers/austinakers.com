@@ -130,4 +130,45 @@ console.log(months); // Array ['Jan', 'Mar', 'Apr', 'May', 'Feb']
 
 This may seem like a lot of code, but it is actually quite simple. Now, let's see how this looks in the actual JavaScript code.
 
+## Writing the spec to code
 
+What we'll do now is create our own version of `push()`. This is a common pattern in programming. It's called "monkey patching". We're doing this to make sure we don't conflict with the actual `.push()` method. So we'll call our custom push method `austinPush()` and attach it to the `Array.prototype` so we can use it like the built-in `.push()` method.
+
+```javascript
+
+function austinPush(...items) {
+    // Code here....
+
+}
+
+// Attaching our custom push method to the Array.prototype so we can use it like the built-in .push() method.
+Array.prototype.austinPush = austinPush; 
+
+let myArray = [1, 2, 3, 4];
+
+let newMyArrayLength = myArray.austinPush(5, 6);
+
+console.log(myArray);
+console.log(newMyArrayLength);
+```
+
+Now let's fill in the function with the code that corresponds to the spec.
+
+```javascript
+
+function austinPush(...items) {
+    // 1. Let O be ? ToObject(this value).
+    let O = Object(this);
+
+    // 2. Let len be ? LengthOfArrayLike(O).
+    
+    // 3. Let argCount be the number of elements in items.
+
+    // 4. If len + argCount > 2****53 - 1, throw a TypeError exception.
+
+    // 5. For each element E of items, do
+
+    // 6. Perform ? Set(O, "length", 𝔽(len), true).
+
+    // 7. Return 𝔽(len).
+}
