@@ -154,7 +154,7 @@ useSeoMeta({
       <div>
         <UCard variant="outline" class="overflow-hidden p-0 shadow-[0_24px_64px_-32px_var(--ui-text-highlighted)]/25">
           <NuxtImg
-            src="/images/profile-austin-akers.jpg"
+            src="https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/f40fad54-ff85-4764-8f60-d00cf3800800/public"
             alt="Portrait of Austin Akers, smiling in a light patterned shirt"
             width="800"
             sizes="(max-width: 768px) 100vw, 560px"

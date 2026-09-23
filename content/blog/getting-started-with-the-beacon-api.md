@@ -89,6 +89,7 @@ app.use(express.static('public'))
 ```
 
 Our *server.js* file should look quite similar to this:
+
 ```javascript
 const express = require("express");
 
@@ -125,6 +126,7 @@ Inside our **analytics.js** file, the first thing we need to do is create an eve
 Let's do that!
 
 First were capturing the element we clicked on and the time we clicked on it inside our document.
+
 ```javascript
 document.addEventListener('click', (event) => {
   {
@@ -135,6 +137,7 @@ document.addEventListener('click', (event) => {
 ```
 
 Next we need to create a `dataHistory` variable to store all data we capture from each click. Then push the captured data every time the user clicks inside the document.
+
 ```javascript
 let dataHistory = [];
 document.addEventListener('click', (event) => {
@@ -154,6 +157,7 @@ Now we need create our `analytics` function. This function will;
 -  Send the data to the `/analytics` endpoint using `navigator.sendBeacon()`
 
 What our `analytics` methods should look like:
+
 ```javascript
 window.onload = window.onunload = function analytics(event) {
 	if (!navigator.sendBeacon) return;
@@ -170,6 +174,7 @@ window.onload = window.onunload = function analytics(event) {
 
 We've now completed our analytics.js file!
 This is what our file should look like!
+
 ```javascript
 let dataHistory = [];
 

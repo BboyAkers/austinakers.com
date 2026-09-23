@@ -57,26 +57,6 @@ const filteredPosts = computed(() => {
   })
 })
 
-const selectedPath = computed(() => {
-  const post = route.query.post
-  if (typeof post === 'string' && (posts.value ?? []).some(p => p.path === post))
-    return post
-  return filteredPosts.value[0]?.path ?? posts.value?.[0]?.path
-})
-
-const selectedPost = computed(() => (posts.value ?? []).find(p => p.path === selectedPath.value))
-
-// Fetch the full body only for the selected post (keeps list payload small)
-const { data: selectedBody } = await useAsyncData(() => `blog-body-${selectedPath.value}`, () => {
-  if (!selectedPath.value)
-    return Promise.resolve(null)
-  return queryCollection('blog').path(selectedPath.value).first()
-}, { watch: [selectedPath] })
-
-function selectPost(path: string) {
-  router.replace({ query: { ...route.query, post: path } })
-}
-
 function formatDate(value: unknown) {
   const date = new Date(String(value))
   return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
@@ -84,7 +64,7 @@ function formatDate(value: unknown) {
 
 useSeoMeta({
   title: 'Blog — Austin Akers',
-  description: 'Technical notes on Vue, Nuxt, performance, and accessibility. Filter by tag, read in-page.'
+  description: 'Technical notes on web tech, performance, accessibility, and more. Filter by tag or search.'
 })
 </script>
 
@@ -92,7 +72,7 @@ useSeoMeta({
   <UPageSection
     headline="Blog · notes for startup engineers"
     title="Short posts, usable patterns."
-    description="One technical note per week — Vue and Nuxt patterns, performance budgets, accessibility fixes. Filter by tag or search, then read right here."
+    description="One technical note per week — web tech, performance, accessibility, and more. Filter by tag or search."
   >
     <template #body>
       <Reveal>
@@ -155,7 +135,6 @@ useSeoMeta({
           :tags="(post.tags as string[])"
           :minutes="post.minutes"
           :to="post.path"
-          @click="selectPost(post.path)"
         />
         <UEmpty
           v-if="filteredPosts.length === 0"
@@ -163,47 +142,6 @@ useSeoMeta({
           description="Try a different search or tag."
           :actions="[{ label: 'Clear filters', color: 'neutral', variant: 'outline', onClick: clearFilters }]"
         />
-      </div>
-    </template>
-  </UPageSection>
-
-  <USeparator />
-
-  <UPageSection v-if="selectedPost">
-    <template #body>
-      <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_240px]">
-        <Reveal>
-          <article aria-live="polite">
-            <p class="font-mono text-xs uppercase tracking-[0.08em] text-primary">
-              {{ ((selectedPost.tags ?? []) as string[]).join(' · ') }}
-            </p>
-            <h2 class="mt-2 font-display text-[clamp(26px,3.4vw,38px)] font-bold leading-[1.12] tracking-[-0.025em] text-highlighted">
-              {{ selectedPost.title }}
-            </h2>
-            <p class="mt-2 font-mono text-[13px] text-muted tabular-nums">
-              {{ formatDate(selectedPost.date) }} · {{ selectedPost.minutes }} min read
-            </p>
-            <p class="mt-4 text-[17px]/[1.7] text-highlighted">
-              {{ selectedPost.description }}
-            </p>
-            <ContentRenderer :value="selectedBody" class="mt-4 text-[17px]/[1.7] [&_h2]:mt-8 [&_h2]:text-[22px] [&_img]:my-4 [&_img]:rounded-xl [&_pre]:my-4" />
-          </article>
-        </Reveal>
-        <UPageAside>
-          <UCard variant="outline">
-            <p class="mb-2 font-mono text-[13px] text-muted">
-              ON THIS PAGE
-            </p>
-            <UContentToc :links="selectedBody?.body?.toc?.links" />
-            <div class="mt-4 border-t border-default pt-4">
-              <div class="flex flex-wrap gap-2">
-                <UButton label="Open full page" :to="selectedPost.path" color="neutral" variant="outline" trailing-icon="i-lucide-arrow-right" />
-                <UButton label="Share on X" to="#" color="neutral" variant="outline" />
-                <UButton label="Follow for more" to="/#contact" color="neutral" variant="ghost" trailing-icon="i-lucide-arrow-right" />
-              </div>
-            </div>
-          </UCard>
-        </UPageAside>
       </div>
     </template>
   </UPageSection>

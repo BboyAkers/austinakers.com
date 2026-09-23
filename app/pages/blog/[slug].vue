@@ -79,6 +79,10 @@ async function copyLink() {
   }
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 defineShortcuts({
   arrowleft: () => {
     if (surround.value?.[0]?.path)
@@ -119,7 +123,7 @@ useHead({
 <template>
   <UProgress v-model="progress" size="xs" class="fixed inset-x-0 top-0 z-30 rounded-none motion-reduce:hidden" aria-hidden="true" />
 
-  <UPageSection>
+  <UPageSection :ui="{ container: 'pt-8 sm:pt-12 lg:pt-16 pb-4 sm:pb-6 lg:pb-8' }">
     <template #body>
       <div class="mx-auto max-w-[880px]">
         <Reveal>
@@ -146,37 +150,67 @@ useHead({
     </template>
   </UPageSection>
 
-  <UPageSection>
+  <UPageSection :ui="{ container: 'pt-0 sm:pt-0 lg:pt-0' }">
     <template #body>
-      <UContainer>
-        <UPage>
-          <UPageBody>
-            <Reveal>
-              <article aria-label="Article body" class="min-w-0 max-w-[68ch] text-lg/[1.75]">
-                <ContentRenderer v-if="post" :value="post" />
-              </article>
-            </Reveal>
-            <USeparator class="my-10" />
-            <UContentSurround :surround="surround" />
-          </UPageBody>
-          <template #right>
-            <UPageAside>
-              <UCard variant="outline">
-                <p class="mb-2 font-mono text-[13px] text-muted">
-                  ON THIS PAGE
-                </p>
-                <UContentToc :links="post?.body?.toc?.links" />
-                <div class="mt-4 border-t border-default pt-4">
-                  <div class="flex flex-wrap gap-2">
-                    <UButton label="Copy link" color="neutral" variant="outline" @click="copyLink" />
-                    <UButton label="Follow for more" to="/#contact" color="neutral" variant="ghost" trailing-icon="i-lucide-arrow-right" />
+      <UPage :ui="{ root: 'flex flex-col lg:grid lg:grid-cols-12 lg:gap-10 xl:gap-12', center: 'lg:col-span-8', right: 'lg:col-span-4 order-first lg:order-last' }">
+        <UPageBody :ui="{ base: 'mt-0 pb-24 space-y-12' }">
+          <article aria-label="Article body" class="min-w-0 max-w-[68ch] text-lg/[1.75]">
+            <ContentRenderer v-if="post" :value="post" />
+          </article>
+          <USeparator class="my-10" />
+          <UContentSurround :surround="surround" />
+        </UPageBody>
+        <template #right>
+          <UPageAside :ui="{ root: 'block overflow-visible lg:overflow-y-auto py-0 lg:py-8 lg:max-h-[calc(100vh-var(--ui-header-height))] lg:sticky lg:top-(--ui-header-height)' }">
+            <UContentToc
+              :links="post?.body?.toc?.links"
+              highlight
+              :title="'On this page'"
+              :ui="{
+                root: 'mb-6 lg:mb-0',
+                container: 'py-2 lg:py-0 border-b border-default/60 lg:border-0',
+                trigger: 'text-xs font-mono uppercase tracking-[0.08em] text-muted font-semibold mb-3',
+                link: 'text-[13.5px] py-1.5 transition-colors',
+                linkText: 'whitespace-normal break-words line-clamp-2 leading-snug'
+              }"
+            >
+              <template #bottom>
+                <div class="pt-5 border-t border-default/60 flex flex-col gap-2">
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      label="Copy link"
+                      color="neutral"
+                      variant="outline"
+                      size="sm"
+                      icon="i-lucide-link"
+                      class="flex-1 justify-center text-xs font-mono"
+                      @click="copyLink"
+                    />
+                    <UButton
+                      aria-label="Scroll to top"
+                      color="neutral"
+                      variant="outline"
+                      size="sm"
+                      icon="i-lucide-arrow-up"
+                      class="text-xs font-mono px-2.5"
+                      @click="scrollToTop"
+                    />
                   </div>
+                  <UButton
+                    label="Follow for more"
+                    to="/#contact"
+                    color="neutral"
+                    variant="ghost"
+                    size="sm"
+                    trailing-icon="i-lucide-arrow-right"
+                    class="justify-between text-xs font-mono text-muted hover:text-highlighted px-1"
+                  />
                 </div>
-              </UCard>
-            </UPageAside>
-          </template>
-        </UPage>
-      </UContainer>
+              </template>
+            </UContentToc>
+          </UPageAside>
+        </template>
+      </UPage>
     </template>
   </UPageSection>
 
@@ -196,6 +230,7 @@ useHead({
               variant="outline"
             >
               <template #body>
+                <h2>{{ item.post.title }}</h2>
                 <p class="font-mono text-[13px] text-muted tabular-nums">
                   {{ formatDate(item.post.date) }}
                 </p>

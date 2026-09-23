@@ -22,7 +22,7 @@ const year = new Date().getFullYear()
     <UHeader>
       <template #title>
         <ULink to="/" class="flex items-center gap-2.5" aria-label="austinakers.com home">
-          <span class="grid size-7 place-items-center rounded-[9px] bg-inverted font-mono text-sm font-bold text-inverted">A</span>
+          <span class="grid size-7 place-items-center rounded-[9px] bg-inverted font-mono text-sm font-bold text-inverted">AA</span>
           <span class="font-display text-[19px] font-bold tracking-[-0.02em] text-highlighted">austinakers.com</span>
         </ULink>
       </template>
@@ -34,7 +34,17 @@ const year = new Date().getFullYear()
       </template>
 
       <template #body>
-        <UNavigationMenu :items="navItems" orientation="vertical" class="-mx-2.5" />
+        <UNavigationMenu
+          :items="navItems"
+          orientation="vertical"
+          class="-mx-2.5"
+          :ui="{
+            root: 'w-full gap-1 pt-4',
+            item: 'py-1',
+            link: 'text-2xl font-display font-bold py-3.5 px-3 tracking-[-0.02em] rounded-xl transition-colors',
+            linkLabel: 'text-2xl font-display font-bold tracking-[-0.02em]'
+          }"
+        />
       </template>
     </UHeader>
 

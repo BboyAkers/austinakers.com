@@ -23,7 +23,7 @@ onMounted(() => {
         io.disconnect()
       }
     }
-  }, { threshold: 0.12 })
+  }, { threshold: 0.01, rootMargin: '0px 0px -20px 0px' })
   io.observe(node)
   onUnmounted(() => io.disconnect())
 })
