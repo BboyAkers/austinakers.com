@@ -74,7 +74,7 @@ useSeoMeta({
     title="Short posts, usable patterns."
     description="One technical note per week — web tech, performance, accessibility, and more. Filter by tag or search."
   >
-    <template #body>
+    <template #header>
       <Reveal>
         <div class="grid grid-cols-1 items-center gap-3 lg:grid-cols-[1fr_280px]">
           <div class="flex flex-wrap gap-2" role="group" aria-label="Filter posts by tag">
@@ -116,11 +116,7 @@ useSeoMeta({
         </p>
       </Reveal>
     </template>
-  </UPageSection>
-
-  <USeparator />
-
-  <UPageSection>
+    
     <template #body>
       <h2 class="font-display text-[22px] font-bold tracking-[-0.025em] text-highlighted">
         All posts
@@ -143,28 +139,6 @@ useSeoMeta({
           :actions="[{ label: 'Clear filters', color: 'neutral', variant: 'outline', onClick: clearFilters }]"
         />
       </div>
-    </template>
-  </UPageSection>
-
-  <USeparator />
-
-  <UPageSection>
-    <template #body>
-      <Reveal>
-        <div class="mx-auto max-w-[560px] text-center">
-          <h2 class="font-display text-[clamp(26px,3.4vw,38px)] font-bold leading-[1.12] tracking-[-0.025em] text-highlighted">
-            One note a week. No spam.
-          </h2>
-          <p class="mx-auto mt-4 text-lg text-muted">
-            Join the list — weekly patterns, honest post-mortems, zero growth-hack nonsense.
-          </p>
-          <div class="mt-6 flex flex-wrap justify-center gap-2">
-            <UButton label="Follow on X" to="#" />
-            <UButton label="GitHub" to="#" color="neutral" variant="outline" />
-            <UButton label="RSS" to="/blog" color="neutral" variant="ghost" icon="i-lucide-rss" />
-          </div>
-        </div>
-      </Reveal>
     </template>
   </UPageSection>
 </template>
