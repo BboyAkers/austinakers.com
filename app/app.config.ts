@@ -116,10 +116,10 @@ export default defineAppConfig({
       },
       pre: {
         // token .code: --bg fill, bordered, mono
-        base: 'group font-mono text-[16px]/[1.7] border border-default bg-muted rounded-xl px-4.5 py-4 whitespace-pre-wrap wrap-break-word overflow-x-auto outline-primary/25 focus-visible:outline-3'
+        base: 'group font-mono text-[16px]/[1.7] border border-default bg-muted px-4.5 py-4 whitespace-pre-wrap wrap-break-word overflow-x-auto outline-primary/25 focus-visible:outline-3'
       },
       code: {
-        base: 'px-1.5 py-0.5 text-sm font-mono font-medium rounded-md inline-block'
+        base: 'px-1.5 text-sm font-mono rounded-xs font-medium inline-block'
       },
       callout: {
         base: 'group relative block px-4 py-3 rounded-xl text-[15px]/relaxed my-5 text-toned transition-colors'
