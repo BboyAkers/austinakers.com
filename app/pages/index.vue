@@ -5,9 +5,10 @@ const phraseIndex = ref(0)
 onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches)
     return
-  setInterval(() => {
+  const interval = setInterval(() => {
     phraseIndex.value = (phraseIndex.value + 1) % phrases.length
   }, 3200)
+  onUnmounted(() => clearInterval(interval))
 })
 
 const route = useRoute()
@@ -22,7 +23,10 @@ function setTagFilter(tag: string) {
 }
 
 const { data: posts } = await useAsyncData('home-posts', () => {
-  return queryCollection('blog').order('date', 'DESC').all()
+  return queryCollection('blog')
+    .select('title', 'description', 'date', 'tags', 'minutes', 'path')
+    .order('date', 'DESC')
+    .all()
 })
 
 const homeTags = computed(() => {
@@ -147,15 +151,17 @@ useSeoMeta({
     </template>
 
     <template #default>
-      <Reveal>
+      <div>
         <UCard variant="outline" class="overflow-hidden p-0 shadow-[0_24px_64px_-32px_var(--ui-text-highlighted)]/25">
           <NuxtImg
             src="/images/profile-austin-akers.jpg"
             alt="Portrait of Austin Akers, smiling in a light patterned shirt"
-            width="1200"
-            height="927"
+            width="800"
+            sizes="(max-width: 768px) 100vw, 560px"
+            format="webp"
+            quality="80"
             fetchpriority="high"
-            densities="1x 2x"
+            preload
             class="aspect-[4/3] w-full object-cover object-[center_18%]"
           />
           <template #footer>
@@ -168,7 +174,7 @@ useSeoMeta({
           <UButton label="me@austinakers.com" to="mailto:me@austinakers.com" color="neutral" variant="outline" />
           <UButton label="Download resume" to="/Austin_Akers_2026_Updated.pdf" download color="neutral" variant="ghost" trailing-icon="i-lucide-arrow-right" />
         </div>
-      </Reveal>
+      </div>
     </template>
 
     <template #footer>

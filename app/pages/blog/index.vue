@@ -27,7 +27,10 @@ function clearFilters() {
 }
 
 const { data: posts } = await useAsyncData('blog-posts', () => {
-  return queryCollection('blog').order('date', 'DESC').all()
+  return queryCollection('blog')
+    .select('title', 'description', 'date', 'tags', 'minutes', 'path')
+    .order('date', 'DESC')
+    .all()
 })
 
 const allTags = computed(() => {
@@ -62,6 +65,13 @@ const selectedPath = computed(() => {
 })
 
 const selectedPost = computed(() => (posts.value ?? []).find(p => p.path === selectedPath.value))
+
+// Fetch the full body only for the selected post (keeps list payload small)
+const { data: selectedBody } = await useAsyncData(() => `blog-body-${selectedPath.value}`, () => {
+  if (!selectedPath.value)
+    return Promise.resolve(null)
+  return queryCollection('blog').path(selectedPath.value).first()
+}, { watch: [selectedPath] })
 
 function selectPost(path: string) {
   router.replace({ query: { ...route.query, post: path } })
@@ -176,7 +186,7 @@ useSeoMeta({
             <p class="mt-4 text-[17px]/[1.7] text-highlighted">
               {{ selectedPost.description }}
             </p>
-            <ContentRenderer :value="selectedPost" class="mt-4 text-[17px]/[1.7] [&_h2]:mt-8 [&_h2]:text-[22px] [&_img]:my-4 [&_img]:rounded-xl [&_pre]:my-4" />
+            <ContentRenderer :value="selectedBody" class="mt-4 text-[17px]/[1.7] [&_h2]:mt-8 [&_h2]:text-[22px] [&_img]:my-4 [&_img]:rounded-xl [&_pre]:my-4" />
           </article>
         </Reveal>
         <UPageAside>
@@ -184,7 +194,7 @@ useSeoMeta({
             <p class="mb-2 font-mono text-[13px] text-muted">
               ON THIS PAGE
             </p>
-            <UContentToc :links="selectedPost.body?.toc?.links" />
+            <UContentToc :links="selectedBody?.body?.toc?.links" />
             <div class="mt-4 border-t border-default pt-4">
               <div class="flex flex-wrap gap-2">
                 <UButton label="Open full page" :to="selectedPost.path" color="neutral" variant="outline" trailing-icon="i-lucide-arrow-right" />

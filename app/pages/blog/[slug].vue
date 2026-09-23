@@ -19,7 +19,10 @@ const { data: surround } = await useAsyncData(`blog-${postPath.value}-surround`,
 })
 
 const { data: allPosts } = await useAsyncData('blog-related', () => {
-  return queryCollection('blog').order('date', 'DESC').all()
+  return queryCollection('blog')
+    .select('title', 'date', 'tags', 'path')
+    .order('date', 'DESC')
+    .all()
 })
 
 const tags = computed(() => ((post.value?.tags ?? []) as string[]))
@@ -42,11 +45,15 @@ const breadcrumbs = computed(() => [
 ])
 
 const progress = ref(0)
+let progressRaf = 0
 
 function updateProgress() {
-  const el = document.documentElement
-  const max = el.scrollHeight - el.clientHeight
-  progress.value = max > 0 ? Math.round((el.scrollTop / max) * 100) : 0
+  cancelAnimationFrame(progressRaf)
+  progressRaf = requestAnimationFrame(() => {
+    const el = document.documentElement
+    const max = el.scrollHeight - el.clientHeight
+    progress.value = max > 0 ? Math.round((el.scrollTop / max) * 100) : 0
+  })
 }
 
 onMounted(() => {
@@ -54,7 +61,10 @@ onMounted(() => {
     return
   updateProgress()
   window.addEventListener('scroll', updateProgress, { passive: true })
-  onUnmounted(() => window.removeEventListener('scroll', updateProgress))
+  onUnmounted(() => {
+    window.removeEventListener('scroll', updateProgress)
+    cancelAnimationFrame(progressRaf)
+  })
 })
 
 const toast = useToast()
