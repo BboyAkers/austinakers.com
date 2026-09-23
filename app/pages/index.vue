@@ -123,6 +123,19 @@ useSeoMeta({
   title: 'Austin Akers — Senior Software Engineer · Portfolio',
   description: 'Portfolio of a software engineer with frontend and backend experience. Component-driven UI, performance, and accessibility.'
 })
+
+useHead({
+  link: [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: '/images/hero/austin-akers-768w.avif',
+      imagesrcset: '/images/hero/austin-akers-480w.avif 480w, /images/hero/austin-akers-768w.avif 768w, /images/hero/austin-akers-1120w.avif 1120w',
+      imagesizes: '(max-width: 640px) 100vw, 560px',
+      fetchpriority: 'high'
+    }
+  ]
+})
 </script>
 
 <template>
@@ -153,17 +166,27 @@ useSeoMeta({
     <template #default>
       <div>
         <UCard variant="outline" class="overflow-hidden p-0 shadow-[0_24px_64px_-32px_var(--ui-text-highlighted)]/25">
-          <NuxtImg
-            src="https://imagedelivery.net/nGYhisqu4x6SCDrz5V8Qxg/f40fad54-ff85-4764-8f60-d00cf3800800/public"
-            alt="Portrait of Austin Akers, smiling in a light patterned shirt"
-            width="800"
-            sizes="(max-width: 768px) 100vw, 560px"
-            format="webp"
-            quality="80"
-            fetchpriority="high"
-            preload
-            class="aspect-[4/3] w-full object-cover object-[center_18%]"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcset="/images/hero/austin-akers-480w.avif 480w, /images/hero/austin-akers-768w.avif 768w, /images/hero/austin-akers-1120w.avif 1120w"
+              sizes="(max-width: 640px) 100vw, 560px"
+            >
+            <source
+              type="image/webp"
+              srcset="/images/hero/austin-akers-480w.webp 480w, /images/hero/austin-akers-768w.webp 768w, /images/hero/austin-akers-1120w.webp 1120w"
+              sizes="(max-width: 640px) 100vw, 560px"
+            >
+            <img
+              src="/images/hero/austin-akers-768w.avif"
+              alt="Portrait of Austin Akers, smiling in a light patterned shirt"
+              width="1120"
+              height="840"
+              fetchpriority="high"
+              decoding="async"
+              class="aspect-[4/3] w-full object-cover"
+            >
+          </picture>
           <template #footer>
             <p class="text-center font-mono text-[13px] text-muted">
               Austin Akers — Senior Software Engineer

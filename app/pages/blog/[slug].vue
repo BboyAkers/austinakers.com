@@ -74,31 +74,43 @@ onMounted(() => {
   })
 })
 
-const toast = useToast()
+const copied = ref(false)
+let copiedTimer: ReturnType<typeof setTimeout> | undefined
 
 async function copyLink() {
   try {
     await navigator.clipboard.writeText(window.location.href)
-    toast.add({ title: 'Link copied', description: 'Share it around.', color: 'success' })
+    copied.value = true
+    clearTimeout(copiedTimer)
+    copiedTimer = setTimeout(() => {
+      copied.value = false
+    }, 2000)
   }
   catch {
-    toast.add({ title: 'Copy blocked', description: 'Long-press the URL to copy it.', color: 'warning' })
+    copied.value = false
   }
 }
+
+onUnmounted(() => clearTimeout(copiedTimer))
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-defineShortcuts({
-  arrowleft: () => {
-    if (surround.value?.[0]?.path)
+onMounted(() => {
+  if (!import.meta.client)
+    return
+  const onKey = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement | null
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable))
+      return
+    if (event.key === 'ArrowLeft' && surround.value?.[0]?.path)
       navigateTo(surround.value[0].path)
-  },
-  arrowright: () => {
-    if (surround.value?.[1]?.path)
+    else if (event.key === 'ArrowRight' && surround.value?.[1]?.path)
       navigateTo(surround.value[1].path)
   }
+  window.addEventListener('keydown', onKey)
+  onUnmounted(() => window.removeEventListener('keydown', onKey))
 })
 
 function formatDate(value: unknown) {
@@ -183,12 +195,13 @@ useHead({
                 <div class="pt-5 border-t border-default/60 flex flex-col gap-2">
                   <div class="flex items-center gap-2">
                     <UButton
-                      label="Copy link"
+                      :label="copied ? 'Copied!' : 'Copy link'"
                       color="neutral"
                       variant="outline"
                       size="sm"
-                      icon="i-lucide-link"
+                      :icon="copied ? 'i-lucide-check' : 'i-lucide-link'"
                       class="flex-1 justify-center text-xs font-mono"
+                      role="status"
                       @click="copyLink"
                     />
                     <UButton

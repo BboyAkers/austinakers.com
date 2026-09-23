@@ -18,7 +18,7 @@
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
   --font-display: 'Söhne', 'Avenir Next', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 :root {

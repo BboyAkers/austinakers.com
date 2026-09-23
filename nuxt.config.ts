@@ -4,8 +4,17 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/a11y',
-    '@nuxt/image',
   ],
+  ui: {
+    // No webfonts: all stacks are system (ui-monospace/SF/Menlo).
+    // Saves ~135KB of woff2 + 51 @font-face blocks vs @nuxt/fonts defaults.
+    fonts: false,
+  },
+  app: {
+    head: {
+      htmlAttrs: { lang: 'en' },
+    },
+  },
   css: ['~/assets/css/main.css'],
   routeRules: {
     '/': { prerender: true },
