@@ -13,7 +13,7 @@ id: 6
 
 ## Introduction
 
-Throughout my career, senior engineers always told me: *"Read the official specification."* Early on, opening the ECMAScript document felt like reading legal code written for compiler authors—dense, foreign, and overwhelming. But over time, learning to parse the spec became one of the most effective ways to truly understand how JavaScript executes under the hood.
+Throughout my career, many engineers with 20+ YoE always told me: *"Read the JavaScript specification."* Early in my career, opening the ECMAScript spec felt like reading legal code written for compiler authors—dense, foreign, and overwhelming. But over time, learning to parse the spec became one of the most effective ways to truly understand how JavaScript executes under the hood.
 
 This post is the first in a series breaking down the fundamentals of ECMAScript specifications by building our own polyfills directly from the official algorithm. We will start with a method every JavaScript developer uses daily: `Array.prototype.push()`.
 
