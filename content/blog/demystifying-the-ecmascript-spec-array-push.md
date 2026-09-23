@@ -156,19 +156,58 @@ Now let's fill in the function with the code that corresponds to the spec.
 
 ```javascript
 
+const toLength = (number) => {
+  const len = Number(number);
+  if (len < 0) return 0;
+  return Math.min(len, Number.MAX_SAFE_INTEGER);
+}
+
 function austinPush(...items) {
     // 1. Let O be ? ToObject(this value).
     let O = Object(this);
 
     // 2. Let len be ? LengthOfArrayLike(O).
-    
+    let len = toLength(O.length);
+
     // 3. Let argCount be the number of elements in items.
+    let argCount = items.length
 
     // 4. If len + argCount > 2****53 - 1, throw a TypeError exception.
+    if ((len + argCount) > (2 ** 53 - 1)) {
+      throw new TypeError('Operation could not be performed, exceeded max safe integer in JavaScript');
+    }
 
     // 5. For each element E of items, do
+    items.forEach((E) => {
+      // a. Perform ? Set(O, ! ToString(𝔽(len)), E, true).
+      O[len] = E;
+      // b. Set len to len + 1.
+      len = len + 1;
+    })
 
     // 6. Perform ? Set(O, "length", 𝔽(len), true).
+    O.length = len;
 
     // 7. Return 𝔽(len).
+    return len;
 }
+
+```
+
+## Key Differences
+
+There are two key differences between the spec version of `push()` and the one we just wrote.
+
+1. **ToLength vs toLength**
+    In the spec, `LengthOfArrayLike` is an abstract operation that is used to get the length of an array-like object. In our code, we used `toLength`, which is a helper function that we created to get the length of an array-like object. The difference is that `LengthOfArrayLike` is more general and can be used for any array-like object, while `toLength` is specific to our needs.
+    
+2. **Set vs []**
+    In the spec, `Set(O, ! ToString(𝔽(len)), E, true)` is used to set the value of the property `! ToString(𝔽(len))` to `E` on the object `O`. In our code, we used `O[len] = E`, which is a shorthand for setting the value of the property `len` to `E` on the object `O`.
+
+## Conclustion
+
+Diving into the ECMAScript spec can be daunting at first, but it is a valuable exercise for any JavaScript developer. It helps you to understand the language on a deeper level and to write more intentional and bugs-free code.
+
+If you're interested in diving into the spec yourself, you can find it here: [ECMAScript Specification](https://tc39.es/ecma262/)
+
+If you'd like to see other examples of built in JavaScript methods broken down like this, follow me on the socials links below and message me! Stay awesome! 🙂
