@@ -220,7 +220,7 @@ useHead({
 
   <USeparator />
 
-  <UPageSection id="blog" headline="Blog" title="My blog posts.">
+  <UPageSection id="blog" headline="Blog" title="Recent posts">
     <template #links>
       <UButton label="View all posts" to="/blog" color="neutral" variant="ghost" trailing-icon="i-lucide-arrow-right" />
     </template>
