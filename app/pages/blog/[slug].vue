@@ -25,6 +25,13 @@ const { data: allPosts } = await useAsyncData('blog-related', () => {
     .all()
 })
 
+const socials = [
+  { label: 'GitHub profile', icon: 'i-lucide-github', to: 'https://github.com/BboyAkers' },
+  { label: 'Bluesky profile', icon: 'i-lucide-cloud', to: 'https://bsky.app/profile/austinakers.com' },
+  { label: 'X profile', icon: 'i-lucide-twitter', to: 'https://x.com/tweetmonster999' },
+  { label: 'LinkedIn profile', icon: 'i-lucide-linkedin', to: 'https://www.linkedin.com/in/austin-akers-b1966765' },
+]
+
 const tags = computed(() => ((post.value?.tags ?? []) as string[]))
 
 const related = computed(() => {
@@ -150,15 +157,13 @@ useHead({
     </template>
   </UPageSection>
 
-  <UPageSection :ui="{ container: 'pt-0 sm:pt-0 lg:pt-0' }">
+  <UPageSection :ui="{ container: 'py-0' }">
     <template #body>
       <UPage :ui="{ root: 'flex flex-col lg:grid lg:grid-cols-12 lg:gap-10 xl:gap-12', center: 'lg:col-span-8', right: 'lg:col-span-4 order-first lg:order-last' }">
-        <UPageBody :ui="{ base: 'mt-0 pb-24 space-y-12' }">
+        <UPageBody :ui="{ base: 'mt-0 space-y-12' }">
           <article aria-label="Article body" class="min-w-0 max-w-[68ch] text-lg/[1.75]">
             <ContentRenderer v-if="post" :value="post" />
           </article>
-          <USeparator class="my-10" />
-          <UContentSurround :surround="surround" />
         </UPageBody>
         <template #right>
           <UPageAside :ui="{ root: 'block overflow-visible lg:overflow-y-auto py-0 lg:py-8 lg:max-h-[calc(100vh-var(--ui-header-height))] lg:sticky lg:top-(--ui-header-height)' }">
@@ -196,15 +201,6 @@ useHead({
                       @click="scrollToTop"
                     />
                   </div>
-                  <UButton
-                    label="Follow for more"
-                    to="/#contact"
-                    color="neutral"
-                    variant="ghost"
-                    size="sm"
-                    trailing-icon="i-lucide-arrow-right"
-                    class="justify-between text-xs font-mono text-muted hover:text-highlighted px-1"
-                  />
                 </div>
               </template>
             </UContentToc>
@@ -212,55 +208,22 @@ useHead({
         </template>
       </UPage>
     </template>
-  </UPageSection>
-
-  <UPageSection>
-    <template #body>
-      <div class="mx-auto max-w-[880px]">
-        <Reveal>
-          <h2 class="font-display text-[clamp(26px,3.4vw,38px)] font-bold leading-[1.12] tracking-[-0.025em] text-highlighted">
-            Keep reading
-          </h2>
-          <UPageGrid class="mt-5">
-            <UPageCard
-              v-for="item in related"
-              :key="item.post.path"
-              :to="item.post.path"
-              :title="item.post.title"
-              variant="outline"
-            >
-              <template #body>
-                <h2>{{ item.post.title }}</h2>
-                <p class="font-mono text-[13px] text-muted tabular-nums">
-                  {{ formatDate(item.post.date) }}
-                </p>
-              </template>
-              <template #footer>
-                <div class="flex flex-wrap gap-1.5">
-                  <TagBadge v-for="tag in ((item.post.tags ?? []) as string[])" :key="tag" :label="tag" />
-                </div>
-              </template>
-            </UPageCard>
-          </UPageGrid>
-        </Reveal>
-      </div>
-    </template>
-  </UPageSection>
-
-  <UPageSection>
-    <template #body>
+    <template #footer>
       <Reveal>
         <div class="mx-auto max-w-[560px] text-center">
-          <h2 class="font-display text-[clamp(26px,3.4vw,38px)] font-bold leading-[1.12] tracking-[-0.025em] text-highlighted">
-            One note a week. No spam.
-          </h2>
-          <p class="mx-auto mt-4 text-lg text-muted">
-            Join the list — weekly patterns, honest post-mortems, zero growth-hack nonsense.
-          </p>
-          <div class="mt-6 flex flex-wrap justify-center gap-2">
-            <UButton label="Follow on X" to="#" />
-            <UButton label="GitHub" to="#" color="neutral" variant="outline" />
-            <UButton label="RSS" to="/blog" color="neutral" variant="ghost" icon="i-lucide-rss" />
+          <div class="flex flex-wrap justify-center gap-2">
+         <UButton
+          v-for="social in socials"
+          :key="social.label"
+          :aria-label="social.label"
+          :icon="social.icon"
+          :to="social.to"
+          color="neutral"
+          variant="outline"
+          square
+          size="xl"
+          class="rounded-xl"
+        />
           </div>
         </div>
       </Reveal>
