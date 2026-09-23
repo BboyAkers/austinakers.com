@@ -1,38 +1,64 @@
 ---
 title: "Demystifying the ECMAScript Spec: Array.prototype.push"
-description: "A deep dive into the specification of Array.prototype.push"
+description: "A step-by-step tutorial on translating the ECMAScript specification for Array.prototype.push into working JavaScript."
 tags:
- - 'intermediate'
- - 'ecmascript'
- - 'javascript'
+  - 'intermediate'
+  - 'ecmascript'
+  - 'javascript'
+  - 'tutorial'
 date: "2026-09-22"
-minutes: 10
+minutes: 12
 id: 6
 ---
 
 ## Introduction
-Throughout my career, I've always been told to read the official specification for JavaScript. Early in my career reading it I didn't fully understand it, but as I grew in my career, I started to appreciate it more and even used it as a reference when wanting to dive deeper into certain functionalities of the JavaScript language. Recently, I've wanted to start a series of blog posts to go through some of the specs that I find interesting and really break them down to the fundamentals. This post is the first in that series, and I want to start with something relatively simple but fundamental to all JavaScript developers: **Array.prototype.push()**.
 
-## What is the ECMAScript Spec?
+Throughout my career, senior engineers always told me: *"Read the official specification."* Early on, opening the ECMAScript document felt like reading legal code written for compiler authors—dense, foreign, and overwhelming. But over time, learning to parse the spec became one of the most effective ways to truly understand how JavaScript executes under the hood.
 
-The ECMAScript Specification is the official specification for the JavaScript language. It is a document that is maintained by the Ecma International Technical Committee 39 (TC39). The specification is a living document that is constantly being updated with new features and changes to the language. The specification is divided into several parts, each of which covers a different aspect of the language:
+This post is the first in a series breaking down the fundamentals of ECMAScript specifications by building our own polyfills directly from the official algorithm. We will start with a method every JavaScript developer uses daily: `Array.prototype.push()`.
 
-- **Types and Values**: This section covers the different types of values that can be stored in variables, such as numbers, strings, booleans, and objects.
-- **Abstract Operations**: This section covers the different operations that can be performed on values, such as addition, subtraction, and multiplication.
-- **Syntax and Parsing**: This section covers the syntax of the JavaScript language and how it is parsed.
-- **Execution of Built-in Functions**: This section covers the execution of built-in functions, such as `Array.prototype.push()`.
-- **Built-in Objects**: This section covers the built-in objects of the JavaScript language, such as `Array`, `Object`, and `Function`.
-- **Host Objects and Environments**: This section covers the host objects and environments of the JavaScript language, such as the `Window` object and the `Document` object.
+By the end of this tutorial, you will know:
+1. How to navigate and read your very first method from the ECMAScript spec.
+2. How to map abstract operations to real JavaScript code.
+3. Why `push()` is generic and works on objects that aren't arrays.
+
+---
+
+## The Spec "Decoder Ring"
+
+Before jumping into reading the spec and building our own version of `Array.prototype.push()`, let's cover some of the syntax and terminology that TC39 uses across the specification:
+
+| Spec Notation | Meaning in Plain JavaScript |
+| :--- | :--- |
+| **`? Operation()`** | **Return if abrupt:** Run the operation. If it throws an error, immediately rethrow/propagate that error. |
+| **`! Operation()`** | **Assert success:** This operation is guaranteed by invariants never to fail or throw an error under these conditions. |
+| **`𝔽(number)`** | **Number conversion:** Converts an internal mathematical real number into an ECMAScript double-precision 64-bit float. |
+| **`ToObject(val)`** | Wraps primitives into their object counterparts (`Object(val)`); throws a `TypeError` if given `null` or `undefined`. |
+
+---
+
+## The Official Specification
+
+According to the [ECMAScript Specification for `Array.prototype.push`](https://262.ecma-international.org/#sec-array.prototype.push), when we use `Array.prototype.push()` these steps occur:
+
+1. Let *O* be ? `ToObject`(*this value*).
+2. Let *len* be ? `LengthOfArrayLike`(*O*).
+3. Let *argCount* be the number of elements in *items*.
+4. If *len* + *argCount* > $2^{53} - 1$, throw a **TypeError** exception.
+5. For each element *E* of *items*, do:
+   a. Perform ? `Set`(*O*, ! `ToString`(𝔽(*len*)), *E*, **true**).
+   b. Set *len* to *len* + 1.
+6. Perform ? `Set`(*O*, `"length"`, 𝔽(*len*), **true**).
+7. Return 𝔽(*len*).
+
+Let's translate this specification into a custom method called `austinPush` (fancy naming, i know 😎).
+
+---
+
+## Building `austinPush()`: Step-by-Step
 
 
-## What is `Array.prototype.push()`?
-
-To break this down even further we need to understand what the 3 parts of `Array.prototype.push()` are. 
-- `Array` is one of the built-in objects in JavaScript. It enables the ability to store a collection of items.
-- `prototype` is an object that is used to provide common properties and methods on objects. If we have a constructor that inherits from `Array`, it will have access to the properties and methods on `Array.prototype`. In other words, methods such as `map`, `filter`, `reduce`, and `push` are all located on `Array.prototype` and we can use them on any array object we create.
-- `push()` is a method on `Array.prototype` that is used to add new elements to the end of an array. It is also a **mutating** method, meaning it modifies the original array. It does not create a copy like other methods such as `.map()` and `.filter()`. When we look in the spec we'll see this.
-
-Here is an example of `Array.prototype.push()` in action:
+This code snippet will be our reference for understanding how `push()` works. 
 
 ```javascript
 const months = ['Jan', 'Mar', 'Apr', 'May'];
@@ -40,127 +66,150 @@ months.push('Feb');
 console.log(months); // Array ['Jan', 'Mar', 'Apr', 'May', 'Feb']
 ```
 
+### Step 1: Coerce `this` to an Object
 
-## Breaking Down The Spec
- 
-Open: [Ecmascript Array.prototype.push()](https://262.ecma-international.org/#sec-array.prototype.push)
+> **Spec:** 1. Let *O* be ? `ToObject`(*this value*).
 
-The spec for Array.prototype.push() reads as follows:
+- This is saying: "Get the object (Array) that the `push()` method is being called on." 
+    - Refrencing the code example above, `months` is `this value`
+- The `?` is used for error handling. If `ToObject(this value)` throws an error, the function will throw an error. 
+    - If `months` was `null` or `undefined`, this method, `push()`, would throw an error.
+- `ToObject` is an abstract operation that converts `this value` to an object. It is used to ensure that the object that the method is called on is an object. 
+    - `Object(months)` would return the object `months`.
 
-1. Let O be ? ToObject(this value).
-2. Let len be ? LengthOfArrayLike(O).
-3. Let argCount be the number of elements in items.
-4. If len + argCount > 2****53 - 1, throw a TypeError exception.
-5. For each element E of items, do
-   a. Perform ? Set(O, ! ToString(𝔽(len)), E, true).
-   b. Set len to len + 1.
-6. Perform ? Set(O, "length", 𝔽(len), true).
-7. Return 𝔽(len).
-The "length" property of this method is 1𝔽.
-
-Let's break this down line by line while having the code example above as reference.
 
 ```javascript
-const months = ['Jan', 'Mar', 'Apr', 'May'];
-months.push('Feb');
-console.log(months); // Array ['Jan', 'Mar', 'Apr', 'May', 'Feb']
+function austinPush(...items) {
+    // 1. Let O be ? ToObject(this value).
+    let O = Object(this);
+
+    // ...
+}
+
 ```
 
-1. **Let O be ? ToObject(this value).** 
-	- This is saying: "Get the object (Array) that the `push()` method is being called on." 
-        - Refrencing the code example above, `months` is `this value`
-	- The `?` is used for error handling. If `ToObject(this value)` throws an error, the function will throw an error. 
-        - If `months` was `null` or `undefined`, this method, `push()`, would throw an error.
-	- `ToObject` is an abstract operation that converts `this value` to an object. It is used to ensure that the object that the method is called on is an object. 
-        - `Object(months)` would return the object `months`.
+---
 
-2. **Let len be ? LengthOfArrayLike(O).**
-	- This is saying: "Get the length of the array-like object `O`."
-	- `?` is used for error handling. If `LengthOfArrayLike(O)` throws an error, the function will throw an error.
-	- `LengthOfArrayLike(O)` is an abstract operation that returns the length of the array-like object `O`. 
-        - In `months.push('Feb')`, `O` is the array `months`, and `len` would be `4`.
-	
-3. **Let argCount be the number of elements in items.**
-	- `items` is the array of arguments that are passed to the `push()` method.
-        - When we do `months.push('Feb')`, the argument we are passing to `push()` is `'Feb'`. So `items` is `['Feb']`.
-	- `argCount` is just the length of the array of arguments.
-        - In `months.push('Feb')`, `argCount` would be `1`.
+### Step 2: Determine Current Length
 
-4. **If len + argCount > 2****53 - 1, throw a TypeError exception.**
-	- `len` is the length of the array.
-        - In `months.push('Feb')`, `len` would be `4`.
-	- `argCount` is the number of elements in the array of arguments.
-	- `2****53 - 1`(2^53-1) is the maximum number of elements that can be stored in an array.
-	- If `len + argCount` is greater than `2****53 - 1`, the function will throw a `TypeError` exception.
-        - Why 2^53? 2^53 is the maximun safe integer in JavaScript. If we go beyond that, we risk losing precision in our array lengths. 
-            - More info [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)
+> **Spec:** 2. Let *len* be ? `LengthOfArrayLike`(*O*).
+> 
+> 
+- This is saying: "Get the object (Array) that the `push()` method is being called on." 
+    - Refrencing the code example above, `months` is `this value`
+- The `?` is used for error handling. If `ToObject(this value)` throws an error, the function will throw an error. 
+    - If `months` was `null` or `undefined`, this method, `push()`, would throw an error.
+- `ToObject` is an abstract operation that converts `this value` to an object. It is used to ensure that the object that the method is called on is an object. 
+    - `Object(months)` would return the object `months`.
 
-5. **For each element E of items, do**
-    - At this point we're creating a foreach loop and running it for each element inside of items
-	- `E` is an element of the array of arguments.
-	- `items` is the array of arguments that are passed to the `push()` method.
-	- This loop will iterate over each element in the array of arguments.
-	
-	a. **Perform ? Set(O, ! ToString(𝔽(len)), E, true).**
-    - This the point where we append each element to the end of the array. if `months` is the array and we are pushing `'Feb'` into it, then we are adding the element `'Feb'` to the end of the array `months`. This is where that happens
-    - `Set` is an abstract operation that sets the value of the property `! ToString(𝔽(len))` to `E` on the object `O`.
-    - `! ToString(𝔽(len))` is the property name that is used to store the element in the array.
-    - `E` is the element that is being added to the array.
-    - `true` is a boolean value that indicates whether the property should be set.
-    - `?` is used for error handling. If `Set(O, ! ToString(𝔽(len)), E, true)` throws an error, the function will throw an error.
-	
-	b. **Set len to len + 1.**
-    - This is incrementing the length of the array by 1, because we are adding a new element to the array.
-    - `len` is the length of the array.
-    - `len + 1` is the new length of the array.
-    - This will increment the length of the array by 1.
+Notice that the spec does **not** check if `O` is an array. It only checks `LengthOfArrayLike(O)`. This operation reads the `length` property of `O`, coerces it into a non-negative integer, and caps it at $2^{53} - 1$.
 
-6. **Perform ? Set(O, "length", 𝔽(len), true).**
-    - This is updating the length property of the array to the new length.
-	- `Set(O, "length", 𝔽(len), true)` is an abstract operation that sets the value of the property `"length"` to `𝔽(len)` on the object `O`.
-	- `"length"` is the property name that is used to store the length of the array.
-	- `𝔽(len)` is the value of the length of the array.
-	- `true` is a boolean value that indicates whether the property should be set.
-	- `?` is used for error handling. If `Set(O, "length", 𝔽(len), true)` throws an error, the function will throw an error.
-
-7. **Return 𝔽(len).**
-    - This is returning the new length of the array. In our case, it will return 5, because we added a new element to the array `months`.
-    - `𝔽(len)` is the value of the length of the array.
-    - This will return the new length of the array.
-
-This may seem like a lot of code, but it is actually quite simple. Now, let's see how this looks in the actual JavaScript code.
-
-## Writing the spec to code
-
-What we'll do now is create our own version of `push()`. This is a common pattern in programming. It's called "monkey patching". We're doing this to make sure we don't conflict with the actual `.push()` method. So we'll call our custom push method `austinPush()` and attach it to the `Array.prototype` so we can use it like the built-in `.push()` method.
+Let's write a small helper that mirrors `LengthOfArrayLike(O)`:
 
 ```javascript
+const toLength = (value) => {
+  const len = Number(value);
+  if (Number.isNaN(len) || len <= 0) return 0;
+  return Math.min(Math.floor(len), Number.MAX_SAFE_INTEGER);
+};
 
 function austinPush(...items) {
-    // Code here....
+    // 1. Let O be ? ToObject(this value).
+    let O = Object(this);
 
+    // 2. Let len be ? LengthOfArrayLike(O).
+    let len = toLength(O.length); 
+    
+  // ...
 }
 
-// Attaching our custom push method to the Array.prototype so we can use it like the built-in .push() method.
-Array.prototype.austinPush = austinPush; 
-
-let myArray = [1, 2, 3, 4];
-
-let newMyArrayLength = myArray.austinPush(5, 6);
-
-console.log(myArray);
-console.log(newMyArrayLength);
 ```
 
-Now let's fill in the function with the code that corresponds to the spec.
+---
+
+### Step 3 & 4: Count Arguments and Check Safe Limits
+
+> **Spec:**
+> 3. Let *argCount* be the number of elements in *items*.
+> 
+> 
+> 4. If *len* + *argCount* > $2^{53} - 1$, throw a **TypeError** exception.
+> 
+> 
+
+- `items` is the array of arguments that are passed to the `push()` method.
+- `argCount` is the number of arguments that are passed to the `push()` method(`austinPush()` for us).
+- `len` is the current length of the object. It is calculated using `toLength()` which is a helper function that mirrors `LengthOfArrayLike(O)`.
+- `$2^{53} - 1$` JavaScript represents numbers using 64-bit binary floating-point values (IEEE 754). Integers beyond $2^{53} - 1$ (`Number.MAX_SAFE_INTEGER`) cannot be uniquely represented. If adding your arguments would cause the array length to exceed that limit, the engine aborts immediately with a `TypeError`.
 
 ```javascript
+const toLength = (value) => {
+  const len = Number(value);
+  if (Number.isNaN(len) || len <= 0) return 0;
+  return Math.min(Math.floor(len), Number.MAX_SAFE_INTEGER);
+};
 
-const toLength = (number) => {
-  const len = Number(number);
-  if (len < 0) return 0;
-  return Math.min(len, Number.MAX_SAFE_INTEGER);
+function austinPush(...items) {
+    // 1. Let O be ? ToObject(this value).
+    let O = Object(this);
+
+    // 2. Let len be ? LengthOfArrayLike(O).
+    let len = toLength(O.length);
+
+    // 3. Let argCount be the number of elements in items.
+    let argCount = items.length
+
+    // 4. If len + argCount > 2****53 - 1, throw a TypeError exception.
+    if ((len + argCount) > (2 ** 53 - 1)) {
+      throw new TypeError('Operation could not be performed, exceeded max safe integer in JavaScript');
+    }
+    
+  // ...
 }
+
+```
+
+---
+
+### Step 5: Append Elements to the Object
+
+> **Spec:**
+> 5. For each element *E* of *items*, do:
+> 
+> 
+> a. Perform ? `Set`(*O*, ! `ToString`(𝔽(*len*)), *E*, **true**).
+> 
+> 
+> b. Set *len* to *len* + 1.
+> 
+> 
+
+#### Step 5:
+- At this point we're creating a foreach loop and running it for each element inside of items. We take the first element and add it to the end of the object.
+- `E` is an element of the array of arguments.
+- `items` is the array of arguments that are passed to the `push()` method.
+- `len` is the current length of the object.
+
+#### Step 5a:
+- This the point where we append each element to the end of the array. if `months` is the array and we are pushing `'Feb'` into it, then we are adding the element `'Feb'` to the end of the array `months`. This is where that happens
+- `Set` is an abstract operation that sets the value of the property `! ToString(𝔽(len))` to `E` on the object `O`.
+- `! ToString(𝔽(len))` is the property name that is used to store the element in the array.
+- `E` is the element that is being added to the array.
+- `true` is a boolean value that indicates whether the property should be set.
+- `?` is used for error handling. If `Set(O, ! ToString(𝔽(len)), E, true)` throws an error, the function will throw an error.
+
+#### Step 5b:
+- This is incrementing the length of the array by 1, because we are adding a new element to the array.
+- `len` is the length of the array.
+- `len + 1` is the new length of the array.
+- This will increment the length of the array by 1.
+
+```javascript
+const toLength = (value) => {
+  const len = Number(value);
+  if (Number.isNaN(len) || len <= 0) return 0;
+  return Math.min(Math.floor(len), Number.MAX_SAFE_INTEGER);
+};
 
 function austinPush(...items) {
     // 1. Let O be ? ToObject(this value).
@@ -185,29 +234,135 @@ function austinPush(...items) {
       len = len + 1;
     })
 
-    // 6. Perform ? Set(O, "length", 𝔽(len), true).
-    O.length = len;
-
-    // 7. Return 𝔽(len).
-    return len;
+  // ...
 }
+
 
 ```
 
-## Key Differences
+---
 
-There are two key differences between the spec version of `push()` and the one we just wrote.
+### Step 6 & 7: Commit New Length & Return
 
-1. **ToLength vs toLength**
-    In the spec, `LengthOfArrayLike` is an abstract operation that is used to get the length of an array-like object. In our code, we used `toLength`, which is a helper function that we created to get the length of an array-like object. The difference is that `LengthOfArrayLike` is more general and can be used for any array-like object, while `toLength` is specific to our needs.
-    
-2. **Set vs []**
-    In the spec, `Set(O, ! ToString(𝔽(len)), E, true)` is used to set the value of the property `! ToString(𝔽(len))` to `E` on the object `O`. In our code, we used `O[len] = E`, which is a shorthand for setting the value of the property `len` to `E` on the object `O`.
+> **Spec:**
+> 6. Perform ? `Set`(*O*, `"length"`, 𝔽(*len*), **true**).
+> 
+> 
+> 7. Return 𝔽(*len*).
+> 
+> 
 
-## Conclustion
+#### Step 6
+- This is updating the length property of the array to the new length.
+- `?` is used for error handling. If `Set(O, "length", 𝔽(len), true)` throws an error, the function will throw an error.
+- `Set(O, "length", 𝔽(len), true)` is an abstract operation that sets the value of the property `"length"` to `𝔽(len)` on the object `O`.
+- `"length"` is the property name that is used to store the length of the array.
+- `𝔽(len)` is the value of the length of the array.
+- `true` is a boolean value that indicates whether the property should be set.
 
-Diving into the ECMAScript spec can be daunting at first, but it is a valuable exercise for any JavaScript developer. It helps you to understand the language on a deeper level and to write more intentional and bugs-free code.
+#### Step 7
+- This is returning the new length of the array.
+- `𝔽(len)` is the value of the length of the array.
 
-If you're interested in diving into the spec yourself, you can find it here: [ECMAScript Specification](https://tc39.es/ecma262/)
+A common beginner slip-up is assuming `push()` returns the modified array. The spec shows that it explicitly writes the final count to `"length"` on *O* and returns that numeric count.
 
-If you'd like to see other examples of built in JavaScript methods broken down like this, follow me on the socials links below and message me! Stay awesome! 🙂
+```javascript
+  // Step 6: Update the length property on O
+  O.length = len;
+
+  // Step 7: Return the new length
+  return len;
+
+```
+
+---
+
+## The Complete Implementation
+
+Here is our complete spec-compliant implementation, attached to `Array.prototype` for educational exploration:
+
+```javascript
+const toLength = (value) => {
+  const len = Number(value);
+  if (Number.isNaN(len) || len <= 0) return 0;
+  return Math.min(Math.floor(len), Number.MAX_SAFE_INTEGER);
+};
+
+function austinPush(...items) {
+  // 1. Let O be ? ToObject(this value).
+  if (this == null) {
+    throw new TypeError('Array.prototype.austinPush called on null or undefined');
+  }
+  const O = Object(this);
+
+  // 2. Let len be ? LengthOfArrayLike(O).
+  let len = toLength(O.length);
+
+  // 3. Let argCount be the number of elements in items.
+  const argCount = items.length;
+
+  // 4. If len + argCount > 2**53 - 1, throw a TypeError exception.
+  if (len + argCount > Number.MAX_SAFE_INTEGER) {
+    throw new TypeError('Exceeded maximum safe array length');
+  }
+
+  // 5. For each element E of items, do
+  for (const element of items) {
+    // a. Perform ? Set(O, ! ToString(𝔽(len)), E, true).
+    O[len] = element;
+    // b. Set len to len + 1.
+    len += 1;
+  }
+
+  // 6. Perform ? Set(O, "length", 𝔽(len), true).
+  O.length = len;
+
+  // 7. Return 𝔽(len).
+  return len;
+}
+
+// Attach custom implementation to prototype for testing
+Array.prototype.austinPush = austinPush;
+
+```
+
+(Note: Monkey patching built-in prototypes in production applications is discouraged. It's used here to study native behavior.)
+
+---
+
+## Verifying Our Implementation
+
+Run this test suite in your console to verify that our polyfill handles typical usages, edge cases, and generic bindings:
+
+```javascript
+// Test 1: Standard push and return value
+const months = ['Jan', 'Mar', 'Apr', 'May'];
+const resultLength = months.austinPush('Feb');
+console.assert(resultLength === 5, `Expected 5, got ${resultLength}`);
+console.assert(months[4] === 'Feb', 'Element not inserted at index 4');
+
+// Test 2: Appending multiple arguments
+const numbers = [1, 2];
+numbers.austinPush(3, 4, 5);
+console.assert(numbers.length === 5, `Expected length 5, got ${numbers.length}`);
+console.assert(numbers[4] === 5, 'Element not inserted at index 4');
+
+// Test 4: Null / Undefined check
+try {
+  Array.prototype.austinPush.call(null, 'fail');
+  console.assert(false, 'Should have thrown TypeError');
+} catch (err) {
+  console.assert(err instanceof TypeError, 'Expected TypeError on null context');
+}
+
+console.log('All tests passed successfully!');
+
+```
+
+---
+
+## Conclusion
+
+Reading the ECMAScript specification might seem intimidating initially, but every built-in method follows the same predictable pattern: input coercion, validation, state mutation, and result return. Breaking it down into executable code turns abstract standards into clear mental models. Hopefully this helped!
+
+If you want to explore the official specification directly, check out [tc39.es/ecma262](https://tc39.es/ecma262/?utm_source=gemini) and if you like this follow me on social media and message me. I'd be happy to do more tutorials like this!
