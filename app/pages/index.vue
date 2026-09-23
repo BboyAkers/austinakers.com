@@ -203,6 +203,7 @@ useHead({
     <template #footer>
       <div class="flex flex-wrap items-center gap-2">
         <UButton
+          as="link"
           v-for="social in socials"
           :key="social.label"
           :aria-label="social.label"
@@ -211,6 +212,7 @@ useHead({
           color="neutral"
           variant="outline"
           square
+          target="_blank"
           size="xl"
           class="rounded-xl"
         />
