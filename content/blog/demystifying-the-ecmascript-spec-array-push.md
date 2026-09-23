@@ -67,46 +67,56 @@ console.log(months); // Array ['Jan', 'Mar', 'Apr', 'May', 'Feb']
 ```
 
 1. **Let O be ? ToObject(this value).** 
-	- This is saying: "Get the object that the `push()` method is being called on." 
+	- This is saying: "Get the object (Array) that the `push()` method is being called on." 
         - Refrencing the code example above, `months` is `this value`
 	- The `?` is used for error handling. If `ToObject(this value)` throws an error, the function will throw an error. 
         - If `months` was `null` or `undefined`, this method, `push()`, would throw an error.
 	- `ToObject` is an abstract operation that converts `this value` to an object. It is used to ensure that the object that the method is called on is an object. 
-        - This is the same abstract operation as `Object()`
+        - `Object(months)` would return the object `months`.
 
 2. **Let len be ? LengthOfArrayLike(O).**
 	- This is saying: "Get the length of the array-like object `O`."
 	- `?` is used for error handling. If `LengthOfArrayLike(O)` throws an error, the function will throw an error.
 	- `LengthOfArrayLike(O)` is an abstract operation that returns the length of the array-like object `O`. 
+        - In `months.push('Feb')`, `O` is the array `months`, and `len` would be `4`.
 	
 3. **Let argCount be the number of elements in items.**
 	- `items` is the array of arguments that are passed to the `push()` method.
-	- `argCount` is the number of elements in the array of arguments.
+        - When we do `months.push('Feb')`, the argument we are passing to `push()` is `'Feb'`. So `items` is `['Feb']`.
+	- `argCount` is just the length of the array of arguments.
+        - In `months.push('Feb')`, `argCount` would be `1`.
 
 4. **If len + argCount > 2****53 - 1, throw a TypeError exception.**
 	- `len` is the length of the array.
+        - In `months.push('Feb')`, `len` would be `4`.
 	- `argCount` is the number of elements in the array of arguments.
-	- `2****53 - 1` is the maximum number of elements that can be stored in an array.
+	- `2****53 - 1`(2^53-1) is the maximum number of elements that can be stored in an array.
 	- If `len + argCount` is greater than `2****53 - 1`, the function will throw a `TypeError` exception.
+        - Why 2^53? 2^53 is the maximun safe integer in JavaScript. If we go beyond that, we risk losing precision in our array lengths. 
+            - More info [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)
 
 5. **For each element E of items, do**
+    - At this point we're creating a foreach loop and running it for each element inside of items
 	- `E` is an element of the array of arguments.
 	- `items` is the array of arguments that are passed to the `push()` method.
 	- This loop will iterate over each element in the array of arguments.
 	
 	a. **Perform ? Set(O, ! ToString(𝔽(len)), E, true).**
-		- `Set(O, ! ToString(𝔽(len)), E, true)` is an abstract operation that sets the value of the property `! ToString(𝔽(len))` to `E` on the object `O`.
-		- `! ToString(𝔽(len))` is the property name that is used to store the element in the array.
-		- `E` is the element that is being added to the array.
-		- `true` is a boolean value that indicates whether the property should be set.
-		- `?` is used for error handling. If `Set(O, ! ToString(𝔽(len)), E, true)` throws an error, the function will throw an error.
+    - This the point where we append each element to the end of the array. if `months` is the array and we are pushing `'Feb'` into it, then we are adding the element `'Feb'` to the end of the array `months`. This is where that happens
+    - `Set` is an abstract operation that sets the value of the property `! ToString(𝔽(len))` to `E` on the object `O`.
+    - `! ToString(𝔽(len))` is the property name that is used to store the element in the array.
+    - `E` is the element that is being added to the array.
+    - `true` is a boolean value that indicates whether the property should be set.
+    - `?` is used for error handling. If `Set(O, ! ToString(𝔽(len)), E, true)` throws an error, the function will throw an error.
 	
 	b. **Set len to len + 1.**
-		- `len` is the length of the array.
-		- `len + 1` is the new length of the array.
-		- This will increment the length of the array by 1.
+    - This is incrementing the length of the array by 1, because we are adding a new element to the array.
+    - `len` is the length of the array.
+    - `len + 1` is the new length of the array.
+    - This will increment the length of the array by 1.
 
 6. **Perform ? Set(O, "length", 𝔽(len), true).**
+    - This is updating the length property of the array to the new length.
 	- `Set(O, "length", 𝔽(len), true)` is an abstract operation that sets the value of the property `"length"` to `𝔽(len)` on the object `O`.
 	- `"length"` is the property name that is used to store the length of the array.
 	- `𝔽(len)` is the value of the length of the array.
@@ -114,7 +124,10 @@ console.log(months); // Array ['Jan', 'Mar', 'Apr', 'May', 'Feb']
 	- `?` is used for error handling. If `Set(O, "length", 𝔽(len), true)` throws an error, the function will throw an error.
 
 7. **Return 𝔽(len).**
-	- `𝔽(len)` is the value of the length of the array.
-	- This will return the new length of the array.
+    - This is returning the new length of the array. In our case, it will return 5, because we added a new element to the array `months`.
+    - `𝔽(len)` is the value of the length of the array.
+    - This will return the new length of the array.
 
-This may seem like a lot of code, but it is actually quite simple. Let's break it down even further with an example.
+This may seem like a lot of code, but it is actually quite simple. Now, let's see how this looks in the actual JavaScript code.
+
+
