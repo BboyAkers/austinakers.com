@@ -227,30 +227,6 @@ useHead({
       <UButton label="View all posts" to="/blog" color="neutral" variant="ghost" trailing-icon="i-lucide-arrow-right" />
     </template>
     <template #body>
-      <Reveal>
-        <div class="mb-3 flex flex-wrap gap-2" role="group" aria-label="Filter posts by tag">
-          <UButton
-            label="All"
-            size="sm"
-            :color="tagFilter === 'all' ? 'neutral' : 'neutral'"
-            :variant="tagFilter === 'all' ? 'solid' : 'outline'"
-            :aria-pressed="tagFilter === 'all'"
-            class="rounded-full font-mono text-xs font-normal"
-            @click="setTagFilter('all')"
-          />
-          <UButton
-            v-for="tag in homeTags"
-            :key="tag"
-            :label="tag"
-            size="sm"
-            color="neutral"
-            :variant="tagFilter === tag ? 'solid' : 'outline'"
-            :aria-pressed="tagFilter === tag"
-            class="rounded-full font-mono text-xs font-normal"
-            @click="setTagFilter(tag)"
-          />
-        </div>
-      </Reveal>
       <div>
         <PostRow
           v-for="post in filteredPosts"
