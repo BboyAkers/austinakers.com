@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/a11y',
+    '@vercel/analytics',
   ],
   content: {
     build: {
