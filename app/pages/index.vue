@@ -6,13 +6,38 @@ const phrases = [
   "and accessible.",
 ];
 const phraseIndex = ref(0);
+const reducedMotion = useReducedMotion();
+const tilt = useTilt(6);
+const spotlight = useSpotlight();
+const mounted = ref(false);
+const heroRoot = useTemplateRef<HTMLElement>("heroRoot");
 
 onMounted(() => {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Trigger the one-shot hero entrance (CSS keyed off .is-mounted).
+  requestAnimationFrame(() => {
+    mounted.value = true;
+  });
+  if (reducedMotion.value) return;
+  let heroVisible = true;
+  const node = heroRoot.value;
+  const observer =
+    "IntersectionObserver" in window && node
+      ? new IntersectionObserver(
+          (entries) => {
+            heroVisible = entries[0]?.isIntersecting ?? true;
+          },
+          { threshold: 0 },
+        )
+      : undefined;
+  observer?.observe(node as Element);
   const interval = setInterval(() => {
+    if (document.hidden || !heroVisible) return;
     phraseIndex.value = (phraseIndex.value + 1) % phrases.length;
   }, 3200);
-  onUnmounted(() => clearInterval(interval));
+  onUnmounted(() => {
+    clearInterval(interval);
+    observer?.disconnect();
+  });
 });
 
 const route = useRoute();
@@ -156,47 +181,106 @@ useHead({
 </script>
 
 <template>
-  <UPageHero orientation="horizontal">
-    <template #headline>
-      <div class="flex flex-col items-start gap-3.5">
-        <p class="font-mono text-xs uppercase tracking-[0.08em] text-primary">
-          Your favorite extroverted engineer
-        </p>
-      </div>
-    </template>
-
-    <template #title>
-      Hi, I'm Austin — I make interfaces feel friendly
-      <span aria-hidden="true">{{ phrases[phraseIndex] }}</span
-      ><span
-        aria-hidden="true"
-        class="ml-0.5 inline-block h-[1em] w-[3px] animate-pulse bg-highlighted align-[-0.12em] motion-reduce:hidden"
-      ></span>
-      <span class="sr-only">{{ phrases[phraseIndex] }}</span>
-    </template>
-
-    <template #description>
-      I'm a husband, father, and engineer. I enjoy contributing to open source,
-      uplifting others, playing cello, and breakdancing.
-    </template>
-
-    <template #links>
-      <UButton label="See selected work" to="#work" />
-      <UButton
-        label="Read the blog"
-        to="#blog"
-        color="neutral"
-        variant="ghost"
-        trailing-icon="i-lucide-arrow-right"
-      />
-    </template>
-
-    <template #default>
-      <div>
-        <UCard
-          variant="outline"
-          class="overflow-hidden p-0 shadow-[0_24px_64px_-32px_var(--ui-text-highlighted)]/25"
+  <div
+    ref="heroRoot"
+    :class="mounted ? 'is-mounted' : undefined"
+    class="relative overflow-clip"
+  >
+    <div
+      aria-hidden="true"
+      class="motion-aurora pointer-events-none absolute -top-32 -left-24 -z-10 h-[420px] w-[420px] rounded-full opacity-40 blur-3xl motion-reduce:hidden"
+      style="
+        background: radial-gradient(
+          closest-side,
+          color-mix(in oklch, var(--ui-primary) 26%, transparent),
+          transparent
+        );
+      "
+    />
+    <div
+      aria-hidden="true"
+      class="motion-aurora pointer-events-none absolute -right-28 -bottom-24 -z-10 h-[380px] w-[380px] rounded-full opacity-30 blur-3xl motion-reduce:hidden"
+      style="
+        background: radial-gradient(
+          closest-side,
+          color-mix(in oklch, var(--ui-primary) 20%, transparent),
+          transparent
+        );
+        animation-delay: -9s;
+      "
+    />
+    <UPageHero orientation="horizontal">
+      <template #headline>
+        <div
+          class="motion-hero-enter flex flex-col items-start gap-3.5"
+          style="--hero-delay: 0ms"
         >
+          <p class="font-mono text-xs uppercase tracking-[0.08em] text-primary">
+            Your favorite extroverted engineer
+          </p>
+        </div>
+      </template>
+
+      <template #title>
+        <span
+          class="motion-hero-enter inline-block"
+          style="--hero-delay: 80ms"
+        >
+          Hi, I'm Austin — I make interfaces feel friendly
+          <span aria-hidden="true" class="motion-phrase-mask"
+            ><Transition name="phrase-roll" mode="out-in"
+              ><span :key="phraseIndex">{{
+                phrases[phraseIndex]
+              }}</span></Transition
+            ></span
+          ><span
+            aria-hidden="true"
+            class="ml-0.5 inline-block h-[1em] w-[3px] animate-pulse bg-highlighted align-[-0.12em] motion-reduce:hidden"
+          ></span>
+          <span class="sr-only">{{ phrases[phraseIndex] }}</span>
+        </span>
+      </template>
+
+      <template #description>
+        <span
+          class="motion-hero-enter inline-block"
+          style="--hero-delay: 160ms"
+        >
+          I'm a husband, father, and engineer. I enjoy contributing to open
+          source, uplifting others, playing cello, and breakdancing.
+        </span>
+      </template>
+
+      <template #links>
+        <span
+          class="motion-hero-enter inline-flex flex-wrap gap-x-6 gap-y-3"
+          style="--hero-delay: 240ms"
+        >
+          <UButton label="See selected work" to="#work" class="motion-press" />
+          <UButton
+            label="Read the blog"
+            to="#blog"
+            color="neutral"
+            variant="ghost"
+            trailing-icon="i-lucide-arrow-right"
+            class="motion-press"
+          />
+        </span>
+      </template>
+
+      <template #default>
+        <div class="motion-hero-enter" style="--hero-delay: 320ms">
+          <div
+            class="motion-tilt"
+            :style="tilt.style.value"
+            :data-tilting="tilt.active.value || undefined"
+            @pointermove="tilt.onMove"
+            @pointerleave="tilt.onLeave"
+          >
+            <UCard
+              variant="outline"
+              class="overflow-hidden p-0 shadow-[0_24px_64px_-32px_var(--ui-text-highlighted)]/25"
+            >
           <picture>
             <source
               type="image/avif"
@@ -231,45 +315,52 @@ useHead({
               Austin Akers — Senior Software Engineer
             </p>
           </template>
-        </UCard>
-        <div class="mt-4 flex items-center justify-center gap-2">
+          </UCard>
+          </div>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <UButton
+              label="me@austinakers.com"
+              to="mailto:me@austinakers.com"
+              color="neutral"
+              variant="outline"
+              class="motion-press"
+            />
+            <UButton
+              label="Download resume"
+              to="/Austin_Akers_2026_Updated.pdf"
+              download
+              color="neutral"
+              variant="ghost"
+              trailing-icon="i-lucide-arrow-right"
+              class="motion-press"
+            />
+          </div>
+        </div>
+      </template>
+
+      <template #footer>
+        <div
+          class="motion-hero-enter flex flex-wrap items-center gap-2"
+          style="--hero-delay: 400ms"
+        >
           <UButton
-            label="me@austinakers.com"
-            to="mailto:me@austinakers.com"
+            as="link"
+            v-for="social in socials"
+            :key="social.label"
+            :aria-label="social.label"
+            :icon="social.icon"
+            :to="social.to"
             color="neutral"
             variant="outline"
-          />
-          <UButton
-            label="Download resume"
-            to="/Austin_Akers_2026_Updated.pdf"
-            download
-            color="neutral"
-            variant="ghost"
-            trailing-icon="i-lucide-arrow-right"
+            square
+            target="_blank"
+            size="xl"
+            class="motion-press rounded-xl"
           />
         </div>
-      </div>
-    </template>
-
-    <template #footer>
-      <div class="flex flex-wrap items-center gap-2">
-        <UButton
-          as="link"
-          v-for="social in socials"
-          :key="social.label"
-          :aria-label="social.label"
-          :icon="social.icon"
-          :to="social.to"
-          color="neutral"
-          variant="outline"
-          square
-          target="_blank"
-          size="xl"
-          class="rounded-xl"
-        />
-      </div>
-    </template>
-  </UPageHero>
+      </template>
+    </UPageHero>
+  </div>
 
   <USeparator />
 
@@ -284,7 +375,7 @@ useHead({
       />
     </template>
     <template #body>
-      <div>
+      <TransitionGroup name="post-list" tag="div">
         <PostRow
           v-for="post in filteredPosts"
           :key="post.path"
@@ -297,10 +388,11 @@ useHead({
         />
         <UEmpty
           v-if="filteredPosts.length === 0"
+          key="empty"
           title="No posts match this tag"
           description="Try a different tag to keep reading."
         />
-      </div>
+      </TransitionGroup>
     </template>
   </UPageSection>
 
@@ -325,13 +417,16 @@ useHead({
     <template #body>
       <UPageGrid class="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <Reveal
-          v-for="project in builtProjects"
+          v-for="(project, projectIndex) in builtProjects"
           :key="project.title"
+          :delay="(projectIndex % 4) * 70"
           class="h-full"
         >
           <UCard
             variant="outline"
-            class="flex h-full flex-col justify-between transition-[border-color,transform,box-shadow] duration-150 ease-out hover:-translate-y-1 hover:ring-inverted hover:shadow-lg"
+            class="motion-spotlight flex h-full flex-col justify-between transition-[border-color,transform,box-shadow] duration-150 ease-out hover:-translate-y-1 hover:ring-inverted hover:shadow-lg"
+            @pointermove="spotlight.onMove"
+            @pointerleave="spotlight.onLeave"
           >
             <div>
               <div class="flex items-center justify-between gap-2">

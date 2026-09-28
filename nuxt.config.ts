@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     fonts: false,
   },
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       htmlAttrs: { lang: 'en', class: 'dark' },
     },

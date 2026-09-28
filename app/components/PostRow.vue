@@ -16,7 +16,7 @@ function handleClick(e: MouseEvent) {
 
 <template>
   <article
-    class="grid grid-cols-1 items-baseline gap-6 border-t border-default py-[22px] sm:grid-cols-[120px_1fr_100px] sm:gap-6 cursor-pointer"
+    class="motion-row group grid grid-cols-1 items-baseline gap-6 border-t border-default py-[22px] sm:grid-cols-[120px_1fr_100px] sm:gap-6 cursor-pointer"
     @click="handleClick"
   >
     <p class="font-mono text-[13px] text-muted tabular-nums">
@@ -25,6 +25,7 @@ function handleClick(e: MouseEvent) {
     <div class="min-w-0">
       <ULink :to="to" class="font-display text-[19px] font-semibold tracking-[-0.01em] text-highlighted hover:text-primary focus-visible:text-primary transition-colors">
         {{ title }}
+        <span aria-hidden="true" class="motion-row-arrow">→</span>
       </ULink>
       <p v-if="description" class="mt-1 text-sm text-muted">
         {{ description }}

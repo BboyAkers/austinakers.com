@@ -14,6 +14,6 @@ withDefaults(defineProps<{
     color="neutral"
     variant="outline"
     size="md"
-    class="rounded-full font-mono text-xs font-normal"
+    class="motion-tag rounded-full font-mono text-xs font-normal"
   />
 </template>

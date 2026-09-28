@@ -84,7 +84,7 @@ useSeoMeta({
               color="neutral"
               :variant="tagFilter === 'all' ? 'solid' : 'outline'"
               :aria-pressed="tagFilter === 'all'"
-              class="rounded-full font-mono text-xs font-normal"
+              class="motion-tag rounded-full font-mono text-xs font-normal"
               @click="setTagFilter('all')"
             />
             <UButton
@@ -95,7 +95,7 @@ useSeoMeta({
               color="neutral"
               :variant="tagFilter === tag ? 'solid' : 'outline'"
               :aria-pressed="tagFilter === tag"
-              class="rounded-full font-mono text-xs font-normal"
+              class="motion-tag rounded-full font-mono text-xs font-normal"
               @click="setTagFilter(tag)"
             />
           </div>
@@ -121,7 +121,7 @@ useSeoMeta({
       <h2 class="font-display text-[22px] font-bold tracking-[-0.025em] text-highlighted">
         All posts
       </h2>
-      <div class="mt-3">
+      <TransitionGroup name="post-list" tag="div" class="mt-3">
         <PostRow
           v-for="post in filteredPosts"
           :key="post.path"
@@ -134,11 +134,12 @@ useSeoMeta({
         />
         <UEmpty
           v-if="filteredPosts.length === 0"
+          key="empty"
           title="No posts match these filters"
           description="Try a different search or tag."
           :actions="[{ label: 'Clear filters', color: 'neutral', variant: 'outline', onClick: clearFilters }]"
         />
-      </div>
+      </TransitionGroup>
     </template>
   </UPageSection>
 </template>

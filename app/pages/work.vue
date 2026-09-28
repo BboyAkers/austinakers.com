@@ -85,6 +85,62 @@ useSeoMeta({
   title: 'Work History - Austin Akers',
   description: 'Career timeline: over a decade of building production web applications from startups to large enterprises.'
 })
+
+const reducedMotion = useReducedMotion()
+const spotlight = useSpotlight()
+const timelineEl = useTemplateRef<HTMLElement>('timelineEl')
+const spineProgress = ref(0)
+// Client-only pop state: SSR renders static visible nodes (no-JS safe).
+const visibleNodes = ref<Set<string>>(new Set())
+const nodesReady = ref(false)
+let spineRaf = 0
+
+function updateSpine() {
+  cancelAnimationFrame(spineRaf)
+  spineRaf = requestAnimationFrame(() => {
+    const el = timelineEl.value
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const viewportCenter = window.innerHeight * 0.6
+    const progress = (viewportCenter - rect.top) / rect.height
+    spineProgress.value = Math.max(0, Math.min(1, progress))
+  })
+}
+
+onMounted(() => {
+  if (reducedMotion.value) {
+    // Static full track for reduced motion (CSS forces scaleY(1)).
+    return
+  }
+  updateSpine()
+  window.addEventListener('scroll', updateSpine, { passive: true })
+  window.addEventListener('resize', updateSpine)
+
+  let nodeObserver: IntersectionObserver | undefined
+  if ('IntersectionObserver' in window && timelineEl.value) {
+    // Enable client pop states, then pop nodes in as they scroll into view.
+    nodesReady.value = true
+    nodeObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const id = (entry.target as HTMLElement).dataset.nodeId
+        if (entry.isIntersecting && id) {
+          nodeObserver?.unobserve(entry.target)
+          visibleNodes.value = new Set(visibleNodes.value).add(id)
+        }
+      }
+    }, { threshold: 0.5 })
+    for (const node of timelineEl.value.querySelectorAll('[data-node-id]')) {
+      nodeObserver.observe(node)
+    }
+  }
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', updateSpine)
+    window.removeEventListener('resize', updateSpine)
+    cancelAnimationFrame(spineRaf)
+    nodeObserver?.disconnect()
+  })
+})
 </script>
 
 <template>
@@ -94,8 +150,9 @@ useSeoMeta({
     description="Full history from my resume — most recent first. Each stop shaped how I build for UX, performance, accessibility, and documentation."
   >
     <template #body>
-      <div class="relative mx-auto mt-2 max-w-[980px]">
-        <span aria-hidden="true" class="absolute top-2.5 bottom-2.5 left-3.5 w-0.5 rounded-full bg-border md:left-1/2 md:-translate-x-1/2" />
+      <div ref="timelineEl" class="relative mx-auto mt-2 max-w-[980px]">
+        <span aria-hidden="true" class="absolute top-2.5 bottom-2.5 left-3.5 md:left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-border" />
+        <span aria-hidden="true" class="motion-spine-fill absolute top-2.5 bottom-2.5 left-3.5 md:left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-primary motion-reduce:hidden" :style="{ '--spine-progress': spineProgress }" />
         <div class="grid">
           <article
             v-for="(item, index) in roles"
@@ -104,14 +161,19 @@ useSeoMeta({
           >
             <span
               aria-hidden="true"
-              :class="item.current
-                ? 'border-primary shadow-[0_0_0_6px_var(--ui-primary)]/10'
-                : 'border-default'"
-              class="z-10 mt-1 grid size-7 place-items-center rounded-full border-2 bg-elevated col-start-1 row-start-1 md:col-start-2 md:row-start-1 md:mt-2 md:size-[30px] md:justify-self-center"
+              :data-node-id="item.id"
+              :class="[
+                item.current
+                  ? 'border-primary shadow-[0_0_0_6px_var(--ui-primary)]/10 motion-pulse-ring'
+                  : 'border-default',
+                !nodesReady ? undefined : (visibleNodes.has(item.id) ? 'motion-node-pop' : 'opacity-0'),
+              ]"
+              class="z-10 mt-1 grid size-7 place-items-center rounded-full border-2 bg-elevated col-start-1 row-start-1 md:col-start-2 md:row-start-1 md:mt-2 md:size-[30px] md:justify-self-center motion-reduce:opacity-100"
             >
               <span :class="item.current ? 'bg-primary' : 'bg-border'" class="size-2 rounded-full md:size-[9px]" />
             </span>
             <Reveal
+              :direction="index % 2 === 0 ? 'left' : 'right'"
               :class="index % 2 === 0
                 ? 'md:col-start-1 md:row-start-1 md:after:-right-[26px]'
                 : 'md:col-start-3 md:row-start-1 md:after:-left-[26px]'"
@@ -119,7 +181,9 @@ useSeoMeta({
             >
               <UCard
                 variant="outline"
-                class="transition-[border-color,transform] duration-150 ease-out hover:-translate-y-0.5 hover:ring-inverted"
+                class="motion-spotlight transition-[border-color,transform] duration-150 ease-out hover:-translate-y-0.5 hover:ring-inverted"
+                @pointermove="spotlight.onMove"
+                @pointerleave="spotlight.onLeave"
               >
                 <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                   <div>
@@ -134,8 +198,13 @@ useSeoMeta({
                     {{ item.date }}
                   </p>
                 </div>
-                <ul class="mt-3 grid gap-1.5 pl-[18px] text-[15px]/relaxed text-muted marker:text-primary">
-                  <li v-for="point in item.points" :key="point" class="list-disc">
+                <ul class="motion-stagger mt-3 grid gap-1.5 pl-[18px] text-[15px]/relaxed text-muted marker:text-primary">
+                  <li
+                    v-for="(point, pointIndex) in item.points"
+                    :key="point"
+                    class="list-disc"
+                    :style="{ transitionDelay: `${Math.min(pointIndex * 40, 200)}ms` }"
+                  >
                     {{ point }}
                   </li>
                 </ul>

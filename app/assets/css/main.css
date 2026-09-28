@@ -7,7 +7,13 @@
  * - --ui-* overrides   -> semantic colors consumed by every Nuxt UI component
  * - --ui-container / --ui-radius -> layout tokens consumed by UContainer and radius scale
  *
- * Only non-theme CSS in this file: ::selection, :focus-visible, scroll-behavior.
+ * Motion system (friendly + playful, CSS + Vue only):
+ * - --motion-* tokens -> easing + durations; keyframes + transition classes
+ *   in @layer components/utilities below (`motion-*` namespace).
+ * - Only transform + opacity are animated. Every animation has a
+ *   prefers-reduced-motion path (spatial movement removed, opacity/color kept).
+ * Only non-theme CSS in this file: ::selection, :focus-visible, scroll-behavior,
+ * and the motion system described above.
  * No component or layout CSS lives here.
  */
 @import "tailwindcss";
@@ -19,6 +25,18 @@
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
   --font-display: 'Söhne', 'Avenir Next', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Motion tokens (see header comment) */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-flick: 150ms; /* immediate feedback */
+  --dur-state: 250ms; /* routine state change */
+  --dur-view: 350ms; /* layout, overlay, route */
+  --dur-focal: 600ms; /* authored entrance */
+}
+
+@theme inline {
+  --ease-motion: var(--ease-expo);
 }
 
 :root {
@@ -93,6 +111,434 @@
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------------- *
+ * Motion system — keyframes, transitions, and interactive helpers.
+ * Transform + opacity only. Every spatial effect is neutralized under
+ * prefers-reduced-motion at the bottom of this section.
+ * ------------------------------------------------------------------------- */
+@layer components {
+  /* --- Hero entrance ---------------------------------------------------- */
+  @keyframes motion-hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Runs only once `.is-mounted` is present (set onMounted), so SSR/no-JS
+     renders fully visible content. */
+  .is-mounted .motion-hero-enter {
+    animation: motion-hero-enter var(--dur-focal) var(--ease-expo) both;
+    animation-delay: var(--hero-delay, 0ms);
+  }
+
+  /* --- Hero phrase roll (Vue <Transition name="phrase-roll">) ------------ */
+  .motion-phrase-mask {
+    display: inline-flex;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+
+  .phrase-roll-enter-active {
+    transition:
+      opacity 450ms var(--ease-expo),
+      transform 450ms var(--ease-expo),
+      filter 450ms var(--ease-expo);
+  }
+  .phrase-roll-leave-active {
+    transition:
+      opacity 300ms var(--ease-expo),
+      transform 300ms var(--ease-expo),
+      filter 300ms var(--ease-expo);
+  }
+  .phrase-roll-enter-from {
+    opacity: 0;
+    transform: translateY(60%);
+    filter: blur(4px);
+  }
+  .phrase-roll-leave-to {
+    opacity: 0;
+    transform: translateY(-60%);
+    filter: blur(4px);
+  }
+  .phrase-roll-enter-to,
+  .phrase-roll-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* --- Hero aurora glow -------------------------------------------------- */
+  @keyframes motion-aurora-drift {
+    from {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.06);
+    }
+  }
+
+  .motion-aurora {
+    animation: motion-aurora-drift 18s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  /* --- Portrait tilt (style driven by useTilt) --------------------------- */
+  .motion-tilt {
+    transition: transform 250ms var(--ease-expo);
+    transform-style: preserve-3d;
+  }
+  /* While actively tilting, follow the pointer directly. */
+  .motion-tilt[data-tilting="true"] {
+    transition: transform 60ms linear;
+  }
+
+  /* --- Button / icon physics --------------------------------------------- */
+  .motion-press {
+    transition:
+      transform var(--dur-flick) var(--ease-expo),
+      box-shadow var(--dur-flick) var(--ease-expo);
+  }
+  .motion-press:hover {
+    transform: translateY(-1px) scale(1.03);
+  }
+  .motion-press:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  /* Icon inside a pressable pops on hover. */
+  .motion-press:hover > .iconify,
+  .motion-press:hover svg {
+    animation: motion-icon-pop 350ms var(--ease-spring);
+  }
+  @keyframes motion-icon-pop {
+    0% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(1.25);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Logo wiggle — plays once per hover. */
+  .motion-wiggle-trigger:hover .motion-wiggle {
+    animation: motion-wiggle 500ms var(--ease-expo);
+  }
+  @keyframes motion-wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-8deg);
+    }
+    60% {
+      transform: rotate(6deg) scale(1.06);
+    }
+  }
+
+  /* Theme toggle icon spin. */
+  .motion-theme-spin > .iconify,
+  .motion-theme-spin svg {
+    transition: transform 300ms var(--ease-expo);
+  }
+  .motion-theme-spin:hover > .iconify,
+  .motion-theme-spin:hover svg {
+    transform: rotate(45deg);
+  }
+
+  /* --- Spotlight cards (vars driven by useSpotlight) --------------------- */
+  .motion-spotlight {
+    position: relative;
+  }
+  .motion-spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-state) var(--ease-expo);
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in oklch, var(--ui-primary) 14%, transparent),
+      transparent 70%
+    );
+  }
+  /* Stylelint-safe: ::before only lights up while pointer vars are set. */
+  .motion-spotlight[style*="--mx"]::before {
+    opacity: 1;
+  }
+
+  /* --- Blog post list FLIP (Vue <TransitionGroup name="post-list">) ------- */
+  .post-list-move {
+    transition: transform 300ms var(--ease-expo);
+  }
+  .post-list-enter-active {
+    transition:
+      opacity var(--dur-state) var(--ease-expo),
+      transform var(--dur-state) var(--ease-expo);
+  }
+  .post-list-leave-active {
+    transition:
+      opacity 200ms var(--ease-expo),
+      transform 200ms var(--ease-expo);
+  }
+  .post-list-enter-from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .post-list-leave-to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  /* No position:absolute on leave: rows carry border-t dividers, absolute
+     positioning would yank the list. Fade + FLIP move is enough. */
+
+  /* --- PostRow hover ------------------------------------------------------ */
+  .motion-row {
+    position: relative;
+  }
+  .motion-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-flick) var(--ease-expo);
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--ui-primary) 7%, transparent),
+      transparent 60%
+    );
+  }
+  .motion-row:hover::before {
+    opacity: 1;
+  }
+  .motion-row-arrow {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--dur-flick) var(--ease-expo),
+      transform var(--dur-flick) var(--ease-expo);
+  }
+  .motion-row:hover .motion-row-arrow,
+  .motion-row:focus-within .motion-row-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* --- Tag / filter pop --------------------------------------------------- */
+  .motion-tag {
+    transition: transform var(--dur-flick) var(--ease-spring);
+  }
+  .motion-tag:active {
+    transform: scale(0.94);
+  }
+  .motion-tag[aria-pressed="true"] {
+    animation: motion-tag-pop 220ms var(--ease-spring);
+  }
+  @keyframes motion-tag-pop {
+    0% {
+      transform: scale(0.94);
+    }
+    60% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* --- Timeline ----------------------------------------------------------- */
+  .motion-spine-fill {
+    transform: scaleY(var(--spine-progress, 0));
+    transform-origin: top;
+    will-change: transform;
+  }
+
+  .motion-node-pop {
+    animation: motion-pop-in 400ms var(--ease-spring) both;
+  }
+  @keyframes motion-pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .motion-pulse-ring {
+    position: relative;
+  }
+  .motion-pulse-ring::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    border: 2px solid color-mix(in oklch, var(--ui-primary) 55%, transparent);
+    animation: motion-pulse-ring 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes motion-pulse-ring {
+    0% {
+      opacity: 0.8;
+      transform: scale(0.92);
+    }
+    70% {
+      opacity: 0;
+      transform: scale(1.12);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.12);
+    }
+  }
+
+  /* Bullet stagger: Reveal exposes data-revealed="true" when shown. */
+  .motion-stagger > li {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity var(--dur-state) var(--ease-expo),
+      transform var(--dur-state) var(--ease-expo);
+  }
+  [data-revealed="true"] .motion-stagger > li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Route transition (Vue <Transition name="page" via Nuxt) ------------- */
+  .page-enter-active {
+    transition:
+      opacity var(--dur-view) var(--ease-expo),
+      transform var(--dur-view) var(--ease-expo);
+  }
+  .page-leave-active {
+    transition:
+      opacity 160ms var(--ease-expo),
+      transform 160ms var(--ease-expo);
+  }
+  .page-enter-from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .page-leave-to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  /* --- Mobile nav ---------------------------------------------------------- */
+  .mobile-nav-enter-active {
+    transition:
+      opacity 300ms var(--ease-expo),
+      transform 300ms var(--ease-expo);
+  }
+  .mobile-nav-leave-active {
+    transition:
+      opacity 200ms var(--ease-expo),
+      transform 200ms var(--ease-expo);
+  }
+  .mobile-nav-enter-from,
+  .mobile-nav-leave-to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  /* --- Copy-link success --------------------------------------------------- */
+  .motion-copied {
+    animation: motion-tag-pop 220ms var(--ease-spring);
+  }
+
+  /* --- Reduced motion: drop spatial movement, keep meaning ---------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .is-mounted .motion-hero-enter {
+      animation: none;
+    }
+    .motion-aurora,
+    .motion-pulse-ring::after,
+    .motion-spotlight::before {
+      animation: none;
+    }
+    .motion-spotlight::before,
+    .motion-row::before {
+      display: none;
+    }
+    .motion-tilt {
+      transform: none !important;
+      transition: none;
+    }
+    .motion-press:hover,
+    .motion-press:active,
+    .motion-tag:active {
+      transform: none;
+    }
+    .motion-press:hover > .iconify,
+    .motion-press:hover svg,
+    .motion-wiggle-trigger:hover .motion-wiggle,
+    .motion-tag[aria-pressed="true"],
+    .motion-copied {
+      animation: none;
+    }
+    .motion-theme-spin:hover > .iconify,
+    .motion-theme-spin:hover svg {
+      transform: none;
+    }
+    .motion-node-pop {
+      animation: none;
+    }
+    .motion-stagger > li {
+      opacity: 1;
+      transform: none;
+      transition: opacity var(--dur-state) var(--ease-expo);
+    }
+    .motion-row-arrow {
+      opacity: 1;
+      transform: none;
+    }
+    .phrase-roll-enter-active,
+    .phrase-roll-leave-active,
+    .post-list-enter-active,
+    .post-list-leave-active,
+    .post-list-move,
+    .page-enter-active,
+    .page-leave-active,
+    .mobile-nav-enter-active,
+    .mobile-nav-leave-active {
+      transition: opacity 200ms ease-out;
+    }
+    .phrase-roll-enter-from,
+    .phrase-roll-leave-to,
+    .post-list-enter-from,
+    .post-list-leave-to,
+    .page-enter-from,
+    .page-leave-to,
+    .mobile-nav-enter-from,
+    .mobile-nav-leave-to {
+      transform: none;
+      filter: none;
+    }
+    .phrase-roll-enter-to,
+    .phrase-roll-leave-from {
+      filter: none;
+    }
+    .motion-spine-fill {
+      transform: scaleY(1);
     }
   }
 }

@@ -26,8 +26,8 @@ useHead({
   <header class="bg-default/75 backdrop-blur-sm border-b border-default h-(--ui-header-height) sticky top-0 z-50">
     <div class="w-full max-w-(--ui-container) mx-auto px-5 lg:px-8 flex items-center justify-between gap-3 h-full">
       <div class="lg:flex-1 flex items-center gap-1.5">
-        <ULink to="/" aria-label="austinakers.com home" class="flex items-center gap-2.5">
-          <span class="grid size-7 place-items-center rounded-[9px] bg-inverted font-mono text-sm font-bold text-inverted">AA</span>
+        <ULink to="/" aria-label="austinakers.com home" class="motion-wiggle-trigger flex items-center gap-2.5">
+          <span class="motion-wiggle grid size-7 place-items-center rounded-[9px] bg-inverted font-mono text-sm font-bold text-inverted">AA</span>
           <span class="font-display text-[19px] font-bold tracking-[-0.02em] text-highlighted">austinakers.com</span>
         </ULink>
       </div>
@@ -55,6 +55,7 @@ useHead({
           color="neutral"
           variant="outline"
           square
+          class="motion-press motion-theme-spin"
           @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
         />
         <UButton
@@ -65,13 +66,14 @@ useHead({
           color="neutral"
           variant="ghost"
           square
-          class="-me-1.5 lg:hidden"
+          class="motion-press -me-1.5 lg:hidden"
           @click="open = !open"
         />
       </div>
     </div>
 
-    <div v-if="open" id="mobile-nav" class="lg:hidden fixed inset-x-0 top-(--ui-header-height) bottom-0 z-40 overflow-y-auto bg-default border-t border-default">
+    <Transition name="mobile-nav">
+      <div v-if="open" id="mobile-nav" class="lg:hidden fixed inset-x-0 top-(--ui-header-height) bottom-0 z-40 overflow-y-auto bg-default border-t border-default">
       <nav aria-label="Mobile" class="w-full max-w-(--ui-container) mx-auto px-5 pt-4 pb-8">
         <ul class="w-full flex flex-col gap-1">
           <li v-for="item in navItems" :key="item.to" class="py-1">
@@ -87,6 +89,7 @@ useHead({
           </li>
         </ul>
       </nav>
-    </div>
+      </div>
+    </Transition>
   </header>
 </template>

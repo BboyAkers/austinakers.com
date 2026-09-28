@@ -200,7 +200,8 @@ useHead({
                       variant="outline"
                       size="sm"
                       :icon="copied ? 'i-lucide-check' : 'i-lucide-link'"
-                      class="flex-1 justify-center text-xs font-mono"
+                      :class="copied ? 'motion-copied' : undefined"
+                      class="motion-press flex-1 justify-center text-xs font-mono"
                       role="status"
                       @click="copyLink"
                     />
@@ -210,7 +211,7 @@ useHead({
                       variant="outline"
                       size="sm"
                       icon="i-lucide-arrow-up"
-                      class="text-xs font-mono px-2.5"
+                      class="motion-press text-xs font-mono px-2.5"
                       @click="scrollToTop"
                     />
                   </div>
