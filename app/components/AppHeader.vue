@@ -72,22 +72,24 @@ useHead({
       </div>
     </div>
 
-    <div v-if="open" id="mobile-nav" class="lg:hidden fixed inset-x-0 top-(--ui-header-height) bottom-0 z-40 overflow-y-auto bg-default border-t border-default">
-      <nav aria-label="Mobile" class="w-full max-w-(--ui-container) mx-auto px-5 pt-4 pb-8">
-        <ul class="w-full flex flex-col gap-1">
-          <li v-for="item in navItems" :key="item.to" class="py-1">
-            <ULink
-              :to="item.to"
-              :aria-current="isActive(item.to) ? 'page' : undefined"
-              :class="isActive(item.to)
-                ? 'block text-2xl font-display font-bold py-3.5 px-3 tracking-[-0.02em] rounded-xl transition-colors text-highlighted'
-                : 'block text-2xl font-display font-bold py-3.5 px-3 tracking-[-0.02em] rounded-xl transition-colors text-muted hover:text-highlighted'"
-            >
-              {{ item.label }}
-            </ULink>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <Teleport to="body">
+      <div v-if="open" id="mobile-nav" class="lg:hidden fixed inset-x-0 top-(--ui-header-height) bottom-0 z-40 overflow-y-auto bg-default border-t border-default">
+        <nav aria-label="Mobile" class="w-full max-w-(--ui-container) mx-auto px-5 pt-4 pb-8">
+          <ul class="w-full flex flex-col gap-1">
+            <li v-for="item in navItems" :key="item.to" class="py-1">
+              <ULink
+                :to="item.to"
+                :aria-current="isActive(item.to) ? 'page' : undefined"
+                :class="isActive(item.to)
+                  ? 'block text-2xl font-display font-bold py-3.5 px-3 tracking-[-0.02em] rounded-xl transition-colors text-highlighted'
+                  : 'block text-2xl font-display font-bold py-3.5 px-3 tracking-[-0.02em] rounded-xl transition-colors text-muted hover:text-highlighted'"
+              >
+                {{ item.label }}
+              </ULink>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </Teleport>
   </header>
 </template>
