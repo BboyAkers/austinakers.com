@@ -34,6 +34,8 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/blog': { prerender: true },
     '/blog/**': { prerender: true },
+    '/projects': { prerender: true },
+    '/projects/**': { prerender: true },
     '/work': { prerender: true },
   },
   nitro: {

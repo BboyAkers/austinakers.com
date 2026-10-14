@@ -66,73 +66,14 @@ const socials = [
     to: "https://www.linkedin.com/in/austin-akers-b1966765",
   },
 ];
-const builtProjects = [
-  {
-    title: "Evry Health",
-    category: "Production Platform",
-    badge: "Production",
-    description: "Enterprise healthcare web platform and member portal.",
-    link: "https://evryhealth.com/",
-    code: null,
-  },
-  {
-    title: "MetaMask Documentation",
-    category: "Documentation",
-    badge: "Contributor",
-    description:
-      "Developer documentation for the leading Ethereum & Web3 wallet.",
-    link: "https://docs.metamask.io/",
-    code: "https://github.com/MetaMask/metamask-docs",
-  },
-  {
-    title: "Password Generator",
-    category: "Security Tool",
-    description:
-      "Customizable client-side password generator with entropy rules.",
-    link: "https://passwordgenerator.austinakers.com/",
-    code: "https://github.com/BboyAkers/JavaScript_Projects/tree/master/password-generator",
-  },
-  {
-    title: "Card Details",
-    category: "Interactive UI",
-    description:
-      "Interactive credit card form with real-time formatting and validation.",
-    link: "https://carddetails.austinakers.com/",
-    code: "https://github.com/BboyAkers/JavaScript_Projects/tree/master/credit-card-details-form",
-  },
-  {
-    title: "Github User Search",
-    category: "API Web App",
-    description:
-      "GitHub profile search tool displaying repositories, bios, and follower stats.",
-    link: "https://githubsearch.austinakers.com/",
-    code: "https://github.com/BboyAkers/JavaScript_Projects/tree/master/GithubUserSearch",
-  },
-  {
-    title: "Solar System",
-    category: "Creative Animation",
-    description:
-      "Interactive simulation and visualization of the solar system.",
-    link: "https://solarsystem.austinakers.com/",
-    code: "https://github.com/BboyAkers/Solar-System",
-  },
-  {
-    title: "Sign Up Form",
-    category: "Form & Validation",
-    description:
-      "Accessible sign-up component with real-time client-side validation.",
-    link: "https://signupform.austinakers.com/",
-    code: "https://github.com/BboyAkers/JavaScript_Projects/tree/master/sign-up-form",
-  },
-  {
-    title: "Skilled E-Learning Landing Page",
-    category: "Landing Page",
-    description:
-      "Responsive, accessible landing page for an online learning platform.",
-    link: "https://skilledpage.austinakers.com/",
-    code: "https://github.com/BboyAkers/JavaScript_Projects/tree/master/skilled-elearning-landing-page",
-  },
-];
+const { data: featuredProjects } = await useAsyncData("home-featured-projects", () => {
+  return queryCollection("projects")
+    .where("featured", "=", true)
+    .select("title", "description", "category", "role", "stack", "year", "image", "links", "path", "order")
+    .order("order", "ASC")
+    .limit(4)
+    .all();
+});
 
 useSeoMeta({
   title: "Austin Akers — Senior Software Engineer · Portfolio",
@@ -309,13 +250,13 @@ useHead({
   <UPageSection
     id="work"
     headline="Portfolio"
-    title="Some Stuff I've Built:"
-    description="A collection of web applications, open-source documentation contributions, frontend tools, and other various things I've built and/or contributed to."
+    title="Featured work"
+    description="Selected case studies from production platforms, developer tooling, and open source contributions."
   >
     <template #links>
       <UButton
-        label="View full career timeline"
-        to="/work"
+        label="View all projects"
+        to="/projects"
         color="neutral"
         variant="ghost"
         trailing-icon="i-lucide-arrow-right"
@@ -323,70 +264,26 @@ useHead({
     </template>
 
     <template #body>
-      <UPageGrid class="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Reveal
-          v-for="project in builtProjects"
-          :key="project.title"
+          v-for="project in featuredProjects"
+          :key="project.path"
           class="h-full"
         >
-          <UCard
-            variant="outline"
-            class="flex h-full flex-col justify-between transition-[border-color,transform,box-shadow] duration-150 ease-out hover:-translate-y-1 hover:ring-inverted hover:shadow-lg"
-          >
-            <div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-mono text-xs text-muted">
-                  {{ project.category }}
-                </span>
-                <UBadge
-                  v-if="project.badge"
-                  :label="project.badge"
-                  color="primary"
-                  variant="soft"
-                  size="sm"
-                  class="rounded-full font-mono text-[11px]"
-                />
-              </div>
-
-              <h3
-                class="mt-2.5 font-display text-base font-bold text-highlighted"
-              >
-                {{ project.title }}
-              </h3>
-
-              <p class="mt-1.5 text-xs/relaxed text-muted">
-                {{ project.description }}
-              </p>
-            </div>
-
-            <template #footer>
-              <div class="flex flex-wrap items-center gap-2">
-                <UButton
-                  :to="project.link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  label="Link"
-                  size="xs"
-                  color="neutral"
-                  variant="outline"
-                  trailing-icon="i-lucide-arrow-up-right"
-                />
-                <UButton
-                  v-if="project.code"
-                  :to="project.code"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  label="Code"
-                  size="xs"
-                  color="neutral"
-                  variant="ghost"
-                  icon="i-lucide-github"
-                />
-              </div>
-            </template>
-          </UCard>
+          <ProjectFeatureCard
+            :title="project.title"
+            :description="project.description"
+            :category="project.category"
+            :role="project.role"
+            :stack="project.stack"
+            :year="project.year"
+            :image="project.image"
+            :live="project.links?.live"
+            :code="project.links?.code"
+            :to="project.path"
+          />
         </Reveal>
-      </UPageGrid>
+      </div>
     </template>
   </UPageSection>
 </template>

@@ -6,6 +6,7 @@ const colorMode = useColorMode()
 const navItems = [
   { label: 'Home', to: '/' },
   { label: 'Work', to: '/work' },
+  { label: 'Projects', to: '/projects' },
   { label: 'Blog', to: '/blog' }
 ]
 
