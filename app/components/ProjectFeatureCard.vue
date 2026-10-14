@@ -68,10 +68,12 @@ withDefaults(defineProps<{
 
     <template #footer>
       <div class="flex items-center justify-between gap-2 min-h-7">
+        <NuxtLink :to="to">
         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-highlighted group-hover:text-primary transition-colors">
           Read case study
           <UIcon name="i-lucide-arrow-right" class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
         </span>
+        </NuxtLink>
         <div v-if="live || code" class="flex items-center gap-1.5">
           <UButton
             v-if="live"
